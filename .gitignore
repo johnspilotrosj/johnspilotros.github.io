@@ -1,0 +1,11 @@
+# Customer / contact data (PII) -- never commit
+customers.xlsx
+
+# Generated output + state from the lead-finder scripts
+iso_leads.csv
+iso_seen.json
+web_leads.csv
+web_leads_seen.json
+
+# Local-only Claude Code settings
+.claude/settings.local.json
