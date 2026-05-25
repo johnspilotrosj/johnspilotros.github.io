@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Dry Creek Services — Eagle, Idaho</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAABmJLR0QA/wD/AP+gvaeTAAAIeklEQVRoge1ZaVQUxxa+1dPTzQCyyaBEFBUcyRDBBQVRccEtLk+CJiaKog9UxMALxhNRMW5xiya4I0RRRJMQF55gjAqiRhNeokbFoCwuIYLoYxmQtbtnuvKj4YkyzDTgeRPPme9fV93b9X23blfVrUbWVlbwOoMwNIH2wijA0DAKMDSMAgyN114AqbvbZFL0zW1jaAAAjHleo2ZrqyrLnhbeu33t/Knkk5lF9S3ag+Ck4eoqSwpzb1xOjj94PEvFC+2060ffHQp3pRFgJuer6VN33GIaXSiXsG+PRLjRCDCTFz9zavT1Ol0Mxc8AQoSEpGQWHTv3UHqMmR6y6VDKmd0z3MyRbicJZWrTRTF4UtDmb+IjB5k1tDPZMVHx2QwGQHTvwHULlI2apYq5Kxf2oREAZu8fjNqrmz0ASGQmJjq6ScX4kPFOJACoC84nHE/7LedBcS0t72wtIxAirZyHjFOq0k//3hjYJvZc/oktsUkXfrn5mHTs/UYHCUKkjYt5/uEf8oVYa/6blS0d5j9ITiLSzr03k5FytZSXOs3atfWd7hQCzObHL4449kith7++FHoO/sH3O6KTqwAAkJnztPU7P5vYlUKEzdDwyElpC5LL8Ev2uPBK0tfJVQDwXbbsbKyfNQGIsreXE/BMI1gwWXvXxvoeClNSyKRP6OqAc4EZQ1YvHGiGADCbn7hi5w190Qdo20eMa+4dXbbqm0INAADRwWeKr1xXHqk5VqCM1aUl5XyTHub3PVHxd1gMgEwHhEQf+DzC0xwBYPbBwZWx18TQb/sqVHcj7YpABkld3lRImxkgO7fRY9+eMOGDD9cvn9SRAMBcUfLhixUvzhST9dXyuBwGAyAz10GuFgQA5u4lrN5+vVYkEdEp9DJweYmKBzkBgMzMzZv3S13nbPlyTsMDX51/ds+GrfsvP3s504DJilkbNyrhQyWFAAAwey9x+c4bYum3Yx9ANnJrwRnXVFfrG8XMsa9HT2vtgzG3YzYnFwtZxped3Bx7TTz9tguQ9R871IYAAMBczt08rpkBe2Fxvz6K/pMXHsqpw4CoziMjN3/soX3F48rKq4Sp4avLVYxWm5bQFgHI1Ondjaved5AIQ15OyShplhkAAIC5Zw/PbIqKu8tiACTtMfPjad1f9dYv+hsgek4Mj+jNm1h2chrg7eFsQyIAAL78p+0bU0u18xfA5ibEpM/cPsGWQLL+s4O9T0RdaU2K6INoAaSj79wg36YtuL7gXHT40qQHzfPnBWBVevyRvLHhLiSS2Psv9Iv7+es/ed0urUBrZhRjnmOqy588vHPtXFLM0llTxi06klWtK/oN4HIPx12s4AEAyTxmB3nK2spWC5DxVsLAMAowNF57AeL3AXPnEf4zpgz3cnfuYmshI5jK4j+yMjNS/5165npxPQYQX47Bi8bshcWeYcJBHSRy35WxO2cqZAgw++fJpfM/SS3UvUqLEkDYeoV9sXGRt1z6/NgstXV8a5TjW6P8B9DDQpKalQMATcqxLgqvMT695gZs+LVGJ5fO49fEbnvPiUaA2YfHlyxYdvrxqyhoTPsu3r8r1NUEAQDmSm5nnLqUXViNLOx6uA/x8e6pzYXLP/HF0SyOsnL2mT51oD2FEO08I3D4rqunmx9HGyB1mLR+79Z3utMIcP39byPmf5r2VC97MQIkvQKXBStNEADwVVd3hszbdavyOQmqi9eADrXNSOkvx14Aohz918VunOhAIcB1eYlh89dcLBW5WesTQCom/6M3jQAAM1n7Ivc0ZQ8AbNF/MnX6t1yOPafv4Ld1n9dQeykCXHPnQFjo+h/FstcvAJkplI4SAADQ3L94qUBb/LS52bmNHlvPkFY9R85puRxrgLTXsGEAAHzV7bjQ0M8zVSIOJ8+hV4B5BxC+XF5VViE2MGLLsabAXNGtK7mVrWIPevcBXFNdBcI7CeuOVm3aNXSWYwCAeQ2PARDtMjP2wBIf29YNoldA3p0/hLyROI3wacgmvWhNOQZc5q41PxSwQmE/a+/ByJHyVmjQZ6rOS03JYTAAINoteFOou+ULNyi0w2BvF+2nY/HlGFuQsiLgk5SHLAZAMpcP9iSs8LUTGSr9RwlN/qFN++7WYwAgLAaGH0w/Eb06ImjevOCI5Z8dOJV2fn+gu2nLt0JsbkJMeplQCfSfHext2oIdV3hqVcDi5PssBkAmivd2J64cZy9uk9VvUnszOihsx8+lHAZAUts+YwIXRSxf+lH4P/1GuNhQepyFckyNAUBi77/Qr1uLA6ofn1kTEH40vx4DINpp6vaEVRO66NcgKts0JZnb5kyeGLLlwPe/5hSVVzFqNVtb9uju5WO7l8xZm1Kuc+VoRTmmeZK+PiA8KbcOAyC6p9+XCesmd9W3ThorMgPDKMDQaPETkQ1X/T956EXdJWut7a/9DBhXIUPDKAAAJJ6kMpVyP0u7LkIN77OTuB6WCFcAZktoxbhG045Et0R6QAbddz/ZoaVzUevQfgEIyYNQySz21tusyovsKPwJLuUrScLSFAAhi7644pcGW+tIkk5kfxvF3Ekjus1GOn8xi8SrmAFMEdajCVqGi4O5MuHun8eq68jSHYE5YcnzFc8AAICS2DrzxRkYA7DHuHvJuLXVlza0XwDGJVFcrQepvED32yChGqNa9yOmPYHoS0iuaTi+YSySAUYoj9SYedruoYWXthcI0TK+KJK9MYwrlks6KRua+Vsa7k2J5WBUe6Ux0jxWk4gSRrSSvDHtb5JCEmT3qdRCBsDwtQWA2cb2elzJEF3dsSq7sYXlyx4RnTwRAJK9K7Ek/yYppOaLE6HbccotmXJg1U/y/9eBK64isxq+qslfR9UmDv5F9Uujeik1BcfbPTSAcSc2PIwCDA2jAEPDKMDQ+Ats5pJDcx/bxgAAAABJRU5ErkJggg==">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #111010;
+  --paper: #f0ece4;
+  --bone:  #ddd8ce;
+  --dust:  #8a857e;
+  --slate: #3d3830;
+  --blue:  #1a4fff;
+  --lblue: #e8eeff;
+  --white: #faf8f4;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: 0.5;
+}
+
+/* CURSOR — desktop pointer only */
+#cur, #cur2 { display: none; }
+@media (pointer: fine) {
+  body { cursor: none; }
+  #cur {
+    display: block;
+    position: fixed; width: 8px; height: 8px;
+    background: var(--blue); z-index: 9999;
+    pointer-events: none; transform: translate(-50%,-50%);
+    transition: transform 0.06s;
+  }
+  #cur2 {
+    display: block;
+    position: fixed; width: 32px; height: 32px;
+    border: 1px solid var(--ink); z-index: 9998;
+    pointer-events: none; transform: translate(-50%,-50%);
+    transition: left 0.1s ease, top 0.1s ease;
+  }
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: stretch;
+  border-bottom: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.1em;
+  color: var(--ink); text-decoration: none;
+  padding: 18px 36px; border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; list-style: none; margin-left: auto; }
+.nav-links li { border-left: 1.5px solid var(--ink); }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--slate); text-decoration: none;
+  padding: 0 30px; height: 100%; display: flex; align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links a:hover { background: var(--ink); color: var(--white); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--white); background: var(--blue);
+  padding: 0 36px; display: flex; align-items: center;
+  text-decoration: none; border-left: 1.5px solid var(--ink);
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--ink); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  display: grid; grid-template-rows: 1fr auto;
+  border-bottom: 1.5px solid var(--ink);
+  padding-top: 57px;
+}
+.hero-main {
+  display: grid; grid-template-columns: 1fr 420px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.hero-text {
+  padding: 80px 64px 72px; border-right: 1.5px solid var(--ink);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 28px;
+  opacity: 0; animation: up 0.6s 0.1s forwards;
+}
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(90px, 11vw, 168px);
+  line-height: 0.86; letter-spacing: 0.01em;
+  opacity: 0; animation: up 0.6s 0.25s forwards;
+}
+.hero-h1 .accent { color: var(--blue); }
+.hero-body {
+  margin-top: 36px; max-width: 420px;
+  font-size: 15px; line-height: 1.75;
+  color: var(--slate); font-weight: 300;
+  opacity: 0; animation: up 0.6s 0.4s forwards;
+}
+.hero-actions {
+  margin-top: 52px; display: flex; gap: 0;
+  opacity: 0; animation: up 0.6s 0.55s forwards;
+}
+.btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  padding: 18px 40px; text-decoration: none; display: inline-block;
+  border: 1.5px solid var(--ink); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-filled { background: var(--ink); color: var(--white); }
+.btn-filled:hover { background: var(--blue); border-color: var(--blue); }
+.btn-outline { background: transparent; color: var(--ink); margin-left: -1.5px; }
+.btn-outline:hover { background: var(--ink); color: var(--white); }
+
+.hero-panel {
+  position: relative; overflow: hidden; background: var(--ink);
+  opacity: 0; animation: fadeIn 0.8s 0.5s forwards;
+}
+#hero-canvas { width: 100%; height: 100%; display: block; }
+.panel-switcher {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.psw {
+  flex: 1; padding: 16px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); cursor: pointer;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.2s, background 0.2s;
+}
+.psw:last-child { border-right: none; }
+.psw.active { color: var(--white); background: rgba(26,79,255,0.2); }
+.psw:hover { color: var(--white); }
+
+.hero-strip { display: grid; grid-template-columns: repeat(3, 1fr); }
+.hs-item {
+  padding: 32px 40px; border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; gap: 20px;
+  opacity: 0; animation: up 0.5s forwards;
+}
+.hs-item:nth-child(1) { animation-delay: 0.6s; }
+.hs-item:nth-child(2) { animation-delay: 0.7s; }
+.hs-item:nth-child(3) { animation-delay: 0.8s; }
+.hs-item:nth-child(4) { animation-delay: 0.9s; border-right: none; }
+.hs-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px; color: var(--blue); line-height: 1; white-space: nowrap;
+}
+.hs-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--slate); line-height: 1.45;
+}
+
+/* SERVICES */
+#services { border-bottom: 1.5px solid var(--ink); }
+.sec-header {
+  display: grid; grid-template-columns: 64px 1fr;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sec-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dust); padding: 20px 0;
+  border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.sec-title-wrap { padding: 52px 64px 44px; }
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 88px); line-height: 0.9;
+}
+.services-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.svc-card {
+  padding: 64px; border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative; overflow: hidden; transition: background 0.2s;
+}
+.svc-card:nth-child(even) { border-right: none; }
+.svc-card:hover { background: var(--ink); color: var(--white); }
+.svc-card:hover .svc-tag,
+.svc-card:hover .svc-index { color: rgba(255,255,255,0.2); }
+.svc-card:hover .svc-desc { color: rgba(255,255,255,0.5); }
+.svc-card:hover .svc-li { color: rgba(255,255,255,0.35); }
+.svc-card:hover .svc-li::before { background: var(--blue); }
+
+.svc-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; letter-spacing: 0.2em; color: var(--dust); margin-bottom: 40px;
+  transition: color 0.2s;
+}
+.svc-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 14px; transition: color 0.2s;
+}
+.svc-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 24px;
+}
+.svc-desc {
+  font-size: 16px; color: var(--slate); line-height: 1.75;
+  font-weight: 300; max-width: 380px; transition: color 0.2s;
+}
+.svc-list { margin-top: 32px; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.svc-li {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--dust); display: flex; align-items: center; gap: 14px;
+  transition: color 0.2s;
+}
+.svc-li::before { content: ''; width: 22px; height: 1px; background: var(--dust); flex-shrink: 0; transition: background 0.2s; }
+
+/* WHY */
+#why {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1.5px solid var(--ink);
+}
+.why-left {
+  padding: 80px 64px; border-right: 1.5px solid var(--ink);
+  background: #1a1714; color: var(--white);
+}
+.why-left .sec-title { color: var(--white); }
+.why-tag-sm {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 20px; display: block;
+}
+.why-body {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  line-height: 1.75; font-weight: 300; margin-top: 20px; max-width: 380px;
+}
+.why-canvas-wrap {
+  position: relative; height: 240px; margin-top: 48px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+#why-canvas { width: 100%; height: 100%; display: block; }
+
+.why-right { }
+.why-point {
+  padding: 48px 64px; border-bottom: 1.5px solid var(--ink);
+  display: grid; grid-template-columns: 52px 1fr;
+  gap: 24px; align-items: start;
+  transition: background 0.15s; cursor: default;
+}
+.why-point:last-child { border-bottom: none; }
+.why-point:hover { background: var(--lblue); }
+.wp-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px; letter-spacing: 0.15em; color: var(--blue); padding-top: 3px;
+}
+.wp-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.wp-text { font-size: 15px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+
+/* PROCESS */
+#process { border-bottom: 1.5px solid var(--ink); }
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.proc-step {
+  padding: 60px 52px; border-right: 1.5px solid var(--ink);
+  position: relative; transition: background 0.15s; cursor: default;
+}
+.proc-step:last-child { border-right: none; }
+.proc-step:hover { background: var(--bone); }
+.proc-step:not(:last-child)::after {
+  content: '→'; position: absolute; top: 60px; right: -14px;
+  font-size: 16px; color: var(--dust); z-index: 2;
+}
+.proc-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px; line-height: 1; color: var(--bone); margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.proc-step:hover .proc-n { color: var(--blue); }
+.proc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.04em; margin-bottom: 14px;
+}
+.proc-text { font-size: 15px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+
+/* CONTACT */
+#contact {
+  display: grid; grid-template-columns: 1fr 360px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.cf-wrap { padding: 80px 64px; border-right: 1.5px solid var(--ink); }
+.cf-header-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 12px; display: block;
+}
+.cf { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; }
+.ff { display: flex; flex-direction: column; border: 1.5px solid var(--ink); margin: -0.75px; }
+.ff label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--slate); padding: 14px 20px 4px; background: var(--bone);
+}
+.ff input, .ff select, .ff textarea {
+  background: var(--bone); border: none;
+  padding: 6px 20px 16px; font-family: 'Barlow', sans-serif;
+  font-size: 16px; color: var(--ink); outline: none;
+  resize: none; -webkit-appearance: none; appearance: none; font-weight: 300;
+}
+.ff textarea { height: 130px; padding-top: 10px; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { background: var(--paper); }
+.cf-submit {
+  background: var(--ink); color: var(--white);
+  border: 1.5px solid var(--ink); margin: -0.75px;
+  padding: 22px; font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 0.12em;
+  cursor: pointer; width: calc(100% + 1.5px);
+  transition: background 0.15s;
+}
+.cf-submit:hover { background: var(--blue); border-color: var(--blue); }
+
+.contact-aside {
+  background: #1a1714; color: var(--white);
+  padding: 80px 48px;
+  display: flex; flex-direction: column;
+}
+.aside-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 28px; margin-bottom: 36px;
+}
+.aside-logo span { color: var(--blue); }
+.ca-block { margin-bottom: 30px; }
+.ca-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 8px;
+}
+.ca-val { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.65; font-weight: 300; }
+.aside-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--blue); border: 1px solid rgba(26,79,255,0.3);
+  padding: 14px 18px; margin-top: auto;
+}
+
+/* FOOTER */
+footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 40px; border-top: 1.5px solid var(--ink);
+}
+.fl { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; }
+.fl span { color: var(--blue); }
+.fc {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dust);
+}
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 36px; right: 36px;
+  background: var(--ink); color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 16px 28px; z-index: 9990; border-left: 3px solid var(--blue);
+  transform: translateY(80px); opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  #hero { min-height: auto; }
+  .hero-main { grid-template-columns: 1fr; }
+  .hero-panel { height: 280px; }
+  .hero-text { padding: 48px 30px; border-right: none; }
+  .hero-strip { grid-template-columns: 1fr 1fr; }
+  .hs-item:nth-child(2) { border-right: none; }
+  .hs-item:nth-child(3),
+  .hs-item:nth-child(4) { border-top: 1.5px solid var(--ink); }
+  #services .sec-header { grid-template-columns: 1fr; }
+  .sec-label { writing-mode: horizontal-tb; transform: none; padding: 16px 30px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .svc-card { border-right: none; padding: 48px 30px; }
+  #why { grid-template-columns: 1fr; }
+  .why-left { border-right: none; padding: 60px 30px; }
+  .why-point { padding: 36px 30px; }
+  .process-grid { grid-template-columns: 1fr 1fr; }
+  .proc-step:nth-child(even) { border-right: none; }
+  .proc-step:nth-child(1),
+  .proc-step:nth-child(2) { border-bottom: 1.5px solid var(--ink); }
+  .proc-step:not(:last-child)::after { display: none; }
+  #contact { grid-template-columns: 1fr; }
+  .cf-wrap { padding: 48px 30px; border-right: none; }
+  .contact-aside { padding: 48px 30px; }
+  .cf-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<nav>
+  <a href="#" class="nav-logo">DRY CREEK SERVICES</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-main">
+    <div class="hero-text">
+      <h1 class="hero-h1">DRY CREEK<br><span class="accent">SERVICES</span></h1>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-filled">Book a Service</a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <canvas id="hero-canvas"></canvas>
+      <div class="panel-switcher">
+        <div class="psw active">Dryer Vent Cleaning</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="hs-item">
+      <div class="hs-num">15+</div>
+      <div class="hs-label">Jobs<br>Completed</div>
+    </div>
+
+    <div class="hs-item">
+      <div class="hs-num">5★</div>
+      <div class="hs-label">Average<br>Rating</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-num">100%</div>
+      <div class="hs-label">Satisfaction<br>Guarantee</div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="sec-header">
+    <div class="sec-label">Services</div>
+    <div class="sec-title-wrap">
+      <h2 class="sec-title">WHAT WE<br>DO.</h2>
+    </div>
+  </div>
+  <div class="services-grid">
+
+    <div class="svc-card">
+      <div class="svc-index">01 / 02</div>
+      <div class="svc-tag">Fire Safety & Efficiency</div>
+      <div class="svc-name">DRYER VENT<br>CLEANING</div>
+      <p class="svc-desc">Lint buildup in dryer vents is one of the leading causes of house fires. A blocked vent means longer dry times and higher energy bills. We clear the full vent line.</p>
+      <ul class="svc-list">
+        <li class="svc-li">Full vent line brush clean</li>
+        <li class="svc-li">Lint trap & housing flush</li>
+        <li class="svc-li">Exhaust duct inspection</li>
+
+      </ul>
+    </div>
+    <div class="svc-card">
+      <div class="svc-index">02 / 02</div>
+      <div class="svc-tag">Labor & Property Services</div>
+      <div class="svc-name">LABOR<br>SERVICES</div>
+      <p class="svc-desc">Need extra hands? We handle the dirty work — from hauling junk to moving furniture to blasting grime off your driveway. Reliable labor, priced by the job.</p>
+      <ul class="svc-list">
+        <li class="svc-li">Landscaping</li>
+        <li class="svc-li">Moving & hauling</li>
+        <li class="svc-li">Junk removal</li>
+        <li class="svc-li">Driveway powerwashing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="why-left">
+    <span class="why-tag-sm">Why Dry Creek Services</span>
+    <h2 class="sec-title">THE<br>STANDARD<br>IS SIMPLE.</h2>
+    <p class="why-body">We show up when we say we will, tell you what it costs before we start, and do the job right. No pressure, no surprises.</p>
+    <div class="why-canvas-wrap">
+      <canvas id="why-canvas"></canvas>
+    </div>
+  </div>
+  <div class="why-right">
+
+    <div class="why-point">
+      <div class="wp-num">01</div>
+      <div>
+        <div class="wp-title">Flat, Upfront Pricing</div>
+        <div class="wp-text">You get a firm price before we touch anything. No surprise charges, no upsells on the job.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="wp-num">02</div>
+      <div>
+        <div class="wp-title">Before & After Photos</div>
+        <div class="wp-text">We document every job so you can see exactly what was cleaned and what it looked like before.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="wp-num">03</div>
+      <div>
+        <div class="wp-title">100% Satisfaction Guarantee</div>
+        <div class="wp-text">If you're not happy with the result, we come back and fix it. No questions, no charge.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="sec-header">
+    <div class="sec-label">Process</div>
+    <div class="sec-title-wrap">
+      <h2 class="sec-title">HOW IT<br>WORKS</h2>
+    </div>
+  </div>
+  <div class="process-grid">
+    <div class="proc-step">
+      <div class="proc-n">01</div>
+      <div class="proc-title">Request a Quote</div>
+      <div class="proc-text">Fill out the form or call us. Tell us what you need and where. Takes two minutes.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">02</div>
+      <div class="proc-title">Get a Flat Price</div>
+      <div class="proc-text">We give you a firm price upfront. No estimates that change when we show up.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">03</div>
+      <div class="proc-title">We Show Up</div>
+      <div class="proc-text">On time, with all our own equipment. No prep needed on your end.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">04</div>
+      <div class="proc-title">Job Done</div>
+      <div class="proc-text">We clean up after ourselves and send you a photo summary. Everything works better.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cf-wrap">
+    <span class="cf-header-tag">Get Started</span>
+    <h2 class="sec-title">REQUEST<br>A QUOTE</h2>
+    <div class="cf" id="contact-form">
+      <div class="cf-row">
+        <div class="ff"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
+        <div class="ff"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+      </div>
+      <div class="cf-row">
+        <div class="ff"><label>Phone</label><input type="tel" name="phone" placeholder="(208) 555-0100"></div>
+        <div class="ff"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
+      </div>
+      <div class="ff">
+        <label>Service Needed</label>
+        <select name="service">
+          <option>Dryer Vent Cleaning</option>
+          <option>Landscaping</option>
+          <option>Moving & Hauling</option>
+          <option>Junk Removal</option>
+          <option>Driveway Powerwashing</option>
+          <option>Not Sure — Need Advice</option>
+        </select>
+      </div>
+      <div class="ff">
+        <label>Address / Notes</label>
+        <textarea name="message" placeholder="Your address and any details about the job..."></textarea>
+      </div>
+      <button class="cf-submit" type="button" onclick="submitForm()">SEND REQUEST →</button>
+    </div>
+  </div>
+  <div class="contact-aside">
+    <div>
+      <div class="aside-logo">DRY CREEK SERVICES</div>
+      <div class="ca-block">
+        <div class="ca-label">Service Area</div>
+        <div class="ca-val">Treasure Valley & Surrounding Areas<br>Eagle · Boise · Meridian · Nampa · Caldwell</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Phone</div>
+        <div class="ca-val">(208) 985-5394</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Hours</div>
+        <div class="ca-val">Mon–Sat, 7AM–6PM<br>Same-day often available</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Based In</div>
+        <div class="ca-val">Eagle, Idaho</div>
+      </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">DRY CREEK SERVICES</div>
+  <div class="fc">© 2026 — Eagle, Idaho</div>
+</footer>
+
+<div id="toast">Request Sent — We'll Be In Touch</div>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const cur2 = document.getElementById('cur2');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+  cur2.style.left = e.clientX + 'px'; cur2.style.top = e.clientY + 'px';
+});
+document.addEventListener('mousedown', () => cur.style.transform = 'translate(-50%,-50%) scale(2)');
+document.addEventListener('mouseup',   () => cur.style.transform = 'translate(-50%,-50%) scale(1)');
+
+// HERO CANVAS
+const hc = document.getElementById('hero-canvas');
+const hx = hc.getContext('2d');
+let hW, hH, hPanel = 0, ht = 0;
+function resizeHero() { hW = hc.width = hc.offsetWidth; hH = hc.height = hc.offsetHeight; }
+resizeHero(); new ResizeObserver(resizeHero).observe(hc);
+
+const bubbles = Array.from({length: 22}, () => ({
+  x: Math.random(), y: 1.1 + Math.random() * 0.4, r: 4 + Math.random() * 10,
+  vx: -0.001 + Math.random() * 0.002, vy: -(0.0015 + Math.random() * 0.002), alpha: 0.1 + Math.random() * 0.2
+}));
+const particles = Array.from({length: 36}, () => ({
+  x: Math.random(), y: 0.6 + Math.random() * 0.6, r: 1 + Math.random() * 3,
+  vx: -0.001 + Math.random() * 0.002, vy: -(0.001 + Math.random() * 0.003),
+  alpha: 0.15 + Math.random() * 0.25, warm: Math.random() > 0.4
+}));
+
+function drawHero() {
+  hx.clearRect(0, 0, hW, hH);
+  if (hPanel === 0) {
+    const cx = hW * 0.5, cy = hH * 0.46, maxR = Math.min(hW, hH) * 0.35;
+    for (let i = 5; i >= 1; i--) {
+      hx.beginPath(); hx.arc(cx, cy, maxR * (i / 5), 0, Math.PI * 2);
+      hx.strokeStyle = `rgba(26,79,255,${0.05 * i})`; hx.lineWidth = 16; hx.stroke();
+    }
+    hx.save(); hx.translate(cx, cy); hx.rotate(ht * 0.5);
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      hx.beginPath(); hx.arc(Math.cos(a) * maxR * 0.72, Math.sin(a) * maxR * 0.72, 4, 0, Math.PI * 2);
+      hx.fillStyle = i % 2 === 0 ? 'rgba(26,79,255,0.5)' : 'rgba(255,255,255,0.08)'; hx.fill();
+    }
+    hx.restore();
+    hx.beginPath(); hx.arc(cx, cy, 18, 0, Math.PI * 2);
+    hx.fillStyle = 'rgba(26,79,255,0.2)'; hx.fill();
+    bubbles.forEach(b => {
+      hx.save(); hx.globalAlpha = b.alpha;
+      hx.beginPath(); hx.arc(b.x * hW, b.y * hH, b.r, 0, Math.PI * 2);
+      hx.strokeStyle = 'rgba(180,210,255,0.8)'; hx.lineWidth = 0.8; hx.stroke(); hx.restore();
+      b.x += b.vx; b.y += b.vy;
+      if (b.y < -0.05) { b.y = 1.1; b.x = Math.random(); }
+    });
+  } else {
+    for (let i = 0; i < 7; i++) {
+      hx.beginPath();
+      const yBase = hH * (0.15 + i * 0.12);
+      for (let x = 0; x <= hW + 4; x += 3) {
+        const y = yBase + Math.sin((x + ht * 55 + i * 35) * 0.012) * 14;
+        x === 0 ? hx.moveTo(x, y) : hx.lineTo(x, y);
+      }
+      hx.strokeStyle = `rgba(255,${100 + i * 12},40,${0.03 + i * 0.012})`; hx.lineWidth = 2; hx.stroke();
+    }
+    particles.forEach(p => {
+      hx.save(); hx.globalAlpha = p.alpha;
+      hx.beginPath(); hx.arc(p.x * hW, p.y * hH, p.r, 0, Math.PI * 2);
+      hx.fillStyle = p.warm ? '#ffbb55' : '#aaaaaa'; hx.fill(); hx.restore();
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); }
+      if (p.x < -0.05 || p.x > 1.05) p.x = Math.random();
+    });
+    hx.save(); hx.globalAlpha = 0.05; hx.fillStyle = '#ff8822';
+    hx.beginPath(); hx.arc(hW * 0.5, hH * 0.5, 90, 0, Math.PI * 2); hx.fill(); hx.restore();
+  }
+  ht += 0.016; requestAnimationFrame(drawHero);
+}
+drawHero();
+
+let hpActive = 0;
+function switchPanel(i) {
+  hPanel = i; hpActive = i;
+  document.querySelectorAll('.psw').forEach((el, j) => el.classList.toggle('active', j === i));
+}
+setInterval(() => switchPanel((hpActive + 1) % 2), 4000);
+
+// WHY CANVAS
+(function() {
+  const c = document.getElementById('why-canvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H;
+  const resize = () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; };
+  resize(); new ResizeObserver(resize).observe(c);
+  const pts = Array.from({length: 10}, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: -0.002 + Math.random() * 0.004, vy: -0.002 + Math.random() * 0.004
+  }));
+  (function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 28) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 28) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    pts.forEach((a, i) => pts.forEach((b, j) => {
+      if (j <= i) return;
+      const ax = a.x*W, ay = a.y*H, bx = b.x*W, by = b.y*H;
+      const dist = Math.hypot(ax-bx, ay-by);
+      if (dist > W * 0.45) return;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
+      ctx.strokeStyle = `rgba(26,79,255,${0.18 * (1 - dist / (W * 0.45))})`; ctx.lineWidth = 1; ctx.stroke();
+    }));
+    pts.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x*W, p.y*H, 2.5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(26,79,255,0.45)'; ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > 1) p.vx *= -1;
+      if (p.y < 0 || p.y > 1) p.vy *= -1;
+    });
+    requestAnimationFrame(draw);
+  })();
+})();
+
+// COUNTERS
+const obs = new IntersectionObserver(entries => {
+  if (!entries[0].isIntersecting) return;
+  document.querySelectorAll('.hs-num[data-target]').forEach(el => {
+    const target = +el.dataset.target; let v = 0; const step = target / 60;
+    const tick = setInterval(() => {
+      v = Math.min(v + step, target); el.textContent = Math.floor(v);
+      if (v >= target) clearInterval(tick);
+    }, 18);
+  });
+  obs.disconnect();
+}, { threshold: 0.5 });
+obs.observe(document.getElementById('hero'));
+
+// FORM — Formspree
+async function submitForm() {
+  const form = document.getElementById('contact-form');
+  const data = new FormData();
+  data.append('first_name', form.querySelector('[name=first_name]').value);
+  data.append('last_name', form.querySelector('[name=last_name]').value);
+  data.append('phone', form.querySelector('[name=phone]').value);
+  data.append('email', form.querySelector('[name=email]').value);
+  data.append('service', form.querySelector('[name=service]').value);
+  data.append('message', form.querySelector('[name=message]').value);
+  data.append('_replyto', form.querySelector('[name=email]').value);
+
+  const btn = form.querySelector('.cf-submit');
+  btn.textContent = 'SENDING...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/mrejgagq', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+      form.querySelectorAll('input, textarea').forEach(el => el.value = '');
+      btn.textContent = 'SEND REQUEST →';
+    } else {
+      btn.textContent = 'ERROR — TRY AGAIN';
+    }
+  } catch {
+    btn.textContent = 'ERROR — TRY AGAIN';
+  }
+}
+</script>
+</body>
+</html>
