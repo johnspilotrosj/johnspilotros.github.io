@@ -4,7 +4,7 @@
 
 | Placeholder | Replace with |
 |---|---|
-| `[BUSINESS]` | Your business name |
+| `Dry Creek Services` | Your business name |
 | `(215) 859-3267` | The number you want calls/texts on |
 | `the Treasure Valley` | Your main city/county (e.g. "Greater Springfield & Hamilton County") |
 | `[FB]` | Link to your Facebook profile or page |
@@ -26,7 +26,7 @@ Settings baked into this copy: service area = whole metro/county · no prices sh
 ```
 Is your dryer taking 2-3 cycles to dry one load? That lint buildup is also the #1 cause of house fires.
 
-[BUSINESS] does professional dryer vent cleaning across the Treasure Valley and surrounding towns:
+Dry Creek Services does professional dryer vent cleaning across the Treasure Valley and surrounding towns:
 
 ✅ Full vent line cleaned, inlet to exterior
 ✅ Improves drying time & lowers energy bills
@@ -48,7 +48,7 @@ Booking this week — the Treasure Valley and nearby.
 
 **Body:**
 ```
-Yard getting away from you this spring? [BUSINESS] handles it.
+Yard getting away from you this spring? Dry Creek Services handles it.
 
 🌿 Spring & seasonal cleanups
 🌿 Mowing, edging, trimming
@@ -72,7 +72,7 @@ Free quote — call/text (215) 859-3267 or message here. Send a photo of the yar
 
 **Body:**
 ```
-Garage, basement, or yard full of stuff you want GONE? [BUSINESS] hauls it.
+Garage, basement, or yard full of stuff you want GONE? Dry Creek Services hauls it.
 
 🚛 Furniture, appliances, mattresses
 🚛 Garage / basement / estate cleanouts
@@ -96,7 +96,7 @@ Free quote — call/text (215) 859-3267 or message a photo of the pile here for 
 
 **Body:**
 ```
-Green siding? Black-stained driveway? [BUSINESS] blasts it back to new.
+Green siding? Black-stained driveway? Dry Creek Services blasts it back to new.
 
 💧 House siding & soffits
 💧 Driveways, walkways & patios
@@ -113,10 +113,10 @@ Free quote — call/text (215) 859-3267 or message a photo here. Fast turnaround
 ## Craigslist version (longer-form — Services → skilled trade / household)
 
 Craigslist rewards detail and one combined post is allowed. Use this as a single ad titled
-`[BUSINESS] – Dryer Vents · Landscaping · Junk Removal · Power Washing (the Treasure Valley)`:
+`Dry Creek Services – Dryer Vents · Landscaping · Junk Removal · Power Washing (the Treasure Valley)`:
 
 ```
-[BUSINESS] — local, insured, and we actually show up.
+Dry Creek Services — local, insured, and we actually show up.
 
 Serving the Treasure Valley and all surrounding towns. One call for four services:
 
@@ -136,7 +136,7 @@ Photos of the job get you a price fastest.
 ## Nextdoor version (neighborly tone — post as a Recommendation/Business post)
 
 ```
-Hi neighbors 👋 [BUSINESS] here — based right in the area and serving the Treasure Valley.
+Hi neighbors 👋 Dry Creek Services here — based right in the area and serving the Treasure Valley.
 
 We do dryer vent cleaning, landscaping & yard cleanups, junk removal, and power washing.
 Spring's here so the powerwashing and yard work calendar is filling up.
@@ -154,7 +154,7 @@ GBP lets you publish short Posts that show on your profile. Rotate one of these 
 Spring booking is open across the Treasure Valley. Power washing, yard cleanups, junk removal, and dryer vent cleaning — free quotes on all of it. Call or text (215) 859-3267. 📞
 ```
 ```
-Dryer taking forever to dry a load? That's lint — and it's a fire risk. [BUSINESS] cleans the full vent line. Free quote: (215) 859-3267.
+Dryer taking forever to dry a load? That's lint — and it's a fire risk. Dry Creek Services cleans the full vent line. Free quote: (215) 859-3267.
 ```
 ```
 Junk piling up? We haul furniture, appliances, full cleanouts — same or next day across the Treasure Valley. Free quote, we do the lifting. (215) 859-3267.
@@ -170,7 +170,7 @@ post per service. OfferUp's audience overlaps with Marketplace buyers looking fo
 Don't paste the formal Marketplace ad — groups respond to a neighbor tone. Rotate service:
 
 ```
-Hey all — [BUSINESS] here, local and serving the Treasure Valley. This week I've got openings for
+Hey all — Dry Creek Services here, local and serving the Treasure Valley. This week I've got openings for
 [SERVICE THIS WEEK — e.g. power washing / yard cleanups / junk removal / dryer vent cleaning].
 Free quotes, fair pricing, and I clean up after myself. Call or text (215) 859-3267 or message me.
 Happy to send references. Thanks!
@@ -181,7 +181,7 @@ Happy to send references. Thanks!
 Many city subs allow local-service posts only in a weekly thread or with a flair. Check, then:
 
 ```
-[Local service] [BUSINESS] — dryer vent cleaning, landscaping, junk removal & power washing
+[Local service] Dry Creek Services — dryer vent cleaning, landscaping, junk removal & power washing
 in the Treasure Valley
 
 Owner-operated, free quotes, fair pricing. Not trying to spam — happy to answer questions

@@ -1,7 +1,7 @@
 # Profile / Sign-Up Copy
 
 Paste-in text for the **account pages** (Google, Yelp, etc.) — different from the per-job
-listings in `LISTINGS.md`. Same 4 blanks apply: `[BUSINESS]`, `(215) 859-3267`, `the Treasure Valley`, `[FB]`.
+listings in `LISTINGS.md`. Same 4 blanks apply: `Dry Creek Services`, `(215) 859-3267`, `the Treasure Valley`, `[FB]`.
 
 ---
 
@@ -14,7 +14,7 @@ Air duct cleaning service · Landscaper · Lawn care service · Junk removal ser
 
 **Business description (paste this — fits the 750-char limit):**
 ```
-[BUSINESS] is a local home-services company serving the Treasure Valley and surrounding towns. We do four things and do them well: dryer vent cleaning (faster drying, lower bills, fire prevention), landscaping and yard cleanups, junk removal and hauling, and power washing for siding, driveways, decks and patios. We show up when we say we will, charge fair prices, give free quotes on every job, and never leave a mess behind. One call covers it all. Call or text (215) 859-3267, or message us anytime — photos of the job get you a price fastest. Booking now across the area.
+Dry Creek Services is a local home-services company serving the Treasure Valley and surrounding towns. We do four things and do them well: dryer vent cleaning (faster drying, lower bills, fire prevention), landscaping and yard cleanups, junk removal and hauling, and power washing for siding, driveways, decks and patios. We show up when we say we will, charge fair prices, give free quotes on every job, and never leave a mess behind. One call covers it all. Call or text (215) 859-3267, or message us anytime — photos of the job get you a price fastest. Booking now across the area.
 ```
 
 **Services list (add each as a service with this blurb):**
@@ -28,7 +28,7 @@ Air duct cleaning service · Landscaper · Lawn care service · Junk removal ser
 ## Yelp for Business / general directory bio (short)
 
 ```
-[BUSINESS] — local, reliable home services for the Treasure Valley: dryer vent cleaning, landscaping & yard cleanups, junk removal, and power washing. Fair pricing, free quotes on everything, and we clean up after ourselves. Call/text (215) 859-3267 or message us — send a photo for a fast estimate.
+Dry Creek Services — local, reliable home services for the Treasure Valley: dryer vent cleaning, landscaping & yard cleanups, junk removal, and power washing. Fair pricing, free quotes on everything, and we clean up after ourselves. Call/text (215) 859-3267 or message us — send a photo for a fast estimate.
 ```
 
 ---
@@ -36,7 +36,7 @@ Air duct cleaning service · Landscaper · Lawn care service · Junk removal ser
 ## Nextdoor Business Page (bio field)
 
 ```
-Hi neighbors — [BUSINESS] here, serving the Treasure Valley. Dryer vent cleaning, landscaping, junk removal, and power washing. Honest pricing, free quotes, and we treat your place like our own. Call/text (215) 859-3267 or message anytime.
+Hi neighbors — Dry Creek Services here, serving the Treasure Valley. Dryer vent cleaning, landscaping, junk removal, and power washing. Honest pricing, free quotes, and we treat your place like our own. Call/text (215) 859-3267 or message anytime.
 ```
 
 ---
@@ -45,7 +45,7 @@ Hi neighbors — [BUSINESS] here, serving the Treasure Valley. Dryer vent cleani
 
 **Intro / "About":**
 ```
-[BUSINESS] is an owner-operated home-services business covering the Treasure Valley. I handle dryer vent cleaning, landscaping and yard cleanups, junk removal, and power washing. You deal with me directly — no call centers, no runaround. Fair, upfront pricing and free quotes on every job. I respond fast and show up on time. Send a photo or describe the job and I'll get you a number quickly.
+Dry Creek Services is an owner-operated home-services business covering the Treasure Valley. I handle dryer vent cleaning, landscaping and yard cleanups, junk removal, and power washing. You deal with me directly — no call centers, no runaround. Fair, upfront pricing and free quotes on every job. I respond fast and show up on time. Send a photo or describe the job and I'll get you a number quickly.
 ```
 
 **Per-service one-liners (these platforms ask service-by-service):**
@@ -59,5 +59,5 @@ Hi neighbors — [BUSINESS] here, serving the Treasure Valley. Dryer vent cleani
 ## One-line version (for any directory that only allows a tagline)
 
 ```
-[BUSINESS] — Dryer vents, landscaping, junk removal & power washing across the Treasure Valley. Free quotes. Call/text (215) 859-3267.
+Dry Creek Services — Dryer vents, landscaping, junk removal & power washing across the Treasure Valley. Free quotes. Call/text (215) 859-3267.
 ```
