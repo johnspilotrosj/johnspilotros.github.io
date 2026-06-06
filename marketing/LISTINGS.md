@@ -48,9 +48,9 @@ Booking this week — the Treasure Valley and nearby.
 
 **Body:**
 ```
-Yard getting away from you this spring? Dry Creek Services handles it.
+Yard getting out of hand this summer? Dry Creek Services handles it.
 
-🌿 Spring & seasonal cleanups
+🌿 Summer & seasonal cleanups
 🌿 Mowing, edging, trimming
 🌿 Mulch & bed maintenance
 🌿 Brush, hedge & overgrowth removal
@@ -103,7 +103,7 @@ Green siding? Black-stained driveway? Dry Creek Services blasts it back to new.
 💧 Decks & fences
 💧 Concrete, brick & pavers
 
-Spring is the time — book before the summer rush. Serving the Treasure Valley and surrounding towns.
+Summer cookouts and backyard season — your deck, driveway, and siding should look the part. Serving the Treasure Valley and surrounding towns.
 
 Free quote — call/text (215) 859-3267 or message a photo here. Fast turnaround.
 ```
@@ -139,7 +139,7 @@ Photos of the job get you a price fastest.
 Hi neighbors 👋 Dry Creek Services here — based right in the area and serving the Treasure Valley.
 
 We do dryer vent cleaning, landscaping & yard cleanups, junk removal, and power washing.
-Spring's here so the powerwashing and yard work calendar is filling up.
+Summer's here and the power washing and yard work calendar is filling up fast.
 
 Honest pricing, free quotes, and we clean up after ourselves. Happy to come look at anything.
 
@@ -151,7 +151,7 @@ Call/text (215) 859-3267 or message me. Glad to help out around the neighborhood
 GBP lets you publish short Posts that show on your profile. Rotate one of these weekly:
 
 ```
-Spring booking is open across the Treasure Valley. Power washing, yard cleanups, junk removal, and dryer vent cleaning — free quotes on all of it. Call or text (215) 859-3267. 📞
+Summer booking is open across the Treasure Valley. Power washing, yard cleanups, junk removal, and dryer vent cleaning — free quotes on all of it. Call or text (215) 859-3267. 📞
 ```
 ```
 Dryer taking forever to dry a load? That's lint — and it's a fire risk. Dry Creek Services cleans the full vent line. Free quote: (215) 859-3267.

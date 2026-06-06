@@ -95,5 +95,20 @@ don't have to scroll:
 
 ## When an ISO post comes in
 
-Paste it to me and I write the reply in seconds, or grab a reply from the bank in
-`PLAYBOOK.md`. Then log the lead in `customers.xlsx`. That's the whole loop.
+Reply fast — first responder usually gets the job. Copy-paste the template below for the matching service, fill in the bracket, send. Then log the lead in `customers.xlsx`.
+
+---
+
+### ISO Reply Templates
+
+**Dryer Vent Cleaning**
+> Hey! Saw your post — Dry Creek Services here, we do dryer vent cleaning across the Treasure Valley. Happy to give you a free quote. What's your general area? Call/text (215) 859-3267 or just reply here.
+
+**Landscaping / Yard Cleanup**
+> Hey neighbor! Dry Creek Services here — we do yard cleanups, mowing, mulch, trimming, and brush removal across the Treasure Valley. Free quote, no pressure. Can you shoot me a photo of the yard? Helps me give you a fast price. Call/text (215) 859-3267 or message me here.
+
+**Junk Removal**
+> Hey! Dry Creek Services — we haul furniture, appliances, full cleanouts, all of it. Serving the Treasure Valley, usually same or next day. Send me a photo of the pile and I'll get you a price fast. Call/text (215) 859-3267 or reply here.
+
+**Power Washing**
+> Hey! Dry Creek Services here, we do power washing across the Treasure Valley — driveways, decks, siding, patios. Send a quick photo and I can give you a quote right away. Call/text (215) 859-3267 or message me here. Thanks!

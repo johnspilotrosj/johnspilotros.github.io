@@ -24,6 +24,7 @@ This is built to take **~15 minutes a week**. Follow it as-is.
 | 3 | **Bump one Facebook group post.** Post one service into one local group (rotate which group/service each week so you're not spamming any single group). |
 | 4 | **Add this week's photos** to Google Business Profile. Even one before/after shot keeps you ranking. |
 | 5 | **Log every lead** in `customers.xlsx` the moment it comes in (see below). |
+| 6 | **Ask for a Google review.** Text every customer you completed work for last week: *"Thanks again for having us out! If you have 60 seconds, a Google review helps a ton: [your Google review link]. Even just a star rating counts — appreciate it."* |
 
 Set a recurring phone reminder for Monday 8am: "Marketing 15 min."
 
