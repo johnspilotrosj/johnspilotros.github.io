@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Services — Dryer Vent Cleaning, Landscaping, Junk Removal &amp; Power Washing | Dry Creek Services | Eagle Idaho</title>
+<meta name="description" content="Dryer vent cleaning, landscaping, junk removal, and power washing in Eagle and the Treasure Valley, Idaho. Owner-operated, flat pricing, free quotes. Dry Creek Services — (208) 985-5394.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #111010;
+  --paper: #f0ece4;
+  --bone:  #ddd8ce;
+  --dust:  #8a857e;
+  --slate: #3d3830;
+  --blue:  #1a4fff;
+  --lblue: #e8eeff;
+  --white: #faf8f4;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+body.menu-open { overflow: hidden; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: stretch;
+  border-bottom: 1.5px solid var(--ink);
+  background: var(--paper);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.1em;
+  color: var(--ink); text-decoration: none;
+  padding: 18px 36px; border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; flex-shrink: 0;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; list-style: none; margin-left: auto; }
+.nav-links li { border-left: 1.5px solid var(--ink); }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--slate); text-decoration: none;
+  padding: 0 30px; height: 100%; display: flex; align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links a:hover { background: var(--ink); color: var(--white); }
+.nav-links a.active { color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); }
+.nav-links a.active:hover { background: var(--ink); color: var(--white); box-shadow: none; }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--white); background: var(--blue);
+  padding: 0 36px; display: flex; align-items: center;
+  text-decoration: none; border-left: 1.5px solid var(--ink);
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--ink); }
+
+/* HAMBURGER */
+.nav-hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  width: 57px; height: 57px;
+  border-left: 1.5px solid var(--ink);
+  flex-direction: column; align-items: center; justify-content: center; gap: 5.5px;
+  flex-shrink: 0; padding: 0; -webkit-appearance: none;
+}
+.nav-hamburger span {
+  display: block; width: 20px; height: 1.5px; background: var(--ink);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE OVERLAY MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 750;
+  background: var(--paper);
+  padding-top: 57px;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch; overflow-y: auto;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; letter-spacing: 0.03em; line-height: 1;
+  color: var(--ink); text-decoration: none;
+  padding: 28px 36px;
+  border-bottom: 1.5px solid var(--ink);
+  display: block;
+  opacity: 0; transform: translateX(20px);
+  transition: opacity 0.3s, transform 0.3s, background 0.12s, color 0.12s;
+}
+.mobile-menu.open a { opacity: 1; transform: translateX(0); }
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.06s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.11s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.16s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.21s; }
+.mobile-menu a:active,
+.mobile-menu a.active { color: var(--blue); }
+.mobile-menu .mm-cta {
+  background: var(--blue); color: var(--white); margin-top: auto;
+  border-bottom: none; border-top: 1.5px solid var(--ink);
+}
+.mobile-menu .mm-cta:active { background: var(--ink); color: var(--white); }
+
+/* MOBILE STICKY CTA BAR */
+.mobile-cta-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 600;
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mcb-inner { display: grid; grid-template-columns: 1fr 1fr; }
+.mcb-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  padding: 17px 12px; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background 0.12s;
+}
+.mcb-btn:first-child { border-right: 1px solid rgba(255,255,255,0.1); }
+.mcb-btn:active { background: rgba(255,255,255,0.08); }
+.mcb-quote { background: var(--blue); }
+.mcb-quote:active { background: #1040e0; }
+
+/* SERVICES */
+#services { border-bottom: 1.5px solid var(--ink); }
+.sec-header {
+  display: grid; grid-template-columns: 64px 1fr;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sec-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dust); padding: 20px 0;
+  border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.sec-title-wrap { padding: 52px 64px 44px; }
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 88px); line-height: 0.9;
+}
+.services-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.svc-card {
+  padding: 64px; border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative; overflow: hidden; transition: background 0.2s;
+}
+.svc-card:nth-child(even) { border-right: none; }
+.svc-card:hover { background: var(--ink); color: var(--white); }
+.svc-card:hover .svc-tag,
+.svc-card:hover .svc-index { color: rgba(255,255,255,0.2); }
+.svc-card:hover .svc-desc { color: rgba(255,255,255,0.5); }
+.svc-card:hover .svc-li { color: rgba(255,255,255,0.35); }
+.svc-card:hover .svc-li::before { background: var(--blue); }
+
+.svc-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; letter-spacing: 0.2em; color: var(--dust); margin-bottom: 40px;
+  transition: color 0.2s;
+}
+.svc-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 14px; transition: color 0.2s;
+}
+.svc-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 24px;
+}
+.svc-desc {
+  font-size: 16px; color: var(--slate); line-height: 1.75;
+  font-weight: 300; max-width: 380px; transition: color 0.2s;
+}
+.svc-list { margin-top: 32px; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.svc-li {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--dust); display: flex; align-items: center; gap: 14px;
+  transition: color 0.2s;
+}
+.svc-li::before { content: ''; width: 22px; height: 1px; background: var(--dust); flex-shrink: 0; transition: background 0.2s; }
+
+/* PROCESS */
+#process { border-bottom: 1.5px solid var(--ink); }
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.proc-step {
+  padding: 60px 52px; border-right: 1.5px solid var(--ink);
+  position: relative; transition: background 0.15s; cursor: default;
+}
+.proc-step:last-child { border-right: none; }
+.proc-step:hover { background: var(--bone); }
+.proc-step:not(:last-child)::after {
+  content: '→'; position: absolute; top: 60px; right: -14px;
+  font-size: 16px; color: var(--dust); z-index: 2;
+}
+.proc-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px; line-height: 1; color: var(--bone); margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.proc-step:hover .proc-n { color: var(--blue); }
+.proc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.04em; margin-bottom: 14px;
+}
+.proc-text { font-size: 15px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+
+/* FOOTER */
+footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px calc(40px + env(safe-area-inset-right)) 24px calc(40px + env(safe-area-inset-left));
+  border-top: 1.5px solid var(--ink);
+}
+.fl { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; }
+.fl span { color: var(--blue); }
+.fc {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dust);
+}
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 36px; right: 36px;
+  background: var(--ink); color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 16px 28px; z-index: 9990; border-left: 3px solid var(--blue);
+  transform: translateY(80px); opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-cta-bar { display: block; }
+  body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+  #services .sec-header { grid-template-columns: 1fr; }
+  .sec-label { writing-mode: horizontal-tb; transform: none; padding: 16px 30px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .svc-card { border-right: none; padding: 48px 30px; }
+  .process-grid { grid-template-columns: 1fr 1fr; }
+  .proc-step:nth-child(even) { border-right: none; }
+  .proc-step:nth-child(1),
+  .proc-step:nth-child(2) { border-bottom: 1.5px solid var(--ink); }
+  .proc-step:not(:last-child)::after { display: none; }
+  .proc-step { padding: 40px 30px; }
+  footer {
+    flex-direction: column; gap: 10px; text-align: center;
+    padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
+  }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">DRY CREEK SERVICES</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Why Us &amp; Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Why Us &amp; Contact</a>
+  <a href="contact.html" class="mm-cta">Get a Quote →</a>
+</div>
+
+<div style="padding-top:57px;">
+<section id="services">
+  <div class="sec-header">
+    <div class="sec-label">Services</div>
+    <div class="sec-title-wrap">
+      <h2 class="sec-title">WHAT WE<br>DO.</h2>
+      <p style="font-family:'Barlow',sans-serif;font-size:14px;color:var(--dust);letter-spacing:0.05em;margin-top:12px;">Serving Eagle, Boise, Meridian, Nampa, Caldwell &amp; the Treasure Valley</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-index">01 / 04</div>
+      <div class="svc-tag">Fire Safety &amp; Efficiency</div>
+      <div class="svc-name">DRYER VENT<br>CLEANING</div>
+      <p class="svc-desc">Lint buildup in dryer vents is a leading cause of house fires. A blocked vent means longer dry times and higher energy bills. We clear the full vent line — inlet to exterior.</p>
+      <ul class="svc-list">
+        <li class="svc-li">Full vent line brush clean</li>
+        <li class="svc-li">Lint trap &amp; housing flush</li>
+        <li class="svc-li">Exhaust duct inspection</li>
+      </ul>
+      <p style="font-size:12px;color:var(--dust);margin-top:20px;line-height:1.6;">Service reduces fire risk by removing accessible lint buildup. We are not responsible for pre-existing ductwork defects, code violations, inaccessible duct sections, or causes unrelated to the vent cleaned.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-index">02 / 04</div>
+      <div class="svc-tag">Yard &amp; Outdoor</div>
+      <div class="svc-name">LANDSCAPING<br>&amp; YARD WORK</div>
+      <p class="svc-desc">From spring cleanups to regular maintenance, we handle the outdoor work you don't have time for. One-time jobs or recurring service — free quote either way.</p>
+      <ul class="svc-list">
+        <li class="svc-li">Mowing, edging &amp; trimming</li>
+        <li class="svc-li">Mulch &amp; bed maintenance</li>
+        <li class="svc-li">Brush &amp; overgrowth removal</li>
+        <li class="svc-li">Seasonal cleanups</li>
+      </ul>
+    </div>
+    <div class="svc-card">
+      <div class="svc-index">03 / 04</div>
+      <div class="svc-tag">Hauling &amp; Cleanouts</div>
+      <div class="svc-name">JUNK<br>REMOVAL</div>
+      <p class="svc-desc">Garage, basement, or estate full of stuff you want gone? We load and haul everything — single items to full truckloads. Same or next-day pickup available across the Treasure Valley.</p>
+      <ul class="svc-list">
+        <li class="svc-li">Furniture &amp; appliances</li>
+        <li class="svc-li">Garage &amp; basement cleanouts</li>
+        <li class="svc-li">Yard debris &amp; construction junk</li>
+        <li class="svc-li">We do all the lifting</li>
+      </ul>
+      <p style="font-size:12px;color:var(--dust);margin-top:20px;line-height:1.6;">No hazardous materials (paint, chemicals, batteries, fuels, or regulated waste). Customer is responsible for identifying all items for removal before we begin.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-index">04 / 04</div>
+      <div class="svc-tag">Exterior Cleaning</div>
+      <div class="svc-name">POWER<br>WASHING</div>
+      <p class="svc-desc">Green siding, black-stained driveways, grimy decks and fences — we blast it back to clean. Fast, thorough, and a dramatic difference visible from the street.</p>
+      <ul class="svc-list">
+        <li class="svc-li">House siding &amp; soffits</li>
+        <li class="svc-li">Driveways &amp; walkways</li>
+        <li class="svc-li">Decks &amp; fences</li>
+        <li class="svc-li">Concrete, brick &amp; pavers</li>
+      </ul>
+      <p style="font-size:12px;color:var(--dust);margin-top:20px;line-height:1.6;">Please disclose aged, painted, or fragile surfaces before we start. We are not liable for damage to surfaces already compromised prior to service.</p>
+    </div>
+  </div>
+</section>
+<section id="process">
+  <div class="sec-header">
+    <div class="sec-label">Process</div>
+    <div class="sec-title-wrap">
+      <h2 class="sec-title">HOW IT<br>WORKS</h2>
+    </div>
+  </div>
+  <div class="process-grid">
+    <div class="proc-step">
+      <div class="proc-n">01</div>
+      <div class="proc-title">Request a Quote</div>
+      <div class="proc-text">Fill out the form or call us. Tell us what you need and where. Takes two minutes.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">02</div>
+      <div class="proc-title">Get a Flat Price</div>
+      <div class="proc-text">We give you a firm price before we start. If on-site conditions differ from what was described, we'll tell you before touching anything.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">03</div>
+      <div class="proc-title">We Show Up</div>
+      <div class="proc-text">On time, with all our own equipment. No prep needed on your end.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-n">04</div>
+      <div class="proc-title">Job Done</div>
+      <div class="proc-text">We clean up after ourselves and send you a photo summary. Everything works better.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="fl">DRY CREEK SERVICES</div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+    <a href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);text-decoration:none;font-weight:700;" rel="noopener">Find Us on Google ↗</a>
+    <div class="fc" style="text-align:right;line-height:1.8;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--ink);">(208) 985-5394 &nbsp;·&nbsp; (215) 859-3267 &nbsp;·&nbsp; © 2026 — Eagle, Idaho</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;text-align:right;">
+      <a href="privacy.html" style="color:var(--dust);text-decoration:none;">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="terms.html" style="color:var(--dust);text-decoration:none;">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar">
+  <div class="mcb-inner">
+    <a href="tel:+12089855394" class="mcb-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1H8c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.01L6.6 10.8z"/></svg>
+      Call Now
+    </a>
+    <a href="contact.html" class="mcb-btn mcb-quote">Get a Quote →</a>
+  </div>
+</div>
+
+<div id="toast">Request Sent — We'll Be In Touch</div>
+
+<script>
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}));
+
+/* Active nav */
+const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+  if (a.getAttribute('href') === currentPage) a.classList.add('active');
+});
+</script>
+</body>
+</html>
