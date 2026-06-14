@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- Free sample homepage concept prepared by John for Templeton Real Estate Group -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templeton Real Estate Group | Boise & the Treasure Valley</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; color: #1d2733; background: #f7f3ec; }
+  h1, h2, h3, .logo { font-family: 'Georgia', 'Times New Roman', serif; }
+  a { text-decoration: none; }
+  html { scroll-behavior: smooth; }
+  .concept-bar { background: #c79a4b; color: #102a43; text-align: center; font-size: 0.8rem; letter-spacing: 0.5px; padding: 9px 16px; font-weight: 700; }
+  .concept-bar span { opacity: 0.72; font-weight: 400; }
+
+  nav {
+    background: #102a43; padding: 0 52px; display: flex; align-items: center;
+    justify-content: space-between; height: 78px; position: sticky; top: 0; z-index: 100;
+  }
+  .logo { font-size: 1.3rem; font-weight: 700; color: #f7f3ec; letter-spacing: 1px; }
+  .logo span { color: #c79a4b; }
+  nav ul { list-style: none; display: flex; gap: 34px; align-items: center; }
+  nav ul a { color: #cdd8e4; font-size: 0.88rem; letter-spacing: 0.4px; }
+  nav ul a:hover { color: #c79a4b; }
+  .nav-cta { background: #c79a4b; color: #102a43 !important; padding: 11px 24px; border-radius: 3px; font-size: 0.82rem !important; letter-spacing: 0.8px; text-transform: uppercase; font-weight: 700; }
+
+  .hero { position: relative; min-height: 600px; display: flex; align-items: center;
+    background: linear-gradient(rgba(16,42,67,0.78), rgba(16,42,67,0.86)),
+      url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=70') center/cover, #102a43; }
+  .hero-inner { padding: 0 52px; max-width: 760px; }
+  .hero-eyebrow { color: #c79a4b; font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; }
+  .hero h1 { font-size: 3.1rem; line-height: 1.18; color: #fff; margin-bottom: 20px; }
+  .hero h1 em { font-style: italic; color: #c79a4b; }
+  .hero p { color: rgba(255,255,255,0.85); font-size: 1.05rem; line-height: 1.7; margin-bottom: 32px; max-width: 540px; }
+
+  .search { background: #fff; border-radius: 6px; padding: 14px; display: flex; gap: 10px; flex-wrap: wrap; box-shadow: 0 18px 40px rgba(0,0,0,0.25); max-width: 640px; }
+  .search input, .search select { border: 1px solid #dfe5ec; border-radius: 4px; padding: 13px 14px; font-size: 0.9rem; font-family: inherit; color: #1d2733; flex: 1; min-width: 120px; }
+  .search button { background: #102a43; color: #fff; border: none; padding: 13px 26px; border-radius: 4px; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; }
+  .search button:hover { background: #c79a4b; color: #102a43; }
+
+  .strip { background: #0c2036; color: #cdd8e4; padding: 22px 52px; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+  .strip-item { text-align: center; }
+  .strip-item strong { display: block; color: #c79a4b; font-size: 1.6rem; font-family: 'Georgia', serif; }
+  .strip-item span { font-size: 0.82rem; letter-spacing: 0.5px; }
+
+  .sec { padding: 86px 52px; }
+  .sec-label { font-size: 0.74rem; letter-spacing: 3px; text-transform: uppercase; color: #c79a4b; margin-bottom: 10px; }
+  .sec-title { font-size: 2.1rem; color: #102a43; margin-bottom: 12px; }
+  .sec-sub { color: #5b6b7b; font-size: 0.96rem; line-height: 1.7; max-width: 520px; margin-bottom: 50px; }
+
+  .listings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(16,42,67,0.08); transition: transform .2s; }
+  .card:hover { transform: translateY(-5px); }
+  .card-img { height: 210px; background-size: cover; background-position: center; background-color: #1f3a57; position: relative; }
+  .badge { position: absolute; top: 14px; left: 14px; background: #c79a4b; color: #102a43; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; }
+  .badge.pending { background: #102a43; color: #fff; }
+  .card-body { padding: 22px 24px; }
+  .price { font-size: 1.5rem; color: #102a43; font-family: 'Georgia', serif; font-weight: 700; }
+  .addr { color: #5b6b7b; font-size: 0.9rem; margin: 6px 0 16px; }
+  .specs { display: flex; gap: 18px; border-top: 1px solid #eee; padding-top: 14px; font-size: 0.85rem; color: #1d2733; }
+  .specs span strong { color: #102a43; }
+
+  .why { background: #fff; }
+  .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ece6db; border: 1px solid #ece6db; }
+  .why-cell { background: #fff; padding: 34px 26px; }
+  .why-cell .ic { width: 46px; height: 46px; border-radius: 50%; background: #f3ece0; color: #c79a4b; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+  .why-cell h3 { font-size: 1.05rem; color: #102a43; margin-bottom: 8px; }
+  .why-cell p { font-size: 0.86rem; color: #5b6b7b; line-height: 1.6; }
+
+  .about { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: stretch; }
+  .about-photo { background: linear-gradient(135deg,#1f3a57,#102a43),
+      url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=70') center/cover; background-blend-mode: overlay; min-height: 460px; }
+  .about-text { background: #102a43; color: #e7eef5; padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .about-text .sec-label { color: #c79a4b; }
+  .about-text h2 { font-size: 1.95rem; color: #fff; margin-bottom: 18px; }
+  .about-text p { color: rgba(231,238,245,0.82); font-size: 0.95rem; line-height: 1.8; margin-bottom: 18px; }
+  .about-sign { margin-top: 8px; font-family: 'Georgia', serif; }
+  .about-sign strong { color: #c79a4b; font-size: 1.1rem; display: block; }
+  .about-sign span { font-size: 0.85rem; color: rgba(231,238,245,0.7); }
+
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .rcard { background: #fff; border-radius: 8px; padding: 28px; box-shadow: 0 8px 24px rgba(16,42,67,0.06); }
+  .stars { color: #c79a4b; letter-spacing: 2px; margin-bottom: 14px; }
+  .rcard p { font-size: 0.9rem; color: #41505f; line-height: 1.7; margin-bottom: 18px; }
+  .rauthor strong { font-size: 0.88rem; color: #102a43; display: block; }
+  .rauthor span { font-size: 0.78rem; color: #9aa7b4; }
+
+  .valuation { background: linear-gradient(rgba(16,42,67,0.9),rgba(16,42,67,0.94)),
+      url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=70') center/cover, #102a43; padding: 80px 52px; }
+  .val-box { max-width: 620px; margin: 0 auto; text-align: center; color: #fff; }
+  .val-box h2 { font-size: 2.1rem; margin-bottom: 12px; }
+  .val-box p { color: rgba(255,255,255,0.82); margin-bottom: 30px; }
+  .val-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .val-form input { padding: 14px; border: none; border-radius: 4px; font-size: 0.92rem; font-family: inherit; }
+  .val-form input.full { grid-column: 1 / -1; }
+  .val-form button { grid-column: 1 / -1; background: #c79a4b; color: #102a43; border: none; padding: 15px; border-radius: 4px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; cursor: pointer; }
+  .val-form button:hover { background: #fff; }
+
+  footer { background: #0c2036; color: #9fb0c1; padding: 48px 52px 30px; }
+  .foot-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; margin-bottom: 28px; }
+  footer .logo { font-size: 1.2rem; margin-bottom: 12px; }
+  footer p, footer a { font-size: 0.86rem; line-height: 1.9; color: #9fb0c1; }
+  footer a:hover { color: #c79a4b; }
+  .foot-col h4 { color: #fff; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-family: 'Segoe UI', sans-serif; }
+  .foot-bottom { border-top: 1px solid #1c3450; padding-top: 20px; font-size: 0.78rem; text-align: center; color: #6b7d8e; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; } nav ul { gap: 16px; }
+    nav ul li:nth-child(-n+3) { display: none; }
+    .hero-inner, .sec, .valuation { padding-left: 22px; padding-right: 22px; }
+    .hero h1 { font-size: 2.2rem; }
+    .listings, .why-grid, .reviews-grid, .about { grid-template-columns: 1fr; }
+    .strip { gap: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-bar">✦ A custom website concept created for Templeton Real Estate Group&nbsp; ·&nbsp; <span>prepared by John — web design for the Treasure Valley</span></div>
+
+<nav>
+  <div class="logo">TEMPLETON <span>REAL ESTATE</span></div>
+  <ul>
+    <li><a href="#listings">Listings</a></li>
+    <li><a href="#why">Buy &amp; Sell</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Boise · Meridian · Eagle · The Treasure Valley</div>
+    <h1>Find Your Place in<br><em>the Treasure Valley.</em></h1>
+    <p>Locally owned and rooted in the community, Templeton Real Estate Group helps buyers and sellers move with confidence — backed by real market knowledge and a team that actually picks up the phone.</p>
+    <form class="search" onsubmit="return false;">
+      <input type="text" placeholder="City or neighborhood (e.g. Boise North End)">
+      <select>
+        <option>Any Price</option><option>$300k–$500k</option><option>$500k–$750k</option><option>$750k–$1M</option><option>$1M+</option>
+      </select>
+      <button type="submit">Search Homes</button>
+    </form>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><strong>200+</strong><span>Homes Closed</span></div>
+  <div class="strip-item"><strong>15 yrs</strong><span>In the Treasure Valley</span></div>
+  <div class="strip-item"><strong>5.0★</strong><span>Client Rating</span></div>
+  <div class="strip-item"><strong>Free</strong><span>Home Valuation</span></div>
+</div>
+
+<section class="sec" id="listings">
+  <div class="sec-label">Featured Listings</div>
+  <div class="sec-title">Homes On the Market Now</div>
+  <p class="sec-sub">A look at what's moving across Boise and the surrounding valley. New listings added daily.</p>
+  <div class="listings">
+    <div class="card">
+      <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=70')"><span class="badge">Just Listed</span></div>
+      <div class="card-body">
+        <div class="price">$689,000</div>
+        <div class="addr">North End · Boise, ID 83702</div>
+        <div class="specs"><span><strong>4</strong> Beds</span><span><strong>3</strong> Baths</span><span><strong>2,840</strong> sqft</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=70')"><span class="badge">New Price</span></div>
+      <div class="card-body">
+        <div class="price">$1,250,000</div>
+        <div class="addr">Foothills · Eagle, ID 83616</div>
+        <div class="specs"><span><strong>5</strong> Beds</span><span><strong>4</strong> Baths</span><span><strong>4,210</strong> sqft</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=800&q=70')"><span class="badge pending">Pending</span></div>
+      <div class="card-body">
+        <div class="price">$475,000</div>
+        <div class="addr">Paramount · Meridian, ID 83646</div>
+        <div class="specs"><span><strong>3</strong> Beds</span><span><strong>2</strong> Baths</span><span><strong>1,960</strong> sqft</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec why" id="why">
+  <div class="sec-label">Why Templeton</div>
+  <div class="sec-title">Guidance From Start to Close</div>
+  <div class="why-grid">
+    <div class="why-cell"><div class="ic">⌂</div><h3>Buying</h3><p>From first showing to keys in hand — we help you find the right home and win it, even in a tight market.</p></div>
+    <div class="why-cell"><div class="ic">$</div><h3>Selling</h3><p>Smart pricing, real marketing, and skilled negotiation to get you the most for your home.</p></div>
+    <div class="why-cell"><div class="ic">↗</div><h3>Relocating</h3><p>New to the valley? We'll show you the neighborhoods, schools, and commutes that fit your life.</p></div>
+    <div class="why-cell"><div class="ic">◷</div><h3>Free Market Analysis</h3><p>Thinking about selling? Get a no-obligation valuation of what your home is worth today.</p></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-photo"></div>
+  <div class="about-text">
+    <div class="sec-label">Meet the Broker</div>
+    <h2>Dawn Templeton</h2>
+    <p>As Broker/Owner of Templeton Real Estate Group, Dawn has built her business on something simple: treat every client like the most important one. No call centers, no handoffs — just straight answers and real local expertise across Boise and the Treasure Valley.</p>
+    <p>Whether you're buying your first home, selling a longtime family property, or relocating to Idaho, you'll work directly with a team that knows this market inside and out.</p>
+    <div class="about-sign">
+      <strong>Dawn Templeton</strong>
+      <span>Broker / Owner · Templeton Real Estate Group</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-label">Client Reviews</div>
+  <div class="sec-title">What Clients Are Saying</div>
+  <div class="reviews-grid">
+    <div class="rcard"><div class="stars">★★★★★</div><p>"Dawn made selling our home completely stress-free. She priced it perfectly and we had offers in days. Couldn't recommend her more."</p><div class="rauthor"><strong>The Hendersons</strong><span>Sold in Meridian, ID</span></div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><p>"We relocated from out of state and Dawn walked us through every neighborhood. She actually listened to what we wanted. Found us the perfect home in Eagle."</p><div class="rauthor"><strong>Mark &amp; Julie R.</strong><span>Bought in Eagle, ID</span></div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><p>"First-time buyer here — I had a hundred questions and Dawn answered every one. Patient, honest, and always available. The whole team is great."</p><div class="rauthor"><strong>Alyssa P.</strong><span>Bought in Boise, ID</span></div></div>
+  </div>
+</section>
+
+<section class="valuation" id="contact">
+  <div class="val-box">
+    <h2>What's Your Home Worth?</h2>
+    <p>Get a free, no-obligation valuation of your Treasure Valley home — usually back to you within one business day.</p>
+    <form class="val-form" onsubmit="return false;">
+      <input class="full" type="text" placeholder="Property address">
+      <input type="text" placeholder="Your name">
+      <input type="tel" placeholder="Phone">
+      <input class="full" type="email" placeholder="Email address">
+      <button type="submit">Get My Free Valuation →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col">
+      <div class="logo">TEMPLETON <span style="color:#c79a4b">REAL ESTATE</span></div>
+      <p>Helping buyers &amp; sellers across Boise<br>and the Treasure Valley.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <p>3077 S Bown Way<br>Boise, ID 83706<br>
+      <a href="tel:2084732203">208-473-2203</a><br>
+      <a href="https://www.templetonrealestategroup.com">templetonrealestategroup.com</a></p>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <p><a href="#listings">Listings</a><br><a href="#why">Buy &amp; Sell</a><br><a href="#about">About Dawn</a><br><a href="#contact">Free Valuation</a></p>
+    </div>
+  </div>
+  <div class="foot-bottom">© 2026 Templeton Real Estate Group · Boise, Idaho · Equal Housing Opportunity</div>
+</footer>
+
+</body>
+</html>
