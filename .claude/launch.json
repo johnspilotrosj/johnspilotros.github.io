@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "john-spilotros-realtor-react", "--", "--port", "5173", "--strictPort"],
       "port": 5173
+    },
+    {
+      "name": "realtor-dist",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8124", "--directory", "john-spilotros-realtor-react/dist"],
+      "port": 8124
     }
   ]
 }

@@ -449,6 +449,8 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .contact-big:hover { color: var(--gold); }
 .contact-mid { font-size: 1.05rem; color: var(--ivory-dim); transition: color 0.25s ease; }
 .contact-mid:hover { color: var(--gold); }
+.contact-hours { margin-top: 1rem; font-size: 0.95rem; color: var(--gold) !important; font-weight: 550; }
+.contact-office { font-size: 0.88rem; color: var(--ivory-dim); }
 .socials { display: flex; gap: 0.8rem; margin-top: 1.4rem; }
 .socials a {
   display: inline-flex; align-items: center; justify-content: center;

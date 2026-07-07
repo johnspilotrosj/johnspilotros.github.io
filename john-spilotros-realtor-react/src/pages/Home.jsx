@@ -7,7 +7,7 @@ import SpotlightCard from '../bits/SpotlightCard.jsx';
 import LeadForm from '../components/LeadForm.jsx';
 import {
   HERO_CLIPS, HERO_POSTER, NEIGHBORHOODS, SAMPLE_HOMES, AREAS,
-  PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS,
+  PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS,
 } from '../data/site.js';
 
 const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
@@ -379,6 +379,8 @@ function Contact() {
           <div className="contact-direct">
             <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
             <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
+            <p className="contact-hours">{OFFICE_HOURS} — evenings &amp; weekends by appointment</p>
+            <p className="contact-office">Keller Williams Boise · {OFFICE_ADDRESS}</p>
             {liveSocials.length > 0 ? (
               <div className="socials">
                 {liveSocials.map((s) => (

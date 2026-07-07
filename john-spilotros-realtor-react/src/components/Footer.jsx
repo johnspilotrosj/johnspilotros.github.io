@@ -1,4 +1,4 @@
-import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS_PLACEHOLDER } from '../data/site.js';
+import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
 
 const LINKS = [
   ['#top', 'Home'],
@@ -29,7 +29,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Brokerage</h4>
             <p>Keller Williams Boise<br />
-              <span className="placeholder-val">{OFFICE_ADDRESS_PLACEHOLDER}</span><br />
+              {OFFICE_ADDRESS}<br />
+              {OFFICE_HOURS}<br />
               Each office is independently owned and operated.</p>
             <p style={{ marginTop: '1rem' }}>
               <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a><br />
