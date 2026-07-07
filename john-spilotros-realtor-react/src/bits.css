@@ -1,0 +1,44 @@
+/* ============================================================
+   React Bits layer — styles for the interactive animation
+   components (reactbits.dev-inspired, vendored locally).
+   Loaded after styles.css; only additive rules live here.
+   ============================================================ */
+
+/* --- SplitText ------------------------------------------------ */
+.st { display: inline; }
+.st-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.st-word { display: inline-block; will-change: transform; }
+/* SplitText owns the hero h1 entrance; disable the CSS fallback on it */
+.hero-content h1 { animation: none; }
+
+/* --- TiltedCard ----------------------------------------------- */
+.tilt { transform-style: preserve-3d; will-change: transform; }
+.tilt > * { transform: translateZ(0); }
+
+/* --- SpotlightCard --------------------------------------------- */
+.spotlight-card { position: relative; overflow: hidden; }
+.spotlight-card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  opacity: 0; transition: opacity 0.5s var(--ease-out);
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+              oklch(0.68 0.075 85 / 0.18), transparent 70%);
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+/* value cards get a touch of surface so the spotlight reads */
+.value.spotlight-card, .valuerow > .spotlight-card {
+  border-radius: var(--r-md); padding: 1.4rem 1.3rem;
+}
+.value.spotlight-card { background: var(--bg); border: 1px solid var(--line); }
+
+/* --- ClickSpark ------------------------------------------------ */
+.click-spark-canvas {
+  position: fixed; inset: 0; z-index: 900; pointer-events: none;
+}
+
+/* --- Magnet ----------------------------------------------------- */
+.magnet { display: inline-flex; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card::before { display: none; }
+}

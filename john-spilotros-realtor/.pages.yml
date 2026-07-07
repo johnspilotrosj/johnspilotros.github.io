@@ -1,0 +1,87 @@
+# ============================================================
+# Pages CMS configuration — John Spilotros Real Estate
+#
+# This powers the listings admin for the GitHub-Pages-hosted site.
+# You manage listings at https://app.pagescms.org (sign in with GitHub,
+# authorize this repo). Saving a listing commits to the repo, and GitHub
+# Pages rebuilds automatically. No coding, no HTML.
+#
+# Paths below are relative to the REPOSITORY ROOT — they assume index.html
+# / listings.html / data/ / assets/ live at the top level of the repo.
+# ============================================================
+
+# Where uploaded listing photos are stored, and the path written into the data.
+media:
+  input: assets/uploads
+  output: assets/uploads
+
+content:
+  - name: listings
+    label: Home Listings
+    type: file
+    path: data/listings.json
+    fields:
+      - name: listings
+        label: Listings
+        type: object
+        list: true
+        fields:
+          - name: status
+            label: Status
+            type: select
+            default: For Sale
+            options:
+              values: [For Sale, Coming Soon, Pending, Sold]
+          - name: featured
+            label: Feature at top of page
+            type: boolean
+            default: false
+          - name: price
+            label: Price
+            type: string
+            description: "e.g. $525,000 (or 'Call for price')"
+          - name: address
+            label: Street address
+            type: string
+            description: "e.g. 1842 N Foothill Ave"
+          - name: city
+            label: City
+            type: string
+            default: Boise
+          - name: beds
+            label: Bedrooms
+            type: number
+            required: false
+          - name: baths
+            label: Bathrooms
+            type: number
+            required: false
+          - name: sqft
+            label: Square feet
+            type: number
+            required: false
+          - name: lot
+            label: Lot size
+            type: string
+            required: false
+            description: "e.g. 0.24 acres"
+          - name: year_built
+            label: Year built
+            type: number
+            required: false
+          - name: mls
+            label: MLS number
+            type: string
+            required: false
+            description: "Optional — Intermountain MLS number if listed"
+          - name: photos
+            label: Photos
+            type: image
+            list: true
+            required: false
+            description: "Upload one or more. The first photo is used as the cover."
+          - name: description
+            label: Description
+            type: text
+            required: false
+            description: "A few sentences about the home."

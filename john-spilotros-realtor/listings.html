@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listings · John Spilotros Real Estate · Treasure Valley</title>
+<meta name="description" content="Current home listings from John Spilotros, a licensed Idaho real estate salesperson with Keller Williams Boise, serving Boise, Meridian, Eagle, Nampa, and the Treasure Valley.">
+<meta name="theme-color" content="#1b3a2c">
+<link rel="canonical" href="https://spilo.xyz/listings.html">
+<meta property="og:title" content="Listings · John Spilotros Real Estate">
+<meta property="og:description" content="Current homes for sale across Boise and the Treasure Valley with John Spilotros, Keller Williams Boise.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spilo.xyz/listings.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Hedvig+Letters+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231b3a2c'/%3E%3Cpath d='M11 27 20 13 29 27' fill='none' stroke='%23eef7f0' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M20 14v13' stroke='%23d29a63' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" data-route="index.html" aria-label="John Spilotros, home">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect width="40" height="40" rx="10" fill="var(--primary)"/>
+        <path d="M10.5 27.5 20 12.5 29.5 27.5" stroke="var(--on-primary)" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M20 14v13.5" stroke="oklch(0.82 0.09 60)" stroke-width="2.3" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-name">John Spilotros</span>
+        <span class="brand-sub">Real Estate · Treasure Valley</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html" data-route="index.html">Home</a></li>
+        <li><a href="listings.html" data-route="listings.html">Listings</a></li>
+        <li><a href="about.html" data-route="about.html">About</a></li>
+        <li><a href="buyers-sellers.html" data-route="buyers-sellers.html">Buyers &amp; Sellers</a></li>
+        <li><a href="contact.html" data-route="contact.html">Contact</a></li>
+      </ul>
+      <span class="nav-cta"><a class="btn" href="contact.html" data-route="contact.html">Get in touch</a></span>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span></button>
+    </nav>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+  <a href="index.html" data-route="index.html">Home</a>
+  <a href="listings.html" data-route="listings.html">Listings</a>
+  <a href="about.html" data-route="about.html">About</a>
+  <a href="buyers-sellers.html" data-route="buyers-sellers.html">Buyers &amp; Sellers</a>
+  <a href="contact.html" data-route="contact.html">Contact</a>
+  <a class="btn" href="contact.html" data-route="contact.html">Get in touch</a>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker">Listings</p>
+      <h1>Homes for sale across the Treasure Valley.</h1>
+      <p>Browse current listings below. Looking for something specific, or want to see homes the moment they hit the market? Tell me what you're after and I'll set up a personal search for you.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="listings-grid is-empty" data-listings data-reveal>
+        <!-- Listings render here from data/listings.json (managed in /admin).
+             This default empty-state shows if there are no listings yet. -->
+        <div class="listings-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></svg>
+          <h3>New listings are on the way.</h3>
+          <p>I'm lining up homes across Boise and the Treasure Valley right now. Looking for something specific? Tell me what you're after and I'll send you matching homes&nbsp;— often before they hit the open market.</p>
+          <a class="btn btn-accent" href="contact.html" data-route="contact.html">Tell me what you're looking for <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap" data-reveal>
+      <h2>Don't see the one yet?</h2>
+      <p>The right home isn't always on a public list. Tell me your must-haves and your budget, and I'll do the hunting&nbsp;— including off-market and coming-soon homes across the valley.</p>
+      <div class="cta-actions">
+        <a class="btn btn-accent" href="contact.html" data-route="contact.html">Start your search <span class="arrow">→</span></a>
+        <a class="btn btn-on-dark" href="buyers-sellers.html#home-value" data-route="buyers-sellers.html">Free home value report</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <span class="brand-name" style="font-family:var(--font-display); font-size:1.35rem; display:block; color:#fff;">John Spilotros</span>
+        <span class="brand-sub" style="display:block; margin-top:6px; font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;">Licensed Idaho Real Estate Salesperson</span>
+        <p>Helping buyers and sellers move with confidence across Boise, Meridian, Eagle, Nampa, and the Treasure Valley.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html" data-route="index.html">Home</a></li>
+          <li><a href="listings.html" data-route="listings.html">Listings</a></li>
+          <li><a href="about.html" data-route="about.html">About John</a></li>
+          <li><a href="buyers-sellers.html" data-route="buyers-sellers.html">Buyers &amp; Sellers</a></li>
+          <li><a href="contact.html" data-route="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Brokerage</h4>
+        <p>Keller Williams Boise<br>
+        <span class="placeholder-val">[Office address: add before publishing]</span><br>
+        Each office is independently owned and operated.</p>
+        <p style="margin-top:1rem">
+          <a href="tel:+12158593267">(215) 859-3267</a><br>
+          <a href="mailto:johnspilotros@kw.com">johnspilotros@kw.com</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <div class="footer-legal-top">
+        <span class="eho">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" aria-hidden="true">
+            <path d="M8 31 32 11 56 31" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M14 28v25h36V28" stroke-linejoin="round"/>
+            <line x1="24" y1="37" x2="40" y2="37" stroke-linecap="round"/>
+            <line x1="24" y1="45" x2="40" y2="45" stroke-linecap="round"/>
+          </svg>
+          <span>Equal Housing Opportunity</span>
+        </span>
+        <span class="license-badge">Idaho License <span>#1681619</span></span>
+      </div>
+      <p class="disclaimer">
+        <strong>John Spilotros is a licensed Idaho real estate salesperson</strong> affiliated with Keller Williams Boise, not a real estate broker or a licensed appraiser. All brokerage services are provided through Keller Williams Boise under the supervision of the responsible broker. Listing information is provided for general informational purposes; availability, price, and details are subject to change and should be independently verified. This website is for general informational purposes only and is not intended to solicit buyers or sellers already represented by a broker. No agency relationship is created by using this site or submitting a form; representation begins only with a signed written agreement. John Spilotros is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the nation.
+      </p>
+      <div class="footer-copy">
+        <span>© 2026 John Spilotros · Keller Williams Boise</span>
+        <span>Boise &amp; the Treasure Valley, Idaho</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

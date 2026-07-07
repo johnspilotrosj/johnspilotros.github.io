@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soleil Salon & Spa | Tacoma, WA</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Georgia', 'Segoe UI', serif; color: #1a1a1a; background: #fdfcfb; }
+
+  nav {
+    background: #fdfcfb;
+    padding: 0 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+    border-bottom: 1px solid #ede8e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-size: 1.4rem; font-weight: 700; color: #2c1a0e; letter-spacing: 1px; }
+  .logo span { color: #c4924a; }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul a { color: #5a4a3a; text-decoration: none; font-size: 0.88rem; letter-spacing: 0.5px; font-family: 'Segoe UI', sans-serif; }
+  nav ul a:hover { color: #c4924a; }
+  .nav-book { background: #2c1a0e; color: #f5ede0 !important; padding: 10px 24px; border-radius: 2px; font-family: 'Segoe UI', sans-serif !important; font-size: 0.82rem !important; letter-spacing: 1px; text-transform: uppercase; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 580px;
+  }
+  .hero-left {
+    background: #2c1a0e;
+    padding: 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow { color: #c4924a; font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Segoe UI', sans-serif; margin-bottom: 20px; }
+  .hero-left h1 { font-size: 2.8rem; line-height: 1.25; color: #f5ede0; font-weight: 700; margin-bottom: 20px; }
+  .hero-left h1 em { font-style: italic; color: #c4924a; }
+  .hero-left p { color: rgba(245,237,224,0.75); font-size: 0.98rem; line-height: 1.75; margin-bottom: 36px; font-family: 'Segoe UI', sans-serif; max-width: 380px; }
+  .hero-btns { display: flex; gap: 14px; }
+  .btn-gold { background: #c4924a; color: #fff; padding: 13px 28px; text-decoration: none; font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; letter-spacing: 0.8px; text-transform: uppercase; font-weight: 600; }
+  .btn-outline-cream { border: 1px solid rgba(245,237,224,0.4); color: #f5ede0; padding: 13px 28px; text-decoration: none; font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; letter-spacing: 0.8px; text-transform: uppercase; }
+  .hero-right {
+    background: linear-gradient(160deg, #f0e6d3 0%, #e8d5b8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+  }
+  .offers { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; }
+  .offer-card { background: #fff; padding: 22px 24px; border-left: 3px solid #c4924a; }
+  .offer-card h4 { font-size: 1rem; color: #2c1a0e; margin-bottom: 6px; }
+  .offer-card p { font-size: 0.84rem; color: #7a6a5a; line-height: 1.5; font-family: 'Segoe UI', sans-serif; }
+  .offer-price { font-size: 0.82rem; color: #c4924a; font-family: 'Segoe UI', sans-serif; font-weight: 700; margin-top: 6px; }
+
+  .strip { background: #2c1a0e; color: #f5ede0; padding: 18px 52px; display: flex; justify-content: center; gap: 64px; font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; flex-wrap: wrap; }
+  .strip-item { display: flex; align-items: center; gap: 10px; color: rgba(245,237,224,0.8); }
+  .strip-item strong { color: #c4924a; }
+
+  .services { padding: 88px 52px; }
+  .sec-label { font-family: 'Segoe UI', sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #c4924a; margin-bottom: 10px; }
+  .sec-title { font-size: 2rem; color: #2c1a0e; margin-bottom: 12px; font-weight: 700; }
+  .sec-sub { color: #7a6a5a; font-size: 0.95rem; font-family: 'Segoe UI', sans-serif; line-height: 1.7; margin-bottom: 56px; max-width: 480px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #ede8e0; border: 1px solid #ede8e0; }
+  .svc { background: #fdfcfb; padding: 36px 28px; }
+  .svc:hover { background: #faf5ee; }
+  .svc-num { font-size: 0.75rem; color: #c4924a; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; margin-bottom: 14px; }
+  .svc h3 { font-size: 1.05rem; color: #2c1a0e; margin-bottom: 10px; }
+  .svc p { font-size: 0.86rem; color: #7a6a5a; line-height: 1.65; font-family: 'Segoe UI', sans-serif; }
+  .svc-price { font-size: 0.82rem; color: #c4924a; font-family: 'Segoe UI', sans-serif; font-weight: 700; margin-top: 12px; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; background: #f5ede0; }
+  .about-visual { background: linear-gradient(135deg, #e8d0a8 0%, #d4b88a 100%); min-height: 480px; display: flex; align-items: center; justify-content: center; }
+  .about-visual .big-text { font-size: 5rem; opacity: 0.3; }
+  .about-text { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .about-text h2 { font-size: 1.9rem; color: #2c1a0e; margin-bottom: 16px; font-weight: 700; }
+  .about-text p { color: #5a4a3a; font-size: 0.94rem; font-family: 'Segoe UI', sans-serif; line-height: 1.75; margin-bottom: 20px; }
+  .about-list { list-style: none; }
+  .about-list li { font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; color: #5a4a3a; padding: 8px 0; border-bottom: 1px solid #e0d4c4; display: flex; gap: 10px; }
+  .about-list li::before { content: '—'; color: #c4924a; flex-shrink: 0; }
+
+  .reviews { padding: 88px 52px; }
+  .rgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+  .rcard { background: #fff; border: 1px solid #ede8e0; padding: 28px; }
+  .rcard .stars { color: #c4924a; font-size: 0.95rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .rcard p { font-size: 0.88rem; color: #5a4a3a; line-height: 1.7; font-family: 'Segoe UI', sans-serif; margin-bottom: 20px; }
+  .rauthor { font-family: 'Segoe UI', sans-serif; }
+  .rauthor strong { font-size: 0.86rem; color: #2c1a0e; display: block; }
+  .rauthor span { font-size: 0.78rem; color: #aaa; }
+
+  .cta-sec { background: #2c1a0e; padding: 88px 52px; text-align: center; }
+  .cta-sec h2 { font-size: 2.2rem; color: #f5ede0; margin-bottom: 14px; }
+  .cta-sec p { color: rgba(245,237,224,0.7); font-family: 'Segoe UI', sans-serif; font-size: 0.96rem; margin-bottom: 36px; }
+  .cta-sec .btn-gold { display: inline-block; font-size: 0.9rem; }
+
+  footer { background: #1a0f06; color: #7a6a5a; padding: 36px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-family: 'Segoe UI', sans-serif; font-size: 0.82rem; }
+  footer .logo { color: #f5ede0; font-family: 'Georgia', serif; }
+
+  @media (max-width: 900px) {
+    .hero, .about { grid-template-columns: 1fr; }
+    .services-grid, .rgrid { grid-template-columns: 1fr; }
+    .hero-left { padding: 60px 24px; }
+    .services, .reviews, .cta-sec { padding: 60px 24px; }
+    .strip { gap: 24px; padding: 18px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SOLEIL <span>SALON</span> & SPA</div>
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Our Team</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Tacoma's Premier Salon & Spa</div>
+    <h1>Where You Come to<br><em>Feel Like You.</em></h1>
+    <p>Soleil is a full-service salon and spa in Tacoma's Stadium District. Hair, skin, nails, and massage — all under one roof, by stylists who actually listen.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-gold">Book an Appointment</a>
+      <a href="#" class="btn-outline-cream">View Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="offers">
+      <div class="offer-card">
+        <h4>New Client Offer</h4>
+        <p>First-time guests receive 20% off any single service.</p>
+        <div class="offer-price">Use code: SOLEIL20</div>
+      </div>
+      <div class="offer-card">
+        <h4>Signature Facial + Massage</h4>
+        <p>90 minutes of complete relaxation. Available by appointment.</p>
+        <div class="offer-price">From $145</div>
+      </div>
+      <div class="offer-card">
+        <h4>Bridal Packages</h4>
+        <p>Hair, makeup, and spa services for your whole party.</p>
+        <div class="offer-price">Custom pricing — call to discuss</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><strong>Open</strong> Tue–Sat, 9am–7pm</div>
+  <div class="strip-item"><strong>Located</strong> 814 N Tacoma Ave, Stadium District</div>
+  <div class="strip-item"><strong>(253) 627-4490</strong></div>
+  <div class="strip-item"><strong>4.9★</strong> on Google — 210+ reviews</div>
+</div>
+
+<section class="services">
+  <div class="sec-label">Services</div>
+  <div class="sec-title">What We Offer</div>
+  <p class="sec-sub">From a quick blowout to a full day of pampering — we have everything you need to look and feel your best.</p>
+  <div class="services-grid">
+    <div class="svc">
+      <div class="svc-num">01</div>
+      <h3>Hair Cuts & Styling</h3>
+      <p>Precision cuts, blowouts, and styling for all hair types. Every stylist is trained in current techniques.</p>
+      <div class="svc-price">From $55</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">02</div>
+      <h3>Color & Highlights</h3>
+      <p>Balayage, ombré, full color, partial highlights. We get the color right and keep your hair healthy.</p>
+      <div class="svc-price">From $95</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">03</div>
+      <h3>Facials & Skincare</h3>
+      <p>Customized facials, dermaplaning, and treatments for every skin type and concern.</p>
+      <div class="svc-price">From $80</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">04</div>
+      <h3>Massage Therapy</h3>
+      <p>Swedish, deep tissue, and hot stone massage by licensed therapists. 60 and 90-minute sessions.</p>
+      <div class="svc-price">From $90</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">05</div>
+      <h3>Nails</h3>
+      <p>Manicures, pedicures, gel, acrylics, and nail art. Clean, precise, long-lasting.</p>
+      <div class="svc-price">From $35</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">06</div>
+      <h3>Bridal Services</h3>
+      <p>Trial runs, day-of styling, makeup, and full party packages. We take the stress out of your big day.</p>
+      <div class="svc-price">Custom pricing</div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-visual"><div class="big-text">✦</div></div>
+  <div class="about-text">
+    <div class="sec-label">Our Story</div>
+    <h2>A Salon Built on<br>the Details</h2>
+    <p>Soleil opened in 2016 because we believed Tacoma deserved a salon that felt like a real retreat — not just a haircut factory. We keep our team small, our standards high, and our schedule personal.</p>
+    <p>Every stylist and therapist at Soleil has been hand-selected for both their technical skill and how they make clients feel. That's why 80% of our clients are repeat guests.</p>
+    <ul class="about-list">
+      <li>Family-owned and operated since 2016</li>
+      <li>Licensed in Washington State for all services</li>
+      <li>Continued education — our team stays current</li>
+      <li>Clean, relaxing environment — always</li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="sec-label">Reviews</div>
+  <div class="sec-title">What Our Guests Say</div>
+  <div class="rgrid">
+    <div class="rcard">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p>"I've been coming to Soleil for two years and I won't go anywhere else. My stylist remembers exactly what I want, the vibe is calm and welcoming, and my hair always looks incredible."</p>
+      <div class="rauthor"><strong>Amanda C.</strong><span>Stadium District, Tacoma — Google Review</span></div>
+    </div>
+    <div class="rcard">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p>"Booked a facial and massage package for my birthday. It was honestly one of the best experiences I've had at any spa. The therapist was incredibly skilled. I floated out of there."</p>
+      <div class="rauthor"><strong>Renee T.</strong><span>North Tacoma — Google Review</span></div>
+    </div>
+    <div class="rcard">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p>"Did the full bridal package here for my wedding. Every single person in my party left happy. They were organized, communicative, and the work was beautiful. Highly recommend for brides."</p>
+      <div class="rauthor"><strong>Jessica M.</strong><span>Tacoma, WA — Google Review</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <h2>Ready to Book?</h2>
+  <p>Online booking available 24/7. New clients receive 20% off their first service.</p>
+  <a href="#" class="btn-gold">Book Your Appointment →</a>
+</section>
+
+<footer>
+  <div class="logo">SOLEIL SALON & SPA</div>
+  <p>814 N Tacoma Ave, Stadium District, Tacoma WA 98403</p>
+  <p>© 2024 Soleil Salon & Spa — (253) 627-4490</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evergreen Outdoor Services | Seattle, WA</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; }
+
+  nav {
+    background: #fff;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    border-bottom: 1px solid #e8e8e8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .logo { font-size: 1.25rem; font-weight: 800; color: #1b4d1e; display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 36px; height: 36px; background: #1b4d1e; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav ul a { color: #444; text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+  nav ul a:hover { color: #1b4d1e; }
+  .nav-cta { background: #1b4d1e; color: #fff !important; padding: 10px 22px; border-radius: 6px; font-weight: 700 !important; }
+
+  .hero {
+    background: #1b4d1e;
+    background-image: linear-gradient(160deg, #1b4d1e 0%, #2d7a32 60%, #3a9e40 100%);
+    color: #fff;
+    padding: 100px 48px;
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 60px;
+    bottom: -120px;
+    width: 380px;
+    height: 380px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+  .hero-left { flex: 1; position: relative; z-index: 1; }
+  .tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 24px; color: #c8f0c8; }
+  .hero h1 { font-size: 3rem; line-height: 1.15; font-weight: 900; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; color: #90ee90; }
+  .hero p { color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.7; max-width: 480px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 14px; }
+  .btn-white { background: #fff; color: #1b4d1e; padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 0.95rem; }
+  .btn-ghost { border: 2px solid rgba(255,255,255,0.5); color: #fff; padding: 14px 28px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+
+  .hero-right { flex: 0 0 340px; position: relative; z-index: 1; }
+  .quote-card { background: #fff; border-radius: 14px; padding: 28px; color: #1a1a1a; }
+  .quote-card h3 { font-size: 1.05rem; color: #1b4d1e; font-weight: 700; margin-bottom: 18px; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 0.78rem; color: #888; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .form-row input, .form-row select {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    color: #333;
+    background: #fafafa;
+  }
+  .form-btn { width: 100%; background: #1b4d1e; color: #fff; border: none; border-radius: 6px; padding: 13px; font-weight: 700; font-size: 0.95rem; cursor: pointer; margin-top: 6px; }
+  .form-note { font-size: 0.75rem; color: #999; text-align: center; margin-top: 8px; }
+
+  .stats-bar { background: #f9faf9; border-bottom: 1px solid #e8ece8; padding: 24px 48px; display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat strong { display: block; font-size: 1.6rem; font-weight: 800; color: #1b4d1e; }
+  .stat span { font-size: 0.8rem; color: #777; }
+
+  .services { padding: 80px 48px; }
+  .label { color: #1b4d1e; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .title { font-size: 2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 12px; }
+  .sub { color: #666; font-size: 0.98rem; margin-bottom: 50px; max-width: 500px; line-height: 1.6; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { border: 1px solid #e4ebe4; border-radius: 12px; padding: 28px; transition: all 0.2s; cursor: default; }
+  .card:hover { border-color: #1b4d1e; box-shadow: 0 8px 28px rgba(27,77,30,0.1); transform: translateY(-2px); }
+  .card-icon { font-size: 2.2rem; margin-bottom: 14px; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #1b4d1e; margin-bottom: 8px; }
+  .card p { color: #666; font-size: 0.88rem; line-height: 1.6; }
+
+  .process { background: #1b4d1e; color: #fff; padding: 80px 48px; }
+  .process .title { color: #fff; }
+  .process .sub { color: rgba(255,255,255,0.7); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 50px; }
+  .step { text-align: center; }
+  .step-num { width: 52px; height: 52px; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; color: #90ee90; margin: 0 auto 16px; }
+  .step h4 { font-size: 0.95rem; margin-bottom: 8px; color: #fff; }
+  .step p { font-size: 0.84rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  .testimonials { padding: 80px 48px; background: #f9faf9; }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 50px; }
+  .tcard { background: #fff; border-radius: 12px; padding: 26px; border: 1px solid #e4ebe4; }
+  .tcard .stars { color: #2d7a32; font-size: 1rem; margin-bottom: 12px; }
+  .tcard p { color: #444; font-size: 0.9rem; line-height: 1.65; margin-bottom: 18px; }
+  .tauthor { display: flex; align-items: center; gap: 12px; }
+  .tav { width: 40px; height: 40px; background: #1b4d1e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #90ee90; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+  .tauthor strong { display: block; font-size: 0.88rem; }
+  .tauthor span { font-size: 0.78rem; color: #999; }
+
+  .cta-section { background: linear-gradient(135deg, #2d7a32, #1b4d1e); padding: 80px 48px; text-align: center; color: #fff; }
+  .cta-section h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: rgba(255,255,255,0.8); margin-bottom: 36px; font-size: 1rem; }
+  .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+  footer { background: #111; color: #888; padding: 36px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  footer .logo { color: #fff; }
+  footer p { font-size: 0.82rem; }
+
+  @media (max-width: 900px) {
+    .hero { flex-direction: column; padding: 60px 24px; }
+    .grid3, .steps, .tgrid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 30px; padding: 24px; }
+    .hero-right { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><div class="logo-icon">🌿</div> Evergreen Outdoor Services</div>
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#" class="nav-cta">Free Estimate</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="tag">🌧️ Seattle's Outdoor Specialists</div>
+    <h1>Your Yard, <em>Done Right.</em><br>All Season Long.</h1>
+    <p>Evergreen Outdoor Services handles landscaping, lawn care, cleanup, and maintenance for Seattle homeowners who want a beautiful yard without the work.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-white">Get a Free Estimate</a>
+      <a href="#" class="btn-ghost">See Our Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="quote-card">
+      <h3>Get a Free Estimate</h3>
+      <div class="form-row"><label>Your Name</label><input type="text" placeholder="Jane Smith"></div>
+      <div class="form-row"><label>Phone or Email</label><input type="text" placeholder="(206) 555-0000"></div>
+      <div class="form-row"><label>Service Needed</label>
+        <select>
+          <option>Lawn Maintenance</option>
+          <option>Landscaping Design</option>
+          <option>Yard Cleanup</option>
+          <option>Pruning & Trimming</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="form-btn">Request My Free Estimate →</button>
+      <p class="form-note">We'll call you within 1 business day.</p>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><strong>12+</strong><span>Years in Seattle</span></div>
+  <div class="stat"><strong>800+</strong><span>Happy customers</span></div>
+  <div class="stat"><strong>4.8★</strong><span>Google rating</span></div>
+  <div class="stat"><strong>Weekly</strong><span>Maintenance plans</span></div>
+</div>
+
+<section class="services">
+  <div class="label">Services</div>
+  <div class="title">Everything Your Yard Needs</div>
+  <p class="sub">We handle residential landscaping and lawn care throughout Seattle, Bellevue, Kirkland, and the Eastside.</p>
+  <div class="grid3">
+    <div class="card"><div class="card-icon">🌱</div><h3>Lawn Maintenance</h3><p>Weekly or bi-weekly mowing, edging, and cleanup. Consistent, reliable, and on schedule.</p></div>
+    <div class="card"><div class="card-icon">✂️</div><h3>Pruning & Trimming</h3><p>Shrubs, hedges, ornamental trees — shaped and maintained to look their best year-round.</p></div>
+    <div class="card"><div class="card-icon">🍂</div><h3>Seasonal Cleanup</h3><p>Spring and fall cleanups that get your yard ready for the season ahead.</p></div>
+    <div class="card"><div class="card-icon">🪨</div><h3>Landscape Design</h3><p>New beds, borders, mulching, and planting. We'll work with your space and your budget.</p></div>
+    <div class="card"><div class="card-icon">💧</div><h3>Irrigation</h3><p>Sprinkler system installation, repair, and spring/fall startup and winterization.</p></div>
+    <div class="card"><div class="card-icon">🏡</div><h3>Hardscaping</h3><p>Patios, pathways, retaining walls, and steps that hold up in the Pacific Northwest weather.</p></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="label" style="color:#90ee90">How It Works</div>
+  <div class="title">Simple Start, Beautiful Results</div>
+  <p class="sub">No confusing quotes or hidden fees. Here's how we get started.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h4>Request an Estimate</h4><p>Fill out our form or call. We'll schedule a free on-site visit.</p></div>
+    <div class="step"><div class="step-num">2</div><h4>We Walk Your Yard</h4><p>We assess the space and give you a clear, itemized quote. No surprises.</p></div>
+    <div class="step"><div class="step-num">3</div><h4>We Get to Work</h4><p>Scheduled service on your timeline. We show up when we say we will.</p></div>
+    <div class="step"><div class="step-num">4</div><h4>Enjoy Your Yard</h4><p>Sit back. Your yard looks great and it stays that way.</p></div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="label">Reviews</div>
+  <div class="title">What Seattle Homeowners Say</div>
+  <div class="tgrid">
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"Evergreen has been maintaining our yard for three years. They're reliable, professional, and my yard has never looked better. Worth every penny."</p>
+      <div class="tauthor"><div class="tav">KM</div><div><strong>Karen M.</strong><span>Fremont, Seattle</span></div></div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"Had them redo our whole front yard — new plants, fresh mulch, gravel border. The transformation was incredible. Neighbors keep asking who did it."</p>
+      <div class="tauthor"><div class="tav">DH</div><div><strong>David H.</strong><span>Ballard, Seattle</span></div></div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"I tried three other landscapers before finding Evergreen. These guys actually show up, do clean work, and communicate. That's all I wanted and they deliver every time."</p>
+      <div class="tauthor"><div class="tav">PR</div><div><strong>Priya R.</strong><span>Capitol Hill, Seattle</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Ready for a Better-Looking Yard?</h2>
+  <p>Free estimates, no pressure. We serve Seattle and the surrounding Eastside communities.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-white">Get a Free Estimate</a>
+    <a href="#" class="btn-ghost">Call (206) 553-8810</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">🌿 Evergreen Outdoor Services</div>
+  <p>Seattle, WA | (206) 553-8810 | Serving Seattle, Bellevue & the Eastside</p>
+  <p>© 2024 Evergreen Outdoor Services</p>
+</footer>
+
+</body>
+</html>

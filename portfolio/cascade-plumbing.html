@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Plumbing & Heating | Portland, OR</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; }
+
+  /* NAV */
+  nav {
+    background: #0d2e4f;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { color: #fff; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px; }
+  .logo span { color: #f0a500; }
+  nav ul { list-style: none; display: flex; gap: 30px; }
+  nav ul a { color: #cdd8e3; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+  nav ul a:hover { color: #fff; }
+  .nav-cta {
+    background: #f0a500;
+    color: #0d2e4f !important;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 4px;
+  }
+  .nav-cta:hover { background: #e09400; color: #0d2e4f !important; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0d2e4f 0%, #1a4a73 100%);
+    color: #fff;
+    padding: 90px 40px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    min-height: 520px;
+  }
+  .hero-text { flex: 1; max-width: 580px; }
+  .badge {
+    display: inline-block;
+    background: rgba(240,165,0,0.15);
+    color: #f0a500;
+    border: 1px solid #f0a500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 18px; font-weight: 800; }
+  .hero h1 span { color: #f0a500; }
+  .hero p { font-size: 1.1rem; color: #b8ccd8; line-height: 1.7; margin-bottom: 32px; max-width: 480px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: #f0a500;
+    color: #0d2e4f;
+    padding: 14px 28px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.4);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  .hero-image {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 380px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-image h3 { color: #f0a500; font-size: 1rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .service-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e0ecf5;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #f0a500; flex-shrink: 0; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: 10px; }
+  .trust-icon { font-size: 1.4rem; }
+  .trust-text strong { display: block; font-size: 1.1rem; color: #0d2e4f; }
+  .trust-text span { font-size: 0.8rem; color: #666; }
+
+  /* SERVICES */
+  .services { padding: 80px 40px; background: #fff; }
+  .section-label { color: #f0a500; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .section-title { font-size: 2rem; font-weight: 800; color: #0d2e4f; margin-bottom: 12px; }
+  .section-sub { color: #666; font-size: 1rem; margin-bottom: 50px; max-width: 520px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 28px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .service-card:hover { box-shadow: 0 8px 30px rgba(13,46,79,0.1); transform: translateY(-3px); }
+  .service-icon { font-size: 2rem; margin-bottom: 14px; }
+  .service-card h3 { font-size: 1.1rem; color: #0d2e4f; margin-bottom: 8px; font-weight: 700; }
+  .service-card p { color: #666; font-size: 0.9rem; line-height: 1.6; }
+
+  /* WHY US */
+  .why { background: #0d2e4f; color: #fff; padding: 80px 40px; display: flex; gap: 60px; align-items: center; }
+  .why-text { flex: 1; }
+  .why-text h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
+  .why-text p { color: #9bb5c8; line-height: 1.7; margin-bottom: 30px; }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .why-list li { display: flex; align-items: flex-start; gap: 12px; color: #cdd8e3; font-size: 0.95rem; line-height: 1.5; }
+  .check { color: #f0a500; font-weight: 700; font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+  .why-stats { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 380px; }
+  .stat-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 28px 20px; text-align: center; }
+  .stat-box .num { font-size: 2.4rem; font-weight: 800; color: #f0a500; display: block; }
+  .stat-box span { font-size: 0.8rem; color: #9bb5c8; }
+
+  /* REVIEWS */
+  .reviews { padding: 80px 40px; background: #f8f9fa; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+  .review-card { background: #fff; border-radius: 10px; padding: 28px; border: 1px solid #e8e8e8; }
+  .stars { color: #f0a500; font-size: 1.1rem; margin-bottom: 14px; }
+  .review-card p { color: #444; font-size: 0.92rem; line-height: 1.65; margin-bottom: 18px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 42px; height: 42px; border-radius: 50%; background: #0d2e4f; display: flex; align-items: center; justify-content: center; color: #f0a500; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+  .reviewer-info strong { display: block; font-size: 0.9rem; color: #1a1a1a; }
+  .reviewer-info span { font-size: 0.8rem; color: #999; }
+
+  /* CTA */
+  .cta { background: linear-gradient(135deg, #f0a500, #e09400); padding: 70px 40px; text-align: center; }
+  .cta h2 { font-size: 2rem; font-weight: 800; color: #0d2e4f; margin-bottom: 12px; }
+  .cta p { color: #4a3200; margin-bottom: 32px; font-size: 1rem; }
+  .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn-dark { background: #0d2e4f; color: #fff; padding: 14px 32px; border-radius: 5px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+  .btn-outline { border: 2px solid #0d2e4f; color: #0d2e4f; padding: 14px 32px; border-radius: 5px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+
+  /* FOOTER */
+  footer { background: #081e33; color: #9bb5c8; padding: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  footer .logo { color: #fff; }
+  footer p { font-size: 0.85rem; }
+
+  @media (max-width: 900px) {
+    .hero { flex-direction: column; padding: 60px 24px; }
+    .services-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .why { flex-direction: column; padding: 60px 24px; }
+    .why-stats { max-width: 100%; }
+    .trust-bar { gap: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Cascade <span>Plumbing</span> & Heating</div>
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="#" class="nav-cta">Call Now: (503) 814-2290</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="badge">Portland's Trusted Plumbers Since 2009</div>
+    <h1>Fast, Reliable Plumbing<br>You Can <span>Count On</span></h1>
+    <p>From leaky faucets to full repiping jobs, Cascade Plumbing & Heating has been keeping Portland homes and businesses running for over 15 years. Same-day service available.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">📞 Get a Free Quote</a>
+      <a href="#" class="btn-secondary">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <h3>What We Fix</h3>
+    <div class="service-pill"><div class="dot"></div>Emergency Leak Repairs</div>
+    <div class="service-pill"><div class="dot"></div>Water Heater Install & Repair</div>
+    <div class="service-pill"><div class="dot"></div>Drain Cleaning & Rooter</div>
+    <div class="service-pill"><div class="dot"></div>Repiping & Pipe Replacement</div>
+    <div class="service-pill"><div class="dot"></div>Heating System Service</div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-icon">⭐</div><div class="trust-text"><strong>4.9 / 5 Stars</strong><span>387 Google reviews</span></div></div>
+  <div class="trust-item"><div class="trust-icon">🕐</div><div class="trust-text"><strong>Same-Day Service</strong><span>Available 7 days a week</span></div></div>
+  <div class="trust-item"><div class="trust-icon">🏅</div><div class="trust-text"><strong>Licensed & Insured</strong><span>Oregon CCB #185432</span></div></div>
+  <div class="trust-item"><div class="trust-icon">💰</div><div class="trust-text"><strong>Upfront Pricing</strong><span>No surprise charges</span></div></div>
+</div>
+
+<section class="services">
+  <div class="section-label">What We Do</div>
+  <div class="section-title">Plumbing & Heating Services</div>
+  <p class="section-sub">Residential and commercial work throughout Portland, Beaverton, Gresham, and the surrounding metro area.</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🚰</div><h3>Leak Detection & Repair</h3><p>Hidden leaks cause serious damage fast. We locate and fix them before they cost you more.</p></div>
+    <div class="service-card"><div class="service-icon">🔥</div><h3>Water Heater Services</h3><p>Traditional, tankless, and hybrid water heater installation, repair, and replacement.</p></div>
+    <div class="service-card"><div class="service-icon">🪠</div><h3>Drain Cleaning</h3><p>Slow or clogged drains cleared fast. Hydro-jetting available for stubborn blockages.</p></div>
+    <div class="service-card"><div class="service-icon">🏗️</div><h3>Repiping</h3><p>Whole-home repiping in copper or PEX. We work clean and fast with minimal disruption.</p></div>
+    <div class="service-card"><div class="service-icon">🌡️</div><h3>Heating & Furnaces</h3><p>Furnace repair, tune-ups, and replacements. Keep your family warm all winter.</p></div>
+    <div class="service-card"><div class="service-icon">🏢</div><h3>Commercial Plumbing</h3><p>Restaurants, offices, retail — we handle commercial jobs of all sizes.</p></div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="why-text">
+    <div class="section-label" style="color:#f0a500">Why Cascade</div>
+    <h2>Portland's Go-To Plumber<br>for 15 Years</h2>
+    <p>We built our reputation one job at a time — showing up on time, explaining everything clearly, and charging fair prices. That's still how we operate today.</p>
+    <ul class="why-list">
+      <li><span class="check">✓</span>Same-day appointments for urgent issues</li>
+      <li><span class="check">✓</span>Flat-rate pricing — you know the cost before we start</li>
+      <li><span class="check">✓</span>Clean work, we protect your floors and leave no mess</li>
+      <li><span class="check">✓</span>Fully licensed, bonded, and insured in Oregon</li>
+      <li><span class="check">✓</span>Family-owned — you talk to us directly, not a call center</li>
+    </ul>
+  </div>
+  <div class="why-stats">
+    <div class="stat-box"><strong class="num">15+</strong><span>Years serving Portland</span></div>
+    <div class="stat-box"><strong class="num">4,200+</strong><span>Jobs completed</span></div>
+    <div class="stat-box"><strong class="num">4.9★</strong><span>Average rating</span></div>
+    <div class="stat-box"><strong class="num">2hr</strong><span>Avg. response time</span></div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="section-label">Reviews</div>
+  <div class="section-title">What Portland Homeowners Say</div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Called at 8am with a burst pipe under my kitchen sink. They had someone at my house by 10. Fixed it in under an hour, cleaned up after themselves, and the price was exactly what they quoted. Couldn't ask for more."</p>
+      <div class="reviewer"><div class="avatar">MR</div><div class="reviewer-info"><strong>Mike R.</strong><span>Portland, OR — Google Review</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Used Cascade for a full water heater replacement. They explained the tankless vs. traditional options without pushing me toward the more expensive one. Installed same week. Super professional."</p>
+      <div class="reviewer"><div class="avatar">SL</div><div class="reviewer-info"><strong>Sarah L.</strong><span>Beaverton, OR — Google Review</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"My go-to plumber in Portland. I've used them three times now — water heater, a slow drain that turned out to be a root issue, and a bathroom remodel. Every time: on time, honest, clean work."</p>
+      <div class="reviewer"><div class="avatar">TK</div><div class="reviewer-info"><strong>Tom K.</strong><span>SE Portland — Google Review</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Need a Plumber Today?</h2>
+  <p>Same-day service available. Get a free quote — no pressure, no surprises.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-dark">📞 Call (503) 814-2290</a>
+    <a href="#" class="btn-outline">Request a Quote Online</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Cascade <span style="color:#f0a500">Plumbing</span> & Heating</div>
+  <p>Portland, OR | (503) 814-2290 | Licensed & Insured — Oregon CCB #185432</p>
+  <p>© 2024 Cascade Plumbing & Heating. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

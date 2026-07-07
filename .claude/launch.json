@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "john-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8123", "--directory", "john-spilotros-realtor"],
+      "port": 8123
+    },
+    {
+      "name": "realtor-react",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "john-spilotros-realtor-react", "--", "--port", "5173", "--strictPort"],
+      "port": 5173
+    }
+  ]
+}
