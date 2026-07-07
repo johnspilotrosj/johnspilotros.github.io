@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Get a Free Quote — Dry Creek Services | Eagle Idaho</title>
+<meta name="description" content="Get a free quote from Dry Creek Services — Eagle, Idaho's local home services company. Dryer vent cleaning, landscaping, junk removal, and power washing. Call or text (208) 985-5394.">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../favicon.png">
+<link rel="canonical" href="https://drycreekservices.xyz/contact/">
+<meta property="og:title" content="Get a Free Quote — Dry Creek Services | Eagle Idaho">
+<meta property="og:description" content="Get a free quote from Dry Creek Services — Eagle, Idaho's local home services company. Dryer vent cleaning, landscaping, junk removal, and power washing. Call or text (208) 985-5394.">
+<meta property="og:url" content="https://drycreekservices.xyz/contact/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dry Creek Services">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #111010;
+  --paper: #f0ece4;
+  --bone:  #ddd8ce;
+  --dust:  #8a857e;
+  --slate: #3d3830;
+  --blue:  #1a4fff;
+  --lblue: #e8eeff;
+  --white: #faf8f4;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+body.menu-open { overflow: hidden; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: stretch;
+  border-bottom: 1.5px solid var(--ink);
+  background: var(--paper);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.1em;
+  color: var(--ink); text-decoration: none;
+  padding: 18px 36px; border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; flex-shrink: 0;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; list-style: none; margin-left: auto; }
+.nav-links li { border-left: 1.5px solid var(--ink); }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--slate); text-decoration: none;
+  padding: 0 30px; height: 100%; display: flex; align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links a:hover { background: var(--ink); color: var(--white); }
+.nav-links a.active { color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); }
+.nav-links a.active:hover { background: var(--ink); color: var(--white); box-shadow: none; }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--white); background: var(--blue);
+  padding: 0 36px; display: flex; align-items: center;
+  text-decoration: none; border-left: 1.5px solid var(--ink);
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--ink); }
+
+/* HAMBURGER */
+.nav-hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  width: 57px; height: 57px;
+  border-left: 1.5px solid var(--ink);
+  flex-direction: column; align-items: center; justify-content: center; gap: 5.5px;
+  flex-shrink: 0; padding: 0; -webkit-appearance: none;
+}
+.nav-hamburger span {
+  display: block; width: 20px; height: 1.5px; background: var(--ink);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE OVERLAY MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 750;
+  background: var(--paper);
+  padding-top: 57px;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch; overflow-y: auto;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; letter-spacing: 0.03em; line-height: 1;
+  color: var(--ink); text-decoration: none;
+  padding: 28px 36px;
+  border-bottom: 1.5px solid var(--ink);
+  display: block;
+  opacity: 0; transform: translateX(20px);
+  transition: opacity 0.3s, transform 0.3s, background 0.12s, color 0.12s;
+}
+.mobile-menu.open a { opacity: 1; transform: translateX(0); }
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.06s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.11s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.16s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.21s; }
+.mobile-menu a:active,
+.mobile-menu a.active { color: var(--blue); }
+.mobile-menu .mm-cta {
+  background: var(--blue); color: var(--white); margin-top: auto;
+  border-bottom: none; border-top: 1.5px solid var(--ink);
+}
+.mobile-menu .mm-cta:active { background: var(--ink); color: var(--white); }
+
+/* MOBILE STICKY CTA BAR */
+.mobile-cta-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 600;
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mcb-inner { display: grid; grid-template-columns: 1fr 1fr; }
+.mcb-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  padding: 17px 12px; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background 0.12s;
+}
+.mcb-btn:first-child { border-right: 1px solid rgba(255,255,255,0.1); }
+.mcb-btn:active { background: rgba(255,255,255,0.08); }
+.mcb-quote { background: var(--blue); }
+.mcb-quote:active { background: #1040e0; }
+
+/* WHY */
+#why {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1.5px solid var(--ink);
+}
+.why-left {
+  padding: 80px 64px; border-right: 1.5px solid var(--ink);
+  background: #1a1714; color: var(--white);
+}
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 88px); line-height: 0.9;
+}
+.why-left .sec-title { color: var(--white); }
+.why-tag-sm {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 20px; display: block;
+}
+.why-body {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  line-height: 1.75; font-weight: 300; margin-top: 20px; max-width: 380px;
+}
+.why-canvas-wrap {
+  position: relative; height: 240px; margin-top: 48px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+#why-canvas { width: 100%; height: 100%; display: block; }
+
+.why-right { }
+.why-point {
+  padding: 48px 64px; border-bottom: 1.5px solid var(--ink);
+  display: grid; grid-template-columns: 52px 1fr;
+  gap: 24px; align-items: start;
+  transition: background 0.15s; cursor: default;
+}
+.why-point:last-child { border-bottom: none; }
+.why-point:hover { background: var(--lblue); }
+.wp-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px; letter-spacing: 0.15em; color: var(--blue); padding-top: 3px;
+}
+.wp-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.wp-text { font-size: 15px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+
+/* CONTACT */
+#contact {
+  display: grid; grid-template-columns: 1fr 360px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.cf-wrap { padding: 80px 64px; border-right: 1.5px solid var(--ink); }
+.cf-header-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 12px; display: block;
+}
+.cf { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; }
+.ff { display: flex; flex-direction: column; border: 1.5px solid var(--ink); margin: -0.75px; }
+.ff label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--slate); padding: 14px 20px 4px; background: var(--bone);
+}
+.ff input, .ff select, .ff textarea {
+  background: var(--bone); border: none;
+  padding: 6px 20px 16px; font-family: 'Barlow', sans-serif;
+  font-size: 16px; color: var(--ink); outline: none;
+  resize: none; -webkit-appearance: none; appearance: none; font-weight: 300;
+}
+.ff textarea { height: 130px; padding-top: 10px; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { background: var(--paper); }
+.cf-submit {
+  background: var(--ink); color: var(--white);
+  border: 1.5px solid var(--ink); margin: -0.75px;
+  padding: 22px; font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 0.12em;
+  cursor: pointer; width: calc(100% + 1.5px);
+  transition: background 0.15s;
+}
+.cf-submit:hover { background: var(--blue); border-color: var(--blue); }
+
+.contact-aside {
+  background: #1a1714; color: var(--white);
+  padding: 80px 48px;
+  display: flex; flex-direction: column;
+}
+.aside-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 28px; margin-bottom: 36px;
+}
+.aside-logo span { color: var(--blue); }
+.ca-block { margin-bottom: 30px; }
+.ca-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 8px;
+}
+.ca-val { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.65; font-weight: 300; }
+.aside-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--blue); border: 1px solid rgba(26,79,255,0.3);
+  padding: 14px 18px; margin-top: auto;
+}
+
+/* FOOTER */
+footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px calc(40px + env(safe-area-inset-right)) 24px calc(40px + env(safe-area-inset-left));
+  border-top: 1.5px solid var(--ink);
+}
+.fl { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; }
+.fl span { color: var(--blue); }
+.fc {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dust);
+}
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 36px; right: 36px;
+  background: var(--ink); color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 16px 28px; z-index: 9990; border-left: 3px solid var(--blue);
+  transform: translateY(80px); opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-cta-bar { display: block; }
+  body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+  #why { grid-template-columns: 1fr; }
+  .why-left { border-right: none; padding: 60px 30px; }
+  .why-point { padding: 36px 30px; grid-template-columns: 40px 1fr; }
+  #contact { grid-template-columns: 1fr; }
+  .cf-wrap { padding: 48px 30px; border-right: none; }
+  .contact-aside { padding: 48px 30px; }
+  .cf-row { grid-template-columns: 1fr; }
+  footer {
+    flex-direction: column; gap: 10px; text-align: center;
+    padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
+  }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../" class="nav-logo">DRY CREEK SERVICES</a>
+  <ul class="nav-links">
+    <li><a href="../services/">Services</a></li>
+    <li><a href="../contact/">Why Us &amp; Contact</a></li>
+  </ul>
+  <a href="../contact/" class="nav-cta">Get a Quote</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../">Home</a>
+  <a href="../services/">Services</a>
+  <a href="../contact/">Why Us &amp; Contact</a>
+  <a href="../contact/" class="mm-cta">Get a Quote →</a>
+</div>
+
+<div style="padding-top:57px;">
+<section id="why">
+  <div class="why-left">
+    <span class="why-tag-sm">Why Dry Creek Services</span>
+    <h2 class="sec-title">THE<br>STANDARD<br>IS SIMPLE.</h2>
+    <p class="why-body">We show up when we say we will, tell you what it costs before we start, and do the job right. No pressure, no surprises.</p>
+    <div class="why-canvas-wrap">
+      <canvas id="why-canvas"></canvas>
+    </div>
+  </div>
+  <div class="why-right">
+    <div class="why-point">
+      <div class="wp-num">01</div>
+      <div>
+        <div class="wp-title">Flat, Upfront Pricing</div>
+        <div class="wp-text">You get a price before we touch anything. Quoted from the info you give us — if site conditions differ, we'll tell you before we start.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="wp-num">02</div>
+      <div>
+        <div class="wp-title">Before &amp; After Photos</div>
+        <div class="wp-text">We document every job so you can see exactly what was cleaned and what it looked like before.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="wp-num">03</div>
+      <div>
+        <div class="wp-title">100% Satisfaction Guarantee</div>
+        <div class="wp-text">If you're not satisfied, contact us within 48 hours of completion and we'll return to make it right at no charge. Applies to labor performed — not pre-existing conditions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="cf-wrap">
+    <span class="cf-header-tag">Get Started</span>
+    <h2 class="sec-title">REQUEST<br>A QUOTE</h2>
+    <div class="cf" id="contact-form">
+      <div class="cf-row">
+        <div class="ff"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
+        <div class="ff"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+      </div>
+      <div class="cf-row">
+        <div class="ff"><label>Phone</label><input type="tel" name="phone" placeholder="(208) 985-5394"></div>
+        <div class="ff"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
+      </div>
+      <div class="ff">
+        <label>Service Needed</label>
+        <select name="service">
+          <option>Dryer Vent Cleaning</option>
+          <option>Landscaping</option>
+          <option>Junk Removal &amp; Hauling</option>
+          <option>Power Washing</option>
+          <option>Not Sure — Need Advice</option>
+        </select>
+      </div>
+      <div class="ff">
+        <label>Address / Notes</label>
+        <textarea name="message" placeholder="Your address and any details about the job..."></textarea>
+      </div>
+      <button class="cf-submit" type="button" onclick="submitForm()">SEND REQUEST →</button>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);padding:14px 20px;line-height:1.7;">Your information is used only to respond to your request and is never sold or shared. By submitting you agree to our <a href="../terms.html" style="color:var(--dust);text-decoration:underline;">Terms of Service</a> and <a href="../privacy.html" style="color:var(--dust);text-decoration:underline;">Privacy Policy</a>.</p>
+    </div>
+  </div>
+  <div class="contact-aside">
+    <div>
+      <div class="aside-logo">DRY CREEK SERVICES</div>
+      <div class="ca-block">
+        <div class="ca-label">Service Area</div>
+        <div class="ca-val">Treasure Valley &amp; Surrounding Areas<br>Eagle · Boise · Meridian · Nampa · Caldwell</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Phone</div>
+        <div class="ca-val">(208) 985-5394</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Hours</div>
+        <div class="ca-val">Mon–Sat, 7AM–6PM</div>
+      </div>
+      <div class="ca-block">
+        <div class="ca-label">Based In</div>
+        <div class="ca-val">Eagle, Idaho</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="fl">DRY CREEK SERVICES</div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+    <a href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);text-decoration:none;font-weight:700;" rel="noopener">Find Us on Google ↗</a>
+    <div class="fc" style="text-align:right;line-height:1.8;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--ink);">(208) 985-5394 &nbsp;·&nbsp; (215) 859-3267 &nbsp;·&nbsp; © 2026 — Eagle, Idaho</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;text-align:right;">
+      <a href="../privacy.html" style="color:var(--dust);text-decoration:none;">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="../terms.html" style="color:var(--dust);text-decoration:none;">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar">
+  <div class="mcb-inner">
+    <a href="tel:+12089855394" class="mcb-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1H8c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.01L6.6 10.8z"/></svg>
+      Call Now
+    </a>
+    <a href="#contact" class="mcb-btn mcb-quote">Get a Quote →</a>
+  </div>
+</div>
+
+<div id="toast">Request Sent — We'll Be In Touch</div>
+
+<script>
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}));
+
+/* Active nav */
+document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+  if (a.getAttribute('href').includes('contact')) a.classList.add('active');
+});
+
+/* Why canvas */
+(function() {
+  const c = document.getElementById('why-canvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H, rafId;
+  const resize = () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; };
+  resize();
+  new ResizeObserver(resize).observe(c);
+  const pts = Array.from({length: 10}, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: -0.002 + Math.random() * 0.004,
+    vy: -0.002 + Math.random() * 0.004
+  }));
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 28) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 28) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    pts.forEach((a, i) => pts.forEach((b, j) => {
+      if (j <= i) return;
+      const ax = a.x*W, ay = a.y*H, bx = b.x*W, by = b.y*H;
+      const dist = Math.hypot(ax-bx, ay-by);
+      if (dist > W * 0.45) return;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
+      ctx.strokeStyle = `rgba(26,79,255,${0.18 * (1 - dist / (W * 0.45))})`; ctx.lineWidth = 1; ctx.stroke();
+    }));
+    pts.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x*W, p.y*H, 2.5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(26,79,255,0.45)'; ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > 1) p.vx *= -1;
+      if (p.y < 0 || p.y > 1) p.vy *= -1;
+    });
+    rafId = requestAnimationFrame(draw);
+  }
+  draw();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(rafId);
+    else draw();
+  });
+})();
+
+async function submitForm() {
+  const form = document.getElementById('contact-form');
+  const btn = form.querySelector('.cf-submit');
+  btn.textContent = 'SENDING...';
+  try {
+    function buildData() {
+      const d = new FormData();
+      d.append('first_name', form.querySelector('[name=first_name]').value);
+      d.append('last_name', form.querySelector('[name=last_name]').value);
+      d.append('phone', form.querySelector('[name=phone]').value);
+      d.append('email', form.querySelector('[name=email]').value);
+      d.append('service', form.querySelector('[name=service]').value);
+      d.append('message', form.querySelector('[name=message]').value);
+      d.append('_replyto', form.querySelector('[name=email]').value);
+      return d;
+    }
+    const [res1, res2] = await Promise.all([
+      fetch('https://formspree.io/f/mrejgagq', { method: 'POST', body: buildData(), headers: { 'Accept': 'application/json' } }),
+      fetch('https://formspree.io/f/mbdwrdqq', { method: 'POST', body: buildData(), headers: { 'Accept': 'application/json' } })
+    ]);
+    const ok = res1.ok || res2.ok;
+    if (ok) {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+      form.querySelectorAll('input, textarea').forEach(el => el.value = '');
+      btn.textContent = 'SEND REQUEST →';
+    } else { btn.textContent = 'ERROR — TRY AGAIN'; }
+  } catch { btn.textContent = 'ERROR — TRY AGAIN'; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Terms of Service — Dry Creek Services | Eagle Idaho</title>
+<meta name="description" content="Terms of Service for Dry Creek Services — Eagle, Idaho.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #111010;
+  --paper: #f0ece4;
+  --bone:  #ddd8ce;
+  --dust:  #8a857e;
+  --slate: #3d3830;
+  --blue:  #1a4fff;
+  --lblue: #e8eeff;
+  --white: #faf8f4;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: 'Barlow', sans-serif; overflow-x: hidden;
+  -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;
+}
+body.menu-open { overflow: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: 0.5;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: stretch;
+  border-bottom: 1.5px solid var(--ink); background: var(--paper);
+  padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em;
+  color: var(--ink); text-decoration: none;
+  padding: 18px 36px; border-right: 1.5px solid var(--ink);
+  display: flex; align-items: center; flex-shrink: 0;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; list-style: none; margin-left: auto; }
+.nav-links li { border-left: 1.5px solid var(--ink); }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--slate); text-decoration: none;
+  padding: 0 30px; height: 100%; display: flex; align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links a:hover { background: var(--ink); color: var(--white); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--white); background: var(--blue);
+  padding: 0 36px; display: flex; align-items: center;
+  text-decoration: none; border-left: 1.5px solid var(--ink); transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--ink); }
+.nav-hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  width: 57px; height: 57px; border-left: 1.5px solid var(--ink);
+  flex-direction: column; align-items: center; justify-content: center; gap: 5.5px;
+  flex-shrink: 0; padding: 0; -webkit-appearance: none;
+}
+.nav-hamburger span {
+  display: block; width: 20px; height: 1.5px; background: var(--ink);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s; transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 750;
+  background: var(--paper); padding-top: 57px;
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch; overflow-y: auto;
+  padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 0.03em; line-height: 1;
+  color: var(--ink); text-decoration: none; padding: 28px 36px;
+  border-bottom: 1.5px solid var(--ink); display: block;
+  opacity: 0; transform: translateX(20px);
+  transition: opacity 0.3s, transform 0.3s, background 0.12s, color 0.12s;
+}
+.mobile-menu.open a { opacity: 1; transform: translateX(0); }
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.06s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.11s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.16s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.21s; }
+.mobile-menu a:active, .mobile-menu a.active { color: var(--blue); }
+.mobile-menu .mm-cta {
+  background: var(--blue); color: var(--white); margin-top: auto;
+  border-bottom: none; border-top: 1.5px solid var(--ink);
+}
+.mobile-menu .mm-cta:active { background: var(--ink); color: var(--white); }
+.mobile-cta-bar {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 600;
+  background: var(--ink); border-top: 1px solid rgba(255,255,255,0.1);
+  padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mcb-inner { display: grid; grid-template-columns: 1fr 1fr; }
+.mcb-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white); text-decoration: none; padding: 17px 12px; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 7px; transition: background 0.12s;
+}
+.mcb-btn:first-child { border-right: 1px solid rgba(255,255,255,0.1); }
+.mcb-btn:active { background: rgba(255,255,255,0.08); }
+.mcb-quote { background: var(--blue); }
+.mcb-quote:active { background: #1040e0; }
+
+/* PAGE CONTENT */
+.legal-wrap {
+  max-width: 760px; margin: 0 auto;
+  padding: 80px 64px 100px;
+}
+.legal-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dust); margin-bottom: 20px; display: block;
+}
+.legal-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 7vw, 88px); line-height: 0.9; margin-bottom: 48px;
+}
+.legal-section { margin-bottom: 40px; }
+.legal-section h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--bone);
+}
+.legal-section p, .legal-section li {
+  font-size: 15px; color: var(--slate); line-height: 1.8; font-weight: 300; margin-bottom: 10px;
+}
+.legal-section ul { padding-left: 20px; }
+.legal-section a { color: var(--blue); }
+.legal-updated {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dust); margin-bottom: 56px; display: block;
+}
+
+footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px calc(40px + env(safe-area-inset-right)) 24px calc(40px + env(safe-area-inset-left));
+  border-top: 1.5px solid var(--ink);
+}
+.fl { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; }
+.fl span { color: var(--blue); }
+.fc {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dust);
+}
+.footer-legal-links {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  margin-top: 6px; text-align: right;
+}
+.footer-legal-links a { color: var(--dust); text-decoration: none; }
+.footer-legal-links a:hover { color: var(--blue); }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-cta-bar { display: block; }
+  body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+  .legal-wrap { padding: 48px 30px 80px; }
+  footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px 24px calc(24px + env(safe-area-inset-bottom)); }
+  .footer-legal-links { text-align: center; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">DRY CREEK SERVICES</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Why Us &amp; Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Why Us &amp; Contact</a>
+  <a href="contact.html" class="mm-cta">Get a Quote →</a>
+</div>
+
+<div style="padding-top:57px;">
+  <div class="legal-wrap">
+    <span class="legal-eyebrow">Legal</span>
+    <h1 class="legal-h1">TERMS OF<br>SERVICE</h1>
+    <span class="legal-updated">Effective June 6, 2026 · Eagle, Idaho</span>
+
+    <div class="legal-section">
+      <h2>Agreement to Terms</h2>
+      <p>By requesting a quote, scheduling service, or engaging Dry Creek Services ("we," "us," "our") for any work, you ("the customer") agree to the following terms. These terms govern all services provided by Dry Creek Services in the Treasure Valley and surrounding areas of Idaho.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Quotes and Pricing</h2>
+      <p>All prices quoted are estimates based on information provided by the customer at the time of the request. If conditions on-site differ materially from what was described — including but not limited to access issues, extent of work, undisclosed hazards, or property conditions — we will notify the customer of any pricing adjustment before work begins. The customer may accept the revised price or cancel the job at no charge.</p>
+      <p>Quoted prices apply to the scope of work described at the time of booking. Work outside that scope may be quoted and billed separately.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Satisfaction Guarantee</h2>
+      <p>If you are not satisfied with the quality of work performed, contact us within <strong>48 hours</strong> of service completion and we will return to correct the issue at no additional charge. This guarantee applies to the labor and workmanship performed by Dry Creek Services only. It does not apply to:</p>
+      <ul>
+        <li>Pre-existing property conditions present before service began</li>
+        <li>Damage caused by third parties or events outside our control</li>
+        <li>Results affected by information the customer failed to disclose</li>
+        <li>Wear, deterioration, or conditions unrelated to the service performed</li>
+      </ul>
+      <p>The satisfaction guarantee does not constitute a warranty against future damage or a guarantee of specific outcomes beyond the service described.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Dryer Vent Cleaning</h2>
+      <p>Dryer vent cleaning removes accessible lint buildup and reduces fire risk associated with obstructed venting. We are not responsible for fires, property damage, or appliance damage caused by:</p>
+      <ul>
+        <li>Pre-existing ductwork defects, improper installation, or code violations</li>
+        <li>Manufacturer defects in the dryer or venting materials</li>
+        <li>Sections of ductwork that were inaccessible or not disclosed at time of service</li>
+        <li>Causes unrelated to lint buildup in the vent we cleaned</li>
+      </ul>
+      <p>Our service does not constitute a fire safety inspection, code compliance certification, or guarantee against future lint accumulation.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Power Washing</h2>
+      <p>High-pressure washing can cause damage to surfaces that are already compromised, aged, or fragile. The customer is responsible for disclosing any old, damaged, painted, sealed, or delicate surfaces before work begins. Dry Creek Services is not liable for damage to surfaces that were already deteriorated, weakened, or improperly installed prior to service.</p>
+      <p>By scheduling power washing service, the customer represents that all surfaces to be cleaned are in condition suitable for pressure washing, or has disclosed any concerns in advance.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Junk Removal</h2>
+      <p>The customer is solely responsible for ensuring that all items designated for removal are legal to dispose of and do not contain hazardous materials. We do not accept, haul, or dispose of hazardous materials including but not limited to: paints, solvents, chemicals, fuels, batteries, asbestos, biohazardous waste, or any items regulated under federal, state, or local law.</p>
+      <p>The customer bears full liability for any costs, fines, or damages arising from undisclosed hazardous materials. Dry Creek Services reserves the right to refuse any items at its discretion.</p>
+      <p>The customer is responsible for identifying and confirming all items to be removed before work begins. We are not liable for the accidental removal of items not designated for removal by the customer.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Landscaping &amp; Yard Work</h2>
+      <p>The customer is responsible for disclosing the location of underground utilities, irrigation lines, buried structures, or any other subsurface features before work begins. Dry Creek Services is not liable for damage to undisclosed underground features. Call 811 before any digging work is required.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Limitation of Liability</h2>
+      <p>To the maximum extent permitted by Idaho law, Dry Creek Services' total liability to the customer for any claim arising from services rendered is limited to the amount the customer paid for the specific service giving rise to the claim. We are not liable for indirect, incidental, consequential, or punitive damages of any kind.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Property Access and Safety</h2>
+      <p>The customer grants Dry Creek Services permission to access the property as necessary to perform the agreed-upon services. The customer is responsible for securing pets, clearing access paths as needed, and disclosing any known safety hazards on the property before our arrival.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Cancellations</h2>
+      <p>We ask for at least 24 hours notice if you need to cancel or reschedule a scheduled appointment. Last-minute cancellations (less than 2 hours before the scheduled start time) may result in a cancellation fee to cover travel and labor costs already incurred.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Governing Law</h2>
+      <p>These terms are governed by the laws of the State of Idaho. Any disputes shall be resolved in Ada County, Idaho.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Contact</h2>
+      <p>Dry Creek Services<br>Eagle, Idaho<br>Phone: <a href="tel:+12089855394">(208) 985-5394</a><br>Email: <a href="mailto:johnspilotros@gmail.com">johnspilotros@gmail.com</a></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">DRY CREEK <span>SERVICES</span></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+    <a href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);text-decoration:none;font-weight:700;" rel="noopener">Find Us on Google ↗</a>
+    <div class="fc" style="text-align:right;line-height:1.8;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--ink);">(208) 985-5394 &nbsp;·&nbsp; © 2026 — Eagle, Idaho</div>
+    <div class="footer-legal-links">
+      <a href="privacy.html">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar">
+  <div class="mcb-inner">
+    <a href="tel:+12089855394" class="mcb-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1H8c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.01L6.6 10.8z"/></svg>
+      Call Now
+    </a>
+    <a href="contact.html" class="mcb-btn mcb-quote">Get a Quote →</a>
+  </div>
+</div>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}));
+</script>
+</body>
+</html>
