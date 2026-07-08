@@ -162,7 +162,7 @@ function SearchPreview() {
                 <article className="home-card">
                   <div className="home-media">
                     <img loading="lazy" src={h.img} alt={h.alt} />
-                    <span className="home-badge">Sample</span>
+                    <span className="home-badge">Sample · not a listing</span>
                   </div>
                   <div className="home-body">
                     <div className="home-price">{money(h.price)}</div>
@@ -261,7 +261,7 @@ function Buyers() {
   );
 }
 
-/* ============ Sellers + What's Your Home Worth ============ */
+/* ============ Sellers ============ */
 const SELLER_MOVES = [
   ['Pricing', 'Priced from real comparable sales, not wishful thinking. The right number creates competition.'],
   ['Marketing', 'Professional presentation and real online reach. I did digital marketing before real estate — your home gets both.'],
@@ -284,29 +284,13 @@ function Sellers() {
           </dl>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="tool" id="home-worth">
-            <h3>What's your home worth?</h3>
-            <p className="tool-sub">Not a website algorithm — a real comparative market analysis, built from actual valley sales, delivered by me. Free, and worth exactly what an accurate number is worth.</p>
-            <LeadForm
-              subject="Home value request from your website"
-              toastMsg="On it. Your home value report is in the works."
-              successMsg="Done — I'll build your report and deliver it personally. Talk soon."
-              submitLabel="Get my home's value"
-              submitClass="btn btn-gold"
-              labels={{ address: 'Property address', name: 'Name', email: 'Email', phone: 'Phone', consent: 'Consent to contact' }}
-              disclaimer={<>Your report is a <strong>comparative market analysis (CMA)</strong> — an estimate based on comparable sales, <strong>not an appraisal</strong>. No cost, no obligation.</>}
-            >
-              <div className="form-grid">
-                <div className="full"><label className="flabel" htmlFor="w-address">Property address <span className="req">*</span></label><input className="input" id="w-address" name="address" type="text" placeholder="123 Main St, Boise, ID 83702" required autoComplete="off" /></div>
-                <div><label className="flabel" htmlFor="w-name">Name <span className="req">*</span></label><input className="input" id="w-name" name="name" type="text" placeholder="First & last" required /></div>
-                <div><label className="flabel" htmlFor="w-phone">Phone</label><input className="input" id="w-phone" name="phone" type="tel" placeholder="(208) 555-0123" /></div>
-                <div className="full"><label className="flabel" htmlFor="w-email">Email <span className="req">*</span></label><input className="input" id="w-email" name="email" type="email" placeholder="you@email.com" required /></div>
-              </div>
-              <label className="form-note">
-                <input type="checkbox" name="consent" required />
-                <span>John Spilotros may contact me about my home's value. This doesn't create an agency relationship. <span className="req">*</span></span>
-              </label>
-            </LeadForm>
+          <div className="tool">
+            <h3>Thinking about selling?</h3>
+            <p className="tool-sub">One straight conversation about your home, your timing, and what the market is doing on your street. No obligation — just a real answer from a real agent.</p>
+            <button type="button" className="btn btn-gold" style={{ width: '100%' }} onClick={() => prefillContact("I'm thinking about selling my home. Here's my area and rough timeline: ")}>
+              Talk it through with John
+            </button>
+            <p className="disclaimer-inline">Reaching out doesn't create an agency relationship — representation begins only with a signed written agreement.</p>
           </div>
         </Reveal>
       </div>
