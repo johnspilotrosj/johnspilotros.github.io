@@ -1,106 +1,89 @@
 import { useEffect, useState } from 'react';
 import Reveal from '../bits/Reveal.jsx';
 import LeadForm from '../components/LeadForm.jsx';
-import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS_PLACEHOLDER } from '../data/site.js';
+import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
 
-const AREAS = ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Caldwell', 'Garden City'];
+function SocialIcon({ name }) {
+  const paths = {
+    Instagram: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" /></>,
+    Facebook: <path d="M14 8h2.5V4.5H14c-2.2 0-4 1.8-4 4V11H7.5v3.5H10v6h3.5v-6h2.6l.6-3.5H13.5V8.7c0-.4.3-.7.5-.7Z" />,
+    LinkedIn: <><rect x="3" y="9" width="4" height="12" /><circle cx="5" cy="5" r="2" /><path d="M11 9h3.8v1.7A4.2 4.2 0 0 1 18 9c2.8 0 3 2.4 3 4.5V21h-4v-6.4c0-1.2-.4-2.1-1.6-2.1-1.3 0-1.9 1-1.9 2.1V21h-3.5Z" /></>,
+  };
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+}
 
 export default function Contact() {
   const [message, setMessage] = useState('');
 
-  /* prefill from a listing "Inquire" hand-off */
+  /* pick up a message pre-written by a card on the Home page */
   useEffect(() => {
     try {
-      const li = sessionStorage.getItem('inquiry-listing');
-      if (li) {
-        setMessage("I'm interested in " + li + '. Could you send me more details and let me know about a showing?');
-        sessionStorage.removeItem('inquiry-listing');
-      }
-    } catch (e) { /* ignore */ }
+      const pre = sessionStorage.getItem('prefill-contact');
+      if (pre) { setMessage(pre); sessionStorage.removeItem('prefill-contact'); }
+    } catch (e) { /* private mode */ }
   }, []);
 
-  return (
-    <>
-      <section className="page-hero">
-        <div className="wrap">
-          <p className="kicker">Contact</p>
-          <h1>Let's talk about your move.</h1>
-          <p>Call, email, or send a note below — whatever's easiest. You'll hear back from me personally, usually within one business day.</p>
-        </div>
-      </section>
+  const liveSocials = SOCIALS.filter((s) => s.url);
 
-      <section className="section">
-        <div className="wrap contact-grid">
-          <Reveal>
+  return (
+    <section className="section section-dark page-top" id="contact">
+      <div className="wrap contact-grid">
+        <Reveal className="contact-lead">
+          <h1>Let's talk about your move.</h1>
+          <p>One conversation. No pressure, no obligation — just a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
+          <div className="contact-direct">
+            <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
+            <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
+            <p className="contact-hours">{OFFICE_HOURS} — evenings &amp; weekends by appointment</p>
+            <p className="contact-office">Keller Williams Boise · {OFFICE_ADDRESS}</p>
+            <span className="kw-chip"><img src="/kw-mark.svg" alt="Keller Williams" /></span>
+            {liveSocials.length > 0 && (
+              <div className="socials">
+                {liveSocials.map((s) => (
+                  <a key={s.name} href={s.url} target="_blank" rel="noreferrer" aria-label={'John on ' + s.name}><SocialIcon name={s.name} /></a>
+                ))}
+              </div>
+            )}
+          </div>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <div className="tool tool-on-dark">
             <LeadForm
               subject="New message from your website"
-              toastMsg="Thanks for reaching out! I'll be in touch shortly."
-              successMsg="Thanks for reaching out. Your message is on its way and I'll get back to you personally, usually within one business day."
-              submitLabel="Send message"
-              submitClass="btn"
-              labels={{ name: 'Your name', phone: 'Phone', email: 'Email', interest: 'Reaching out about', message: 'Message', consent: 'Consent to contact' }}
-              disclaimer={<>By submitting, you consent to be contacted by phone, text, or email about your inquiry. Representation begins only with a signed written agreement. Please don't include confidential or financial details in this form.</>}
+              toastMsg="Message sent. Talk soon."
+              successMsg="Got it — your message is on its way and you'll hear back from me personally, usually within one business day."
+              submitLabel="Start the Conversation"
+              submitClass="btn btn-gold"
+              labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'Consent to contact' }}
+              disclaimer={<>By submitting, you consent to be contacted by phone, text, or email about your inquiry. Representation begins only with a signed written agreement.</>}
             >
               <div className="form-grid">
-                <div><label className="flabel" htmlFor="c-name">Your name <span className="req">*</span></label><input className="input" id="c-name" name="name" type="text" placeholder="First & last" required /></div>
+                <div><label className="flabel" htmlFor="c-name">Name <span className="req">*</span></label><input className="input" id="c-name" name="name" type="text" placeholder="First & last" required /></div>
                 <div><label className="flabel" htmlFor="c-phone">Phone</label><input className="input" id="c-phone" name="phone" type="tel" placeholder="(208) 555-0123" /></div>
                 <div className="full"><label className="flabel" htmlFor="c-email">Email <span className="req">*</span></label><input className="input" id="c-email" name="email" type="email" placeholder="you@email.com" required /></div>
                 <div className="full">
-                  <label className="flabel" htmlFor="c-interest">I'm reaching out about</label>
-                  <select className="select" id="c-interest" name="interest" defaultValue="Buying a home">
-                    <option>Buying a home</option>
-                    <option>Selling a home</option>
-                    <option>Relocating to the Treasure Valley</option>
-                    <option>I just have a question</option>
+                  <label className="flabel" htmlFor="c-interest">I'm looking to</label>
+                  <select className="select" id="c-interest" name="interest" defaultValue="Buy a home">
+                    <option>Buy a home</option>
+                    <option>Sell a home</option>
+                    <option>Buy and sell</option>
+                    <option>Relocate to the Treasure Valley</option>
+                    <option>Ask a question</option>
                   </select>
                 </div>
                 <div className="full">
-                  <label className="flabel" htmlFor="c-message">How can I help? <span className="req">*</span></label>
-                  <textarea className="textarea" id="c-message" name="message" placeholder="A few details about what you're looking for, your timeline, or anything you're wondering about." required value={message} onChange={(e) => setMessage(e.target.value)} />
+                  <label className="flabel" htmlFor="c-message">Message <span className="req">*</span></label>
+                  <textarea className="textarea" id="c-message" name="message" placeholder="Your timeline, your must-haves, or the question on your mind." required value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
               </div>
               <label className="form-note">
                 <input type="checkbox" name="consent" required />
-                <span>I agree John Spilotros may contact me about real estate services. I understand that submitting this form does not create an agency or brokerage relationship. <span className="req">*</span></span>
+                <span>John Spilotros may contact me about real estate services. Submitting this form doesn't create an agency or brokerage relationship. <span className="req">*</span></span>
               </label>
             </LeadForm>
-          </Reveal>
-
-          <Reveal className="contact-aside" delay={0.1}>
-            <div className="contact-card">
-              <h3>Reach me directly</h3>
-              <div className="contact-line">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" /></svg>
-                <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
-              </div>
-              <div className="contact-line">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 6L2 7" /></svg>
-                <a href={'mailto:' + LEAD_EMAIL}>{LEAD_EMAIL}</a>
-              </div>
-              <div className="contact-line">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z" /><circle cx="12" cy="10" r="2.5" /></svg>
-                <span>Keller Williams Boise<br /><span className="placeholder-val">{OFFICE_ADDRESS_PLACEHOLDER}</span></span>
-              </div>
-            </div>
-
-            <div className="contact-card">
-              <h3>Office hours</h3>
-              <div className="contact-line" style={{ marginBottom: '0.4rem' }}><span>Mon–Fri &nbsp;·&nbsp; 8am to 6pm</span></div>
-              <div className="contact-line" style={{ marginBottom: '0.4rem' }}><span>Saturday &nbsp;·&nbsp; By appointment</span></div>
-              <div className="contact-line"><span>Sunday &nbsp;·&nbsp; Closed</span></div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginTop: '0.6rem' }}>Evenings and weekends are often available for showings, just ask.</p>
-            </div>
-
-            <div className="contact-card">
-              <h3>Where I work</h3>
-              <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Serving buyers and sellers across Boise and the wider Treasure Valley.</p>
-              <div className="area-pills">
-                {AREAS.map((a) => <span key={a}>{a}</span>)}
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-    </>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }

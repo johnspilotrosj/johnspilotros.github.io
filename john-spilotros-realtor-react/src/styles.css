@@ -199,6 +199,9 @@ strong { font-weight: 650; }
 }
 .nav-links a:hover { opacity: 1; }
 .nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a[aria-current="page"] { opacity: 1; }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+.mobile-nav a[aria-current="page"] { color: var(--gold-deep); }
 .nav-cta { margin-left: 0.7rem; }
 .nav-cta .btn { padding: 0.72em 1.25em; font-size: 0.8rem; }
 
@@ -238,6 +241,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 /* ---------- Hero ---------- */
 .hero {
   position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100vh;   /* fallback for browsers without svh (iOS < 15.4) */
   min-height: 100svh;
   display: flex; align-items: center;
   color: #fff;
@@ -275,6 +279,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .hero-scroll {
   position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%); z-index: 2;
   width: 26px; height: 42px; border: 1.5px solid oklch(1 0 0 / 0.6); border-radius: 999px;
+  background: transparent; padding: 0; cursor: pointer;
 }
 .hero-scroll span {
   position: absolute; left: 50%; top: 8px; width: 3px; height: 8px; margin-left: -1.5px;
@@ -397,7 +402,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .input, .select, .textarea {
   width: 100%; padding: 0.85rem 1rem; background: var(--bg);
   border: 1px solid var(--line-strong); border-radius: var(--r-sm);
-  font-size: 0.96rem; color: var(--ink);
+  font-size: 1rem; color: var(--ink); /* ≥16px: stops iOS zooming the page on tap */
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .input::placeholder, .textarea::placeholder { color: var(--faint); }
@@ -460,6 +465,42 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .socials a:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 .socials a svg { width: 20px; height: 20px; }
 .socials-note { font-size: 0.8rem; margin-top: 1.2rem; color: var(--ivory-dim); }
+
+/* ---------- Interior pages ---------- */
+.page-head {
+  padding-top: calc(78px + clamp(2.5rem, 6vw, 4.5rem));
+  padding-bottom: 0;
+  background: radial-gradient(70% 90% at 90% 0%, oklch(0.9 0.03 88 / 0.5), transparent 60%), var(--bg);
+}
+.page-head h1 { font-size: var(--step-3); max-width: 24ch; }
+.section-dark.page-top { padding-top: calc(78px + clamp(2.5rem, 6vw, 4.5rem)); }
+.contact-lead h1 { font-size: var(--step-3); color: var(--ivory); margin-bottom: 1rem; }
+
+/* KW brokerage mark */
+.kw-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: var(--r-sm);
+  padding: 0.55rem 0.7rem; margin: 0.4rem 0 0.9rem;
+}
+.kw-chip img { width: 44px; height: auto; display: block; }
+.kw-strip { display: flex; align-items: center; gap: 1.1rem; }
+.kw-strip img { width: 64px; height: auto; flex: none; }
+.kw-strip p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+.creds-row {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+.creds { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin: 0; }
+.cred { background: var(--card); padding: 1.3rem 1.4rem; }
+.cred dt { font-size: 0.78rem; font-weight: 650; color: var(--gold-deep); margin-bottom: 0.35rem; }
+.cred dd { margin: 0; font-size: 0.98rem; color: var(--ink); line-height: 1.45; }
+.about-cta { margin-top: clamp(2rem, 4vw, 3rem); }
+
+@media (max-width: 860px) {
+  .creds-row { grid-template-columns: 1fr; }
+  .creds { grid-template-columns: 1fr; }
+}
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--charcoal-deep); color: var(--ivory-dim); }

@@ -1,11 +1,10 @@
+import { Link } from 'react-router-dom';
 import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
 
 const LINKS = [
-  ['#top', 'Home'],
-  ['#search', 'Search'],
-  ['#buyers', 'Buyers'],
-  ['#sellers', 'Sellers'],
-  ['#contact', 'Contact'],
+  ['/', 'Home'],
+  ['/about', 'About'],
+  ['/contact', 'Contact'],
 ];
 
 export default function Footer() {
@@ -21,13 +20,14 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Explore</h4>
             <ul>
-              {LINKS.map(([href, label]) => (
-                <li key={href}><a href={href}>{label}</a></li>
+              {LINKS.map(([to, label]) => (
+                <li key={to}><Link to={to}>{label}</Link></li>
               ))}
             </ul>
           </div>
           <div className="footer-col">
             <h4>Brokerage</h4>
+            <span className="kw-chip"><img src="/kw-mark.svg" alt="Keller Williams" /></span>
             <p>Keller Williams Boise<br />
               {OFFICE_ADDRESS}<br />
               {OFFICE_HOURS}<br />

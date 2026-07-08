@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useReducedMotion } from 'motion/react';
 import SplitText from '../bits/SplitText.jsx';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
-import LeadForm from '../components/LeadForm.jsx';
-import {
-  HERO_CLIPS, HERO_POSTER, NEIGHBORHOODS, SAMPLE_HOMES, AREAS,
-  PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS,
-} from '../data/site.js';
+import { HERO_CLIPS, HERO_POSTER, NEIGHBORHOODS, SAMPLE_HOMES, AREAS } from '../data/site.js';
 
 const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
 
-/* Any section can prefill + jump to the contact form. */
-function prefillContact(message) {
-  window.dispatchEvent(new CustomEvent('prefill-contact', { detail: message }));
-  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* Any card can pre-write a message and send the visitor to the Contact page.
+   The message rides in sessionStorage; the Contact page picks it up on mount. */
+export function prefillContact(message) {
+  try { sessionStorage.setItem('prefill-contact', message); } catch (e) { /* private mode */ }
+  window.location.hash = '#/contact';
 }
 
 /* ============ Hero: slow drone drift, city → suburb → farm ============ */
@@ -34,10 +32,34 @@ function VideoHero() {
     let timers = [];
 
     const clip = (i) => HERO_CLIPS[i % HERO_CLIPS.length];
-    function prep(v, i) { v.src = clip(i).src; v.loop = true; v.load(); }
+    function prep(v, i) {
+      /* iOS Safari: autoplay requires the muted + playsinline ATTRIBUTES in the
+         DOM. React sets the muted property but not the attribute, so set both
+         by hand — otherwise iPhones show a frozen poster instead of the reel. */
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', '');
+      v.src = clip(i).src;
+      v.loop = true;
+      v.load();
+    }
+    function slow(v) { try { v.playbackRate = 0.55; } catch (e) { /* older browsers */ } }
     function roll(v) {
-      try { v.playbackRate = 0.55; } catch (e) { /* older browsers */ }
-      v.play().catch(() => { /* autoplay blocked: poster stays */ });
+      slow(v);
+      /* iOS resets playbackRate when playback actually starts; re-assert it */
+      v.addEventListener('playing', () => slow(v), { once: true });
+      const p = v.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          /* Autoplay refused (iOS Low Power Mode, data saver): keep the poster
+             and retry once on the visitor's first touch — no play button ever. */
+          const retry = () => { v.play().catch(() => {}); };
+          window.addEventListener('touchstart', retry, { once: true, passive: true });
+          window.addEventListener('pointerdown', retry, { once: true });
+        });
+      }
     }
     function cycle(front, back, i) {
       roll(front);
@@ -90,13 +112,13 @@ function VideoHero() {
         <h1><SplitText text="Your Next Move Starts Here" /></h1>
         <p className="hero-sub">Helping buyers and sellers navigate Boise, Meridian, Eagle, Nampa, and the Treasure Valley with confidence.</p>
         <div className="hero-actions">
-          <Magnet><a className="btn btn-gold" href="#search">Search Homes</a></Magnet>
-          <Magnet><a className="btn btn-glass" href="#contact">Book a Consultation</a></Magnet>
+          <Magnet><button type="button" className="btn btn-gold" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>Search Homes</button></Magnet>
+          <Magnet><Link className="btn btn-glass" to="/contact">Book a Consultation</Link></Magnet>
         </div>
       </div>
-      <a className="hero-scroll" href="#search" aria-label="Scroll to home search">
+      <button type="button" className="hero-scroll" aria-label="Scroll to home search" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>
         <span></span>
-      </a>
+      </button>
     </section>
   );
 }
@@ -298,126 +320,6 @@ function Sellers() {
   );
 }
 
-/* ============ About ============ */
-const PILLARS = [
-  ['Local market focus', 'The Treasure Valley is the only market I work. When a street starts turning over, I know it.'],
-  ['Fast communication', "Calls returned the same day. Deadlines hit early. You'll never wonder where things stand."],
-  ['Buyer & seller guidance', 'Both sides of the table, one standard: your interests lead every recommendation.'],
-];
-
-function About() {
-  return (
-    <section className="section" id="about">
-      <div className="wrap split">
-        <Reveal>
-          {/* PLACEHOLDER: replace with John's professional headshot
-              (<img src="..." alt="John Spilotros, real estate salesperson" />) */}
-          <div className="portrait">
-            <span className="portrait-mono">JS</span>
-            <span className="portrait-note">Headshot goes here</span>
-          </div>
-        </Reveal>
-        <Reveal className="split-body" delay={0.08}>
-          <h2>The agent who treats your move like his own.</h2>
-          <div className="prose stack">
-            <p>I'm John Spilotros — licensed Idaho real estate salesperson with Keller Williams Boise, and I built my first career in web design and digital marketing. That means your home isn't listed, it's <em>launched</em>: presented sharply, distributed widely, and put in front of the buyers who are actually looking.</p>
-            <p>I work one market — Boise and the Treasure Valley — and I work it hard. I answer my phone, I tell you the truth even when it costs me, and I negotiate like the outcome is mine. Because for the weeks we work together, it is.</p>
-          </div>
-          <div className="pillars">
-            {PILLARS.map(([t, b]) => (
-              <div className="pillar" key={t}><h3>{t}</h3><p>{b}</p></div>
-            ))}
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ============ Contact ============ */
-function SocialIcon({ name }) {
-  const paths = {
-    Instagram: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" /></>,
-    Facebook: <path d="M14 8h2.5V4.5H14c-2.2 0-4 1.8-4 4V11H7.5v3.5H10v6h3.5v-6h2.6l.6-3.5H13.5V8.7c0-.4.3-.7.5-.7Z" />,
-    LinkedIn: <><rect x="3" y="9" width="4" height="12" /><circle cx="5" cy="5" r="2" /><path d="M11 9h3.8v1.7A4.2 4.2 0 0 1 18 9c2.8 0 3 2.4 3 4.5V21h-4v-6.4c0-1.2-.4-2.1-1.6-2.1-1.3 0-1.9 1-1.9 2.1V21h-3.5Z" /></>,
-  };
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
-}
-
-function Contact() {
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    function onPrefill(e) { setMessage(e.detail || ''); }
-    window.addEventListener('prefill-contact', onPrefill);
-    return () => window.removeEventListener('prefill-contact', onPrefill);
-  }, []);
-
-  const liveSocials = SOCIALS.filter((s) => s.url);
-
-  return (
-    <section className="section section-dark" id="contact">
-      <div className="wrap contact-grid">
-        <Reveal className="contact-lead">
-          <h2>Let's talk about your move.</h2>
-          <p>One conversation. No pressure, no obligation — just a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
-          <div className="contact-direct">
-            <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
-            <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
-            <p className="contact-hours">{OFFICE_HOURS} — evenings &amp; weekends by appointment</p>
-            <p className="contact-office">Keller Williams Boise · {OFFICE_ADDRESS}</p>
-            {liveSocials.length > 0 ? (
-              <div className="socials">
-                {liveSocials.map((s) => (
-                  <a key={s.name} href={s.url} target="_blank" rel="noreferrer" aria-label={'John on ' + s.name}><SocialIcon name={s.name} /></a>
-                ))}
-              </div>
-            ) : (
-              <p className="placeholder-val socials-note">[Social links: paste URLs into src/data/site.js]</p>
-            )}
-          </div>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <div className="tool tool-on-dark">
-            <LeadForm
-              subject="New message from your website"
-              toastMsg="Message sent. Talk soon."
-              successMsg="Got it — your message is on its way and you'll hear back from me personally, usually within one business day."
-              submitLabel="Start the Conversation"
-              submitClass="btn btn-gold"
-              labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'Consent to contact' }}
-              disclaimer={<>By submitting, you consent to be contacted by phone, text, or email about your inquiry. Representation begins only with a signed written agreement.</>}
-            >
-              <div className="form-grid">
-                <div><label className="flabel" htmlFor="c-name">Name <span className="req">*</span></label><input className="input" id="c-name" name="name" type="text" placeholder="First & last" required /></div>
-                <div><label className="flabel" htmlFor="c-phone">Phone</label><input className="input" id="c-phone" name="phone" type="tel" placeholder="(208) 555-0123" /></div>
-                <div className="full"><label className="flabel" htmlFor="c-email">Email <span className="req">*</span></label><input className="input" id="c-email" name="email" type="email" placeholder="you@email.com" required /></div>
-                <div className="full">
-                  <label className="flabel" htmlFor="c-interest">I'm looking to</label>
-                  <select className="select" id="c-interest" name="interest" defaultValue="Buy a home">
-                    <option>Buy a home</option>
-                    <option>Sell a home</option>
-                    <option>Buy and sell</option>
-                    <option>Relocate to the Treasure Valley</option>
-                    <option>Ask a question</option>
-                  </select>
-                </div>
-                <div className="full">
-                  <label className="flabel" htmlFor="c-message">Message <span className="req">*</span></label>
-                  <textarea className="textarea" id="c-message" name="message" placeholder="Your timeline, your must-haves, or the question on your mind." required value={message} onChange={(e) => setMessage(e.target.value)} />
-                </div>
-              </div>
-              <label className="form-note">
-                <input type="checkbox" name="consent" required />
-                <span>John Spilotros may contact me about real estate services. Submitting this form doesn't create an agency or brokerage relationship. <span className="req">*</span></span>
-              </label>
-            </LeadForm>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -426,8 +328,6 @@ export default function Home() {
       <Neighborhoods />
       <Buyers />
       <Sellers />
-      <About />
-      <Contact />
     </>
   );
 }
