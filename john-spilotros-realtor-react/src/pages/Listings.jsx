@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import TiltedCard from '../bits/TiltedCard.jsx';
+import { isConfigured, fetchListings } from '../data/supabase.js';
 
 function statusClass(status) {
   return 'st-' + String(status || 'For Sale').toLowerCase().replace(/[^a-z]+/g, '-');
@@ -14,7 +15,7 @@ function EmptyState() {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5" /><path d="M5 9.5V20h14V9.5" /><path d="M9.5 20v-5h5v5" /></svg>
       <h3>New listings are on the way.</h3>
       <p>I'm lining up homes across Boise and the Treasure Valley right now. Looking for something specific? Tell me what you're after and I'll send you matching homes&nbsp;— often before they hit the open market.</p>
-      <Link className="btn btn-accent" to="/contact">Tell me what you're looking for <span className="arrow">→</span></Link>
+      <Link className="btn btn-gold" to="/contact">Tell me what you're looking for <span className="arrow">→</span></Link>
     </div>
   );
 }
@@ -81,7 +82,7 @@ function ListingModal({ listing, onClose }) {
             </div>
           )}
           <div className="lm-actions">
-            <button className="btn btn-accent" type="button" onClick={inquire}>Inquire about this home <span className="arrow">→</span></button>
+            <button className="btn btn-gold" type="button" onClick={inquire}>Inquire about this home <span className="arrow">→</span></button>
           </div>
         </div>
       </div>
@@ -112,8 +113,8 @@ function ListingCard({ listing, onView, onInquire }) {
             {listing.sqft && <span><strong>{Number(listing.sqft).toLocaleString('en-US')}</strong> sqft</span>}
           </div>
           <div className="listing-actions">
-            <button type="button" className="btn btn-ghost" onClick={onView}>View details</button>
-            <button type="button" className="btn" onClick={onInquire}>Inquire</button>
+            <button type="button" className="btn btn-line" onClick={onView}>View details</button>
+            <button type="button" className="btn btn-gold" onClick={onInquire}>Inquire</button>
           </div>
         </div>
       </article>
@@ -127,8 +128,11 @@ export default function Listings() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('data/listings.json', { cache: 'no-cache' })
-      .then((r) => { if (!r.ok) throw new Error('bad'); return r.json(); })
+    const source = isConfigured()
+      ? fetchListings().then((rows) => ({ listings: rows }))
+      : fetch('data/listings.json', { cache: 'no-cache' })
+          .then((r) => { if (!r.ok) throw new Error('bad'); return r.json(); });
+    source
       .then((data) => {
         const list = (data && data.listings ? data.listings : []).filter(
           (l) => l && (l.address || l.price || (l.photos && l.photos.length))
@@ -147,7 +151,7 @@ export default function Listings() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="section page-head">
         <div className="wrap">
           <p className="kicker">Listings</p>
           <h1>Homes for sale across the Treasure Valley.</h1>
@@ -171,13 +175,13 @@ export default function Listings() {
         </div>
       </section>
 
-      <section className="cta-band">
+      <section className="section section-dark cta-band">
         <Reveal className="wrap">
           <h2>Don't see the one yet?</h2>
           <p>The right home isn't always on a public list. Tell me your must-haves and your budget, and I'll do the hunting&nbsp;— including off-market and coming-soon homes across the valley.</p>
           <div className="cta-actions">
-            <Magnet><Link className="btn" to="/contact">Start your search <span className="arrow">→</span></Link></Magnet>
-            <Magnet><Link className="btn btn-on-dark" to="/buyers-sellers">Buyers &amp; sellers</Link></Magnet>
+            <Magnet><Link className="btn btn-gold" to="/contact">Start your search <span className="arrow">→</span></Link></Magnet>
+            <Magnet><Link className="btn btn-glass" to="/about">About John</Link></Magnet>
           </div>
         </Reveal>
       </section>

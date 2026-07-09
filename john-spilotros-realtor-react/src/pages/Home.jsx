@@ -21,7 +21,14 @@ function VideoHero() {
   const reduced = useReducedMotion();
   const vA = useRef(null);
   const vB = useRef(null);
+  const posterRef = useRef(null);
   const [frontIsA, setFrontIsA] = useState(true);
+  const [posterReady, setPosterReady] = useState(false);
+
+  /* cached poster can finish loading before React attaches onLoad */
+  useEffect(() => {
+    if (posterRef.current?.complete) setPosterReady(true);
+  }, []);
 
   useEffect(() => {
     if (reduced) return;
@@ -98,7 +105,7 @@ function VideoHero() {
   return (
     <section className="hero" id="top">
       <div className="hero-media" aria-hidden="true">
-        <img className="hero-poster" src={HERO_POSTER} alt="" />
+        <img ref={posterRef} className={'hero-poster' + (posterReady ? ' is-loaded' : '')} src={HERO_POSTER} alt="" onLoad={() => setPosterReady(true)} />
         {!reduced && (
           <>
             <video ref={vA} className={'hero-video' + (frontIsA ? ' is-front' : '')} muted playsInline autoPlay preload="auto" />

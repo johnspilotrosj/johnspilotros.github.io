@@ -6,7 +6,7 @@ export const LEAD_EMAIL = 'johnspilotros@kw.com';
    create a free form at https://formspree.io and paste its endpoint here,
    e.g. 'https://formspree.io/f/xxxxxxxx'. Left empty, forms open the
    visitor's email client pre-filled (works with no account). */
-export const LEAD_ENDPOINT = '';
+export const LEAD_ENDPOINT = 'https://formspree.io/f/mvzjjkjb';
 
 export const PHONE_DISPLAY = '(215) 859-3267';
 export const PHONE_TEL = '+12158593267';
