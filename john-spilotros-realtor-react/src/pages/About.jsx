@@ -27,11 +27,8 @@ export default function About() {
       <section className="section" id="about" style={{ paddingTop: 'clamp(2.5rem, 5vw, 4rem)' }}>
         <div className="wrap split">
           <Reveal>
-            {/* PLACEHOLDER: replace with John's professional headshot
-                (<img src="..." alt="John Spilotros, real estate salesperson" />) */}
             <div className="portrait">
-              <span className="portrait-mono">JS</span>
-              <span className="portrait-note">Headshot goes here</span>
+              <img src="headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Boise" />
             </div>
           </Reveal>
           <Reveal className="split-body" delay={0.08}>
