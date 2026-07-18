@@ -14,7 +14,7 @@ function EmptyState() {
     <div className="listings-empty">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5" /><path d="M5 9.5V20h14V9.5" /><path d="M9.5 20v-5h5v5" /></svg>
       <h3>New listings are on the way.</h3>
-      <p>I'm lining up homes across Boise and the Treasure Valley right now. Looking for something specific? Tell me what you're after and I'll send you matching homes&nbsp;— often before they hit the open market.</p>
+      <p>I'm lining up homes across Boise and the Treasure Valley right now. Looking for something specific? Tell me what you're after and I'll send you matching homes, often before they hit the open market.</p>
       <Link className="btn btn-gold" to="/contact">Tell me what you're looking for <span className="arrow">→</span></Link>
     </div>
   );
@@ -178,7 +178,7 @@ export default function Listings() {
       <section className="section section-dark cta-band">
         <Reveal className="wrap">
           <h2>Don't see the one yet?</h2>
-          <p>The right home isn't always on a public list. Tell me your must-haves and your budget, and I'll do the hunting&nbsp;— including off-market and coming-soon homes across the valley.</p>
+          <p>The right home isn't always on a public list. Tell me your must-haves and your budget, and I'll do the hunting, including off-market and coming-soon homes across the valley.</p>
           <div className="cta-actions">
             <Magnet><Link className="btn btn-gold" to="/contact">Start your search <span className="arrow">→</span></Link></Magnet>
             <Magnet><Link className="btn btn-glass" to="/about">About John</Link></Magnet>

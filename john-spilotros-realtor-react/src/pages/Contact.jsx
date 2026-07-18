@@ -30,11 +30,11 @@ export default function Contact() {
       <div className="wrap contact-grid">
         <Reveal className="contact-lead">
           <h1>Let's talk about your move.</h1>
-          <p>One conversation. No pressure, no obligation — just a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
+          <p>No pressure and no obligation. You'll get a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
           <div className="contact-direct">
             <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
             <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
-            <p className="contact-hours">{OFFICE_HOURS} — evenings &amp; weekends by appointment</p>
+            <p className="contact-hours">{OFFICE_HOURS} · evenings &amp; weekends by appointment</p>
             <p className="contact-office">Keller Williams Boise · {OFFICE_ADDRESS}</p>
             <span className="kw-chip"><img src="/kw-mark.svg" alt="Keller Williams" /></span>
             {liveSocials.length > 0 && (
@@ -50,8 +50,8 @@ export default function Contact() {
           <div className="tool tool-on-dark">
             <LeadForm
               subject="New message from your website"
-              toastMsg="Message sent. Talk soon."
-              successMsg="Got it — your message is on its way and you'll hear back from me personally, usually within one business day."
+              toastMsg="Message sent. Thank you."
+              successMsg="Thank you for reaching out. I read every message personally, and you'll hear back from me within one business day."
               submitLabel="Start the Conversation"
               submitClass="btn btn-gold"
               labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'Consent to contact' }}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LEAD_EMAIL, LEAD_ENDPOINT } from '../data/site.js';
+import { LEAD_EMAIL, LEAD_ENDPOINT, PHONE_DISPLAY, PHONE_TEL } from '../data/site.js';
 import { toast } from './Toast.jsx';
 
 /* Shared lead-capture behavior: honeypot, native validation, delivery via
@@ -49,7 +49,11 @@ export default function LeadForm({ subject, toastMsg, successMsg, labels = {}, s
     return (
       <div className="form-success show" tabIndex={-1} role="status">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-        <span>{successMsg}</span>
+        <div className="form-success-body">
+          <p className="form-success-title">Message received</p>
+          <p>{successMsg}</p>
+          <p className="form-success-direct">Need me sooner? Call or text <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>.</p>
+        </div>
       </div>
     );
   }

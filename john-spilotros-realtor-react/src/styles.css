@@ -247,12 +247,10 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
   color: #fff;
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; background: var(--charcoal); }
-.hero-poster, .hero-video {
+.hero-video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-/* fade the poster in over the charcoal base so nothing pops on load */
-.hero-poster { opacity: 0; transition: opacity 0.9s ease; }
-.hero-poster.is-loaded { opacity: 1; }
+/* fade the video in over the charcoal base so nothing pops on load */
 .hero-video { opacity: 0; transition: opacity 1.3s ease; }
 .hero-video.is-front { opacity: 1; }
 .hero-scrim {
@@ -356,7 +354,9 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .hood-body h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; letter-spacing: 0.02em; }
 .hood-body > p { font-size: 0.92rem; color: var(--muted); }
 .hood-price { font-size: 0.8rem; color: var(--faint); margin-top: auto; padding-top: 0.6rem; }
+.hood-price span { color: var(--ink); font-weight: 650; }
 .hood-body .link-gold { align-self: flex-start; margin-top: 0.5rem; }
+.hood-source { margin-top: 1.4rem; font-size: 0.75rem; color: var(--faint); }
 
 /* ---------- Buyer steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.9rem, 1.8vw, 1.4rem); }
@@ -423,11 +423,16 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .form-note input { margin-top: 0.2rem; accent-color: var(--gold-deep); }
 
 .form-success {
-  display: flex; padding: 1.4rem 1.5rem; background: var(--gold-soft);
+  display: flex; padding: 1.6rem 1.5rem; background: var(--gold-soft);
   border: 1px solid var(--gold-line); border-radius: var(--r-md);
-  color: var(--ink); font-size: 0.95rem; align-items: center; gap: 0.7rem;
+  color: var(--ink); font-size: 0.95rem; align-items: flex-start; gap: 0.8rem;
 }
-.form-success svg { width: 22px; height: 22px; color: var(--gold-deep); flex: none; }
+.form-success svg { width: 22px; height: 22px; color: var(--gold-deep); flex: none; margin-top: 0.1rem; }
+.form-success-body { display: grid; gap: 0.55rem; }
+.form-success-title { font-weight: 650; font-size: 1.05rem; }
+.form-success-body p { line-height: 1.55; }
+.form-success-direct { font-size: 0.85rem; color: var(--muted); }
+.form-success-direct a { color: var(--gold-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- About ---------- */
 .portrait {
@@ -527,8 +532,6 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .disclaimer { font-size: 0.78rem; line-height: 1.65; color: oklch(0.955 0.006 90 / 0.55); max-width: 90ch; }
 .disclaimer strong { color: var(--ivory-dim); font-weight: 650; }
 .footer-copy { margin-top: 1.4rem; font-size: 0.78rem; color: oklch(0.955 0.006 90 / 0.45); display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; }
-
-.placeholder-val { font-style: italic; }
 
 /* ---------- Listings ---------- */
 .kicker {

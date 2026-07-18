@@ -77,7 +77,7 @@ export default function BuyersSellers() {
         <div className="wrap">
           <p className="kicker">Buyers &amp; Sellers</p>
           <h1>Two sides of the same move, handled right.</h1>
-          <p>Whether you're buying, selling, or doing both at once, here's how we make it smooth — plus tools to run your own numbers.</p>
+          <p>Whether you're buying, selling, or doing both at once, here's how it works, plus tools to run your own numbers.</p>
         </div>
       </section>
 

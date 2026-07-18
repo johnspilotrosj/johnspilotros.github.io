@@ -3,9 +3,9 @@ import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 
 const PILLARS = [
-  ['Local market focus', 'The Treasure Valley is the only market I work. When a street starts turning over, I know it.'],
-  ['Fast communication', "Calls returned the same day. Deadlines hit early. You'll never wonder where things stand."],
-  ['Buyer & seller guidance', 'Both sides of the table, one standard: your interests lead every recommendation.'],
+  ['Local market focus', 'The Treasure Valley is the only market I work, so I know what homes are actually selling for, town by town.'],
+  ['Fast communication', 'Calls returned the same day and deadlines hit early. You always know where things stand.'],
+  ['Buyer & seller guidance', "Whether you're buying or selling, my advice is based on what's best for you, not on what closes fastest."],
 ];
 
 const CREDS = [
@@ -20,7 +20,7 @@ export default function About() {
     <>
       <section className="page-head">
         <div className="wrap">
-          <h1>The agent who treats your move like his own.</h1>
+          <h1>Meet John Spilotros.</h1>
         </div>
       </section>
 
@@ -33,8 +33,8 @@ export default function About() {
           </Reveal>
           <Reveal className="split-body" delay={0.08}>
             <div className="prose stack">
-              <p>I'm John Spilotros — licensed Idaho real estate salesperson with Keller Williams Boise, and I built my first career in web design and digital marketing. That means your home isn't listed, it's <em>launched</em>: presented sharply, distributed widely, and put in front of the buyers who are actually looking.</p>
-              <p>I work one market — Boise and the Treasure Valley — and I work it hard. I answer my phone, I tell you the truth even when it costs me, and I negotiate like the outcome is mine. Because for the weeks we work together, it is.</p>
+              <p>I'm a licensed real estate agent with Keller Williams Boise. Before real estate, I spent years building websites and running digital marketing, so when I list a home, the photos, the write-up, and the online reach get done right. That background is a real advantage in a market where nearly every buyer starts their search online.</p>
+              <p>I work one market: Boise and the Treasure Valley. I answer my phone, I give you a straight answer even when it's not the one you want, and I stay on top of every detail from the first showing to closing day.</p>
             </div>
             <div className="pillars">
               {PILLARS.map(([t, b]) => (
