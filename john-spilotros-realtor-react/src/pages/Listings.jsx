@@ -4,6 +4,7 @@ import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import TiltedCard from '../bits/TiltedCard.jsx';
 import { isConfigured, fetchListings } from '../data/supabase.js';
+import { prefillContact } from '../data/prefill.js';
 
 function statusClass(status) {
   return 'st-' + String(status || 'For Sale').toLowerCase().replace(/[^a-z]+/g, '-');
@@ -65,7 +66,7 @@ function ListingModal({ listing, onClose }) {
   ].filter(Boolean);
 
   function inquire() {
-    try { sessionStorage.setItem('inquiry-listing', alt); } catch (e) { /* ignore */ }
+    prefillContact(`I'd like to ask about ${alt}. `);
     onClose();
     navigate('/contact');
   }
@@ -163,7 +164,7 @@ export default function Listings() {
 
   function inquire(listing) {
     const alt = (listing.address || '') + (listing.city ? ', ' + listing.city : '');
-    try { sessionStorage.setItem('inquiry-listing', alt); } catch (e) { /* ignore */ }
+    prefillContact(`I'd like to ask about ${alt}. `);
     navigate('/contact');
   }
 

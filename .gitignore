@@ -21,6 +21,7 @@ goal-tracker.html
 # React site build artifacts
 john-spilotros-realtor-react/node_modules/
 john-spilotros-realtor-react/dist/
+john-spilotros-realtor-react/dist-ssr/
 
 # Prospecting lists with third-party contact info -- never commit to public Pages
 CALL-LIST.md

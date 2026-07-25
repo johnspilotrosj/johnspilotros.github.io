@@ -157,6 +157,7 @@ strong { font-weight: 650; }
 
 .link-gold {
   display: inline-flex; align-items: center; gap: 0.45em;
+  position: relative; /* anchors the ::after hit-area extender */
   background: none; border: none; padding: 0; cursor: pointer;
   font-weight: 650; font-size: 0.95rem; color: var(--gold-deep);
   border-bottom: 1.5px solid var(--gold-line); padding-bottom: 2px;
@@ -317,7 +318,8 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 }
 .home-body { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.25rem 1.3rem 1.3rem; flex: 1; }
 .home-price {
-  font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.01em; color: var(--ink);
+  font-weight: 700; font-size: 1.45rem; letter-spacing: -0.01em; color: var(--ink);
+  font-variant-numeric: tabular-nums;
   display: inline-block; position: relative; align-self: flex-start;
 }
 .home-price::after {
@@ -351,12 +353,33 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .hood-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
 .hood-card:hover .hood-media img { transform: scale(1.05); }
 .hood-body { padding: 1.3rem 1.3rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-.hood-body h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; letter-spacing: 0.02em; }
+.hood-body h3 { font-weight: 650; font-size: 1.3rem; letter-spacing: -0.01em; }
 .hood-body > p { font-size: 0.92rem; color: var(--muted); }
 .hood-price { font-size: 0.8rem; color: var(--faint); margin-top: auto; padding-top: 0.6rem; }
 .hood-price span { color: var(--ink); font-weight: 650; }
 .hood-body .link-gold { align-self: flex-start; margin-top: 0.5rem; }
 .hood-source { margin-top: 1.4rem; font-size: 0.75rem; color: var(--faint); }
+
+/* Invisible hit-area extender: link-gold text links stay visually slim but
+   meet the 24px minimum target size (WCAG 2.5.8). */
+.link-gold::after { content: ""; position: absolute; inset: -6px 0; }
+
+/* ---------- City pages ---------- */
+.city-photo { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-md); }
+.city-photo img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.city-stat { margin-top: 1.2rem; font-size: 0.9rem; color: var(--muted); }
+.city-stat strong { font-size: 1.35rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; margin-inline: 0.35rem 0.15rem; }
+.city-stat small { display: block; margin-top: 0.25rem; font-size: 0.72rem; color: var(--faint); }
+.prose h3 { margin-top: 1.6rem; }
+.prose h3:first-child { margin-top: 0; }
+.prose h3 + p { margin-top: 0.45em; }
+.towns-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+.town-chip {
+  font-size: 0.8rem; font-weight: 600; padding: 0.42rem 0.9rem;
+  border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted);
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+.town-chip:hover { border-color: var(--gold-line); color: var(--ink); background: var(--gold-soft); }
 
 /* ---------- Buyer steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.9rem, 1.8vw, 1.4rem); }
@@ -390,7 +413,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .moves { display: flex; flex-direction: column; }
 .move { display: grid; grid-template-columns: 150px 1fr; gap: 1.2rem; padding: 1.05rem 0; border-top: 1px solid var(--line); }
 .move:last-child { border-bottom: 1px solid var(--line); }
-.move dt { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.02em; color: var(--ink); }
+.move dt { font-family: var(--font-body); font-weight: 650; font-size: 1.2rem; letter-spacing: -0.01em; color: var(--ink); }
 .move dd { margin: 0; font-size: 0.94rem; color: var(--muted); }
 
 /* ---------- Tool cards / forms ---------- */
@@ -571,7 +594,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
   font-size: 0.72rem; border-radius: 999px; background: oklch(0.2 0.01 250 / 0.72); color: #fff;
 }
 .listing-body { padding: 1.2rem 1.3rem 1.35rem; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
-.listing-price { font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); letter-spacing: 0.01em; }
+.listing-price { font-weight: 700; font-size: 1.35rem; color: var(--ink); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
 .listing-addr { font-weight: 600; color: var(--ink); }
 .listing-city { font-size: 0.88rem; color: var(--muted); }
 .listing-specs { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.88rem; color: var(--muted); }
@@ -607,7 +630,7 @@ body.modal-open { overflow: hidden; }
 }
 .listing-modal-content { padding: 0 clamp(1.3rem, 4vw, 2.5rem) clamp(1.6rem, 4vw, 2.5rem); margin-top: -1.8rem; }
 .lm-head h2 { font-size: var(--step-2); margin-top: 0.2rem; }
-.lm-price { font-family: var(--font-display); font-size: 1.6rem; color: var(--gold-deep); margin-top: 0.7rem; }
+.lm-price { font-weight: 700; font-size: 1.45rem; color: var(--gold-deep); margin-top: 0.7rem; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
 .lm-city { color: var(--muted); margin-top: 0.3rem; }
 .lm-specs { display: flex; flex-wrap: wrap; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; margin-top: 1.4rem; }
 .lm-specs div { flex: 1 1 90px; background: var(--card); padding: 0.8rem; text-align: center; font-size: 0.78rem; color: var(--muted); }

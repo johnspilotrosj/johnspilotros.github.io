@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Under hash routing only the root is a distinct crawlable URL.
-     When the site moves to path routing, add /about, /contact, and the
-     city pages here so each can be indexed on its own. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://spilo.xyz/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://spilo.xyz/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://spilo.xyz/listings/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://spilo.xyz/about/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://spilo.xyz/contact/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/boise/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/meridian/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/eagle/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/nampa/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/kuna/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/star/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://spilo.xyz/garden-city/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

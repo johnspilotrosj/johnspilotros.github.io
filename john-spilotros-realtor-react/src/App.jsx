@@ -3,10 +3,13 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import Toaster from './components/Toast.jsx';
+import MetaManager from './components/MetaManager.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Listings from './pages/Listings.jsx';
+import CityPage from './pages/CityPage.jsx';
+import { CITIES } from './data/cities.js';
 
 /* Admin is agent-only — keep it out of the main bundle. */
 const Admin = lazy(() => import('./pages/Admin.jsx'));
@@ -29,6 +32,7 @@ export default function App() {
   return (
     <>
       <ScrollManager />
+      <MetaManager />
       <Header />
       <main id="main" tabIndex={-1}>
         <Routes>
@@ -36,6 +40,9 @@ export default function App() {
           <Route path="/listings" element={<Listings />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          {CITIES.map((c) => (
+            <Route key={c.slug} path={'/' + c.slug} element={<CityPage city={c} />} />
+          ))}
           <Route path="/admin" element={<Suspense fallback={null}><Admin /></Suspense>} />
           <Route path="*" element={<Home />} />
         </Routes>

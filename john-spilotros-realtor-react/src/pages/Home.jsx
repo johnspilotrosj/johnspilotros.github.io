@@ -1,20 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useReducedMotion } from 'motion/react';
 import SplitText from '../bits/SplitText.jsx';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
 import { HERO_CLIPS, NEIGHBORHOODS } from '../data/site.js';
+import { prefillContact } from '../data/prefill.js';
 
 const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
-
-/* Any card can pre-write a message and send the visitor to the Contact page.
-   The message rides in sessionStorage; the Contact page picks it up on mount. */
-export function prefillContact(message) {
-  try { sessionStorage.setItem('prefill-contact', message); } catch (e) { /* private mode */ }
-  window.location.hash = '#/contact';
-}
 
 /* ============ Hero: slow drone drift, city → suburb → farm ============ */
 function VideoHero() {
@@ -124,6 +118,7 @@ function VideoHero() {
 
 /* ============ Listings (coming soon) ============ */
 function SearchPreview() {
+  const navigate = useNavigate();
   return (
     <section className="section" id="search">
       <div className="wrap">
@@ -133,7 +128,7 @@ function SearchPreview() {
         </Reveal>
         <Reveal>
           <div className="homes-empty">
-            <button type="button" className="btn btn-gold" onClick={() => prefillContact("Here's what I'm looking for: ")}>Tell me what you're looking for</button>
+            <button type="button" className="btn btn-gold" onClick={() => { prefillContact("Here's what I'm looking for: "); navigate('/contact'); }}>Tell me what you're looking for</button>
           </div>
         </Reveal>
       </div>
@@ -159,9 +154,9 @@ function Neighborhoods() {
                   <h3>{n.name}</h3>
                   <p>{n.desc}</p>
                   <p className="hood-price">Median price: <span>{n.price}</span></p>
-                  <button type="button" className="link-gold" onClick={() => prefillContact(`Tell me about ${n.name}. What's the market like there right now?`)}>
+                  <Link className="link-gold" to={'/' + n.slug}>
                     Explore {n.name} →
-                  </button>
+                  </Link>
                 </div>
               </article>
             </Reveal>
@@ -220,6 +215,7 @@ const SELLER_MOVES = [
 ];
 
 function Sellers() {
+  const navigate = useNavigate();
   return (
     <section className="section section-alt" id="sellers">
       <div className="wrap split">
@@ -236,7 +232,7 @@ function Sellers() {
           <div className="tool">
             <h3>Thinking about selling?</h3>
             <p className="tool-sub">A straightforward conversation about your home, your timing, and what the market is doing in your area. No obligation, just a real answer.</p>
-            <button type="button" className="btn btn-gold" style={{ width: '100%' }} onClick={() => prefillContact("I'm thinking about selling my home. Here's my area and rough timeline: ")}>
+            <button type="button" className="btn btn-gold" style={{ width: '100%' }} onClick={() => { prefillContact("I'm thinking about selling my home. Here's my area and rough timeline: "); navigate('/contact'); }}>
               Talk it through with John
             </button>
             <p className="disclaimer-inline">Reaching out doesn't create an agency relationship. Representation begins only with a signed written agreement.</p>

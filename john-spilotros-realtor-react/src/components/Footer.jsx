@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
+import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS, NEIGHBORHOODS } from '../data/site.js';
 
 const LINKS = [
   ['/', 'Home'],
+  ['/listings', 'Listings'],
   ['/about', 'About'],
   ['/contact', 'Contact'],
 ];
@@ -22,6 +23,14 @@ export default function Footer() {
             <ul>
               {LINKS.map(([to, label]) => (
                 <li key={to}><Link to={to}>{label}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Towns</h4>
+            <ul>
+              {NEIGHBORHOODS.map((n) => (
+                <li key={n.slug}><Link to={'/' + n.slug}>{n.name}</Link></li>
               ))}
             </ul>
           </div>
