@@ -72,8 +72,8 @@ export default function Contact() {
                   </select>
                 </div>
                 <div className="full">
-                  <label className="flabel" htmlFor="c-message">Message <span className="req">*</span></label>
-                  <textarea className="textarea" id="c-message" name="message" placeholder="Your timeline, your must-haves, or the question on your mind." required value={message} onChange={(e) => setMessage(e.target.value)} />
+                  <label className="flabel" htmlFor="c-message">Message</label>
+                  <textarea className="textarea" id="c-message" name="message" placeholder="Your timeline, your must-haves, or the question on your mind." value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
               </div>
               <label className="form-note">

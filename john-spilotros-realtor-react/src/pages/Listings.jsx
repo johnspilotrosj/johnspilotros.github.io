@@ -23,15 +23,33 @@ function EmptyState() {
 function ListingModal({ listing, onClose }) {
   const navigate = useNavigate();
   const closeRef = useRef(null);
+  const panelRef = useRef(null);
+  const returnRef = useRef(null);
 
   useEffect(() => {
+    returnRef.current = document.activeElement;
     document.body.classList.add('modal-open');
     closeRef.current?.focus();
-    function onKey(e) { if (e.key === 'Escape') onClose(); }
+    function onKey(e) {
+      if (e.key === 'Escape') { onClose(); return; }
+      /* Keep Tab inside the dialog (a11y: focus trap for keyboard users). */
+      if (e.key === 'Tab') {
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusable = panel.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        const firstEl = focusable[0];
+        const lastEl = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === firstEl) { e.preventDefault(); lastEl.focus(); }
+        else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); firstEl.focus(); }
+      }
+    }
     document.addEventListener('keydown', onKey);
     return () => {
       document.body.classList.remove('modal-open');
       document.removeEventListener('keydown', onKey);
+      /* Return focus to the control that opened the dialog. */
+      try { returnRef.current?.focus(); } catch (e) { /* ignore */ }
     };
   }, [onClose]);
 
@@ -55,7 +73,7 @@ function ListingModal({ listing, onClose }) {
   return (
     <div className="listing-modal open" role="dialog" aria-modal="true" aria-label={alt || 'Listing details'}>
       <div className="listing-modal-backdrop" onClick={onClose}></div>
-      <div className="listing-modal-panel" role="document">
+      <div className="listing-modal-panel" role="document" ref={panelRef}>
         <button ref={closeRef} className="listing-modal-close" type="button" aria-label="Close" onClick={onClose}>&times;</button>
         <div className="listing-modal-content">
           <div className="lm-head">

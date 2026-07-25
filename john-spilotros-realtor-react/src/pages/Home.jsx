@@ -111,7 +111,7 @@ function VideoHero() {
         <h1><SplitText text="Your Next Move Starts Here" /></h1>
         <p className="hero-sub">Helping buyers and sellers navigate Boise, Meridian, Eagle, Nampa, and the Treasure Valley with confidence.</p>
         <div className="hero-actions">
-          <Magnet><button type="button" className="btn btn-gold" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>Search Homes</button></Magnet>
+          <Magnet><button type="button" className="btn btn-gold" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>Start Your Home Search</button></Magnet>
           <Magnet><Link className="btn btn-glass" to="/contact">Book a Consultation</Link></Magnet>
         </div>
       </div>
@@ -128,8 +128,8 @@ function SearchPreview() {
     <section className="section" id="search">
       <div className="wrap">
         <Reveal className="sec-head">
-          <h2>Listings coming soon.</h2>
-          <p>Live MLS search is on the way. In the meantime, tell me what you're looking for and I'll run the search for you today.</p>
+          <h2>Find your Treasure Valley home.</h2>
+          <p>Tell me your must-haves and your budget, and I'll send you homes that fit across Boise and the valley, often before they hit the open market.</p>
         </Reveal>
         <Reveal>
           <div className="homes-empty">
