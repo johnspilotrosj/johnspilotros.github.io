@@ -5,7 +5,7 @@ import SplitText from '../bits/SplitText.jsx';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
-import { HERO_CLIPS, NEIGHBORHOODS } from '../data/site.js';
+import { HERO_CLIPS, NEIGHBORHOODS, PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL } from '../data/site.js';
 import { prefillContact } from '../data/prefill.js';
 
 const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
@@ -243,6 +243,31 @@ function Sellers() {
   );
 }
 
+/* ============ Meet John ============ */
+function MeetJohn() {
+  return (
+    <section className="section" id="meet-john">
+      <div className="wrap split">
+        <Reveal>
+          <div className="portrait">
+            <img loading="lazy" src="/headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Boise" />
+          </div>
+        </Reveal>
+        <Reveal className="split-body" delay={0.08}>
+          <h2>Who you'll be working with.</h2>
+          <p className="lead-in">I'm John Spilotros, a real estate agent with Keller Williams Boise. Before real estate I spent years in digital marketing, so when your home hits the market, the photos, the write-up, and the online reach get done right.</p>
+          <p className="lead-in">I work one market, Boise and the Treasure Valley. Call or text and you'll get a straight answer, usually the same day.</p>
+          <div className="meet-contact">
+            <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
+            <a href={'mailto:' + LEAD_EMAIL}>{LEAD_EMAIL}</a>
+          </div>
+          <Link className="link-gold" to="/about">More about John →</Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -251,6 +276,7 @@ export default function Home() {
       <Neighborhoods />
       <Buyers />
       <Sellers />
+      <MeetJohn />
     </>
   );
 }

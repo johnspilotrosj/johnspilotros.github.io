@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
+import { PHONE_DISPLAY, PHONE_TEL } from '../data/site.js';
 
 const LINKS = [
   { to: '/', label: 'Home' },
@@ -60,6 +61,7 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+            <a className="nav-phone" href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
             <span className="nav-cta"><Link className="btn btn-gold" to="/contact">Book a Consultation</Link></span>
             <button
               className="nav-toggle"
@@ -75,6 +77,7 @@ export default function Header() {
         {LINKS.map((l) => (
           <NavLink key={l.to} to={l.to} end={l.to === '/'}>{l.label}</NavLink>
         ))}
+        <a className="mobile-phone" href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
         <Link className="btn btn-gold" to="/contact">Book a Consultation</Link>
       </nav>
     </>

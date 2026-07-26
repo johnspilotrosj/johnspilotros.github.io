@@ -206,6 +206,14 @@ strong { font-weight: 650; }
 .nav-cta { margin-left: 0.7rem; }
 .nav-cta .btn { padding: 0.72em 1.25em; font-size: 0.8rem; }
 
+.nav-phone {
+  margin-left: 0.9rem; white-space: nowrap;
+  font-size: 0.82rem; font-weight: 650; letter-spacing: 0.04em; font-variant-numeric: tabular-nums;
+  opacity: 0.9; transition: opacity 0.25s ease, color 0.25s ease;
+}
+.nav-phone:hover { opacity: 1; color: var(--gold); }
+.site-header.scrolled .nav-phone:hover { color: var(--gold-deep); }
+
 .nav-toggle { display: none; width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm); }
 .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
   content: ""; display: block; width: 22px; height: 2px; background: currentColor;
@@ -233,8 +241,12 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
   padding: 0.75rem 0; border-bottom: 1px solid var(--line); color: var(--ink);
 }
 .mobile-nav .btn { margin-top: 1.6rem; font-family: var(--font-body); }
+.mobile-nav .mobile-phone {
+  font-family: var(--font-body); font-size: 1.05rem; font-weight: 650; letter-spacing: 0.02em;
+  color: var(--gold-deep); border-bottom: none; margin-top: 1.4rem; padding: 0;
+}
 @media (max-width: 860px) {
-  .nav-links, .nav-cta { display: none; }
+  .nav-links, .nav-cta, .nav-phone { display: none; }
   .nav-toggle { display: block; }
   .mobile-nav { display: flex; }
 }
@@ -476,6 +488,16 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .pillar h3 { font-size: 1rem; margin-bottom: 0.25rem; }
 .pillar h3::before { content: ""; display: inline-block; width: 1.4rem; height: 2px; background: var(--gold); margin-right: 0.7rem; vertical-align: 0.28em; }
 .pillar p { font-size: 0.92rem; color: var(--muted); }
+
+/* ---------- Meet John (home) ---------- */
+.meet-contact { display: flex; flex-direction: column; gap: 0.3rem; margin: 0.4rem 0 1.6rem; }
+.meet-contact a { width: fit-content; transition: color 0.25s ease; }
+.meet-contact a:first-child {
+  font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: 0.02em; color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.meet-contact a:last-child { font-size: 1rem; color: var(--muted); }
+.meet-contact a:hover { color: var(--gold-deep); }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }

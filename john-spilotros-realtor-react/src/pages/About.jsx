@@ -28,7 +28,7 @@ export default function About() {
         <div className="wrap split">
           <Reveal>
             <div className="portrait">
-              <img src="headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Boise" />
+              <img src="/headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Boise" />
             </div>
           </Reveal>
           <Reveal className="split-body" delay={0.08}>
