@@ -8,6 +8,9 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Listings from './pages/Listings.jsx';
+import Buy from './pages/Buy.jsx';
+import Sell from './pages/Sell.jsx';
+import Relocation from './pages/Relocation.jsx';
 import CityPage from './pages/CityPage.jsx';
 import { CITIES } from './data/cities.js';
 
@@ -38,6 +41,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/listings" element={<Listings />} />
+          <Route path="/buy" element={<Buy />} />
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/relocation" element={<Relocation />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           {CITIES.map((c) => (

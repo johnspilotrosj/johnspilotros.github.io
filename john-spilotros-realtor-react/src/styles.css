@@ -245,7 +245,7 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
   font-family: var(--font-body); font-size: 1.05rem; font-weight: 650; letter-spacing: 0.02em;
   color: var(--gold-deep); border-bottom: none; margin-top: 1.4rem; padding: 0;
 }
-@media (max-width: 860px) {
+@media (max-width: 1080px) {
   .nav-links, .nav-cta, .nav-phone { display: none; }
   .nav-toggle { display: block; }
   .mobile-nav { display: flex; }
@@ -395,6 +395,8 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 
 /* ---------- Buyer steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.9rem, 1.8vw, 1.4rem); }
+.steps.steps-guide { grid-template-columns: repeat(3, 1fr); }
+.steps-guide .step-hit { cursor: default; }
 .step {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md);
   box-shadow: var(--shadow-sm); height: 100%;
@@ -498,6 +500,40 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 }
 .meet-contact a:last-child { font-size: 1rem; color: var(--muted); }
 .meet-contact a:hover { color: var(--gold-deep); }
+
+/* ---------- Guide pages (buy / sell / relocation) ---------- */
+.sec-more { margin-top: 2rem; }
+
+.faq { display: flex; flex-direction: column; max-width: 760px; }
+.faq-item { border-top: 1px solid var(--line); }
+.faq > div:last-child .faq-item, .faq > .faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+  cursor: pointer; list-style: none; position: relative;
+  padding: 1.15rem 2.6rem 1.15rem 0;
+  font-weight: 650; font-size: 1.05rem; color: var(--ink);
+  transition: color 0.25s ease;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; position: absolute; right: 0.4rem; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display); font-size: 1.5rem; color: var(--gold-deep);
+  transition: transform 0.3s var(--ease-out);
+}
+.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item summary:hover { color: var(--gold-deep); }
+.faq-item > p { padding: 0 2.6rem 1.3rem 0; color: var(--muted); font-size: 0.95rem; line-height: 1.65; max-width: 62ch; }
+
+.reloc-towns { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+.reloc-town {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  padding: 1.2rem 1.3rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--r-md); box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease, transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+}
+.reloc-town:hover { border-color: var(--gold-line); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.reloc-town-name { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: 0.02em; color: var(--ink); }
+.reloc-town-price { font-size: 0.82rem; font-weight: 650; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
+.reloc-town-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
@@ -767,13 +803,13 @@ body.modal-open { overflow: hidden; }
 }
 @media (max-width: 640px) {
   .homes-grid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr 1fr; }
+  .steps, .steps.steps-guide { grid-template-columns: 1fr 1fr; }
   .filters { grid-template-columns: 1fr 1fr; }
   .move { grid-template-columns: 1fr; gap: 0.25rem; }
   .form-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 420px) {
-  .steps { grid-template-columns: 1fr; }
+  .steps, .steps.steps-guide { grid-template-columns: 1fr; }
 }
 
 /* ---------- Reduced motion ---------- */

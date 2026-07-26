@@ -5,6 +5,9 @@ import { PHONE_DISPLAY, PHONE_TEL } from '../data/site.js';
 const LINKS = [
   { to: '/', label: 'Home' },
   { to: '/listings', label: 'Listings' },
+  { to: '/buy', label: 'Buy' },
+  { to: '/sell', label: 'Sell' },
+  { to: '/relocation', label: 'Relocate' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];

@@ -14,6 +14,18 @@ const STATIC_META = {
     title: 'Homes for Sale · John Spilotros, Keller Williams Boise',
     description: 'Current listings from John Spilotros across Boise and the Treasure Valley, with new homes added as they hit the market. Tell John what you are looking for.',
   },
+  '/buy': {
+    title: 'Buy a Home in Boise & the Treasure Valley · John Spilotros',
+    description: 'How buying a home works in Boise and the Treasure Valley: the process step by step, what it actually costs, and straight answers to the questions buyers ask first.',
+  },
+  '/sell': {
+    title: 'Sell Your Home in the Treasure Valley · John Spilotros',
+    description: 'How John Spilotros runs a home sale in Boise and the Treasure Valley: pricing from real comparable sales, marketing done by a former digital marketer, and straight answers on costs and timing.',
+  },
+  '/relocation': {
+    title: 'Moving to Boise & the Treasure Valley · Relocation Guide',
+    description: 'Relocating to Boise, Meridian, Eagle, or anywhere in the Treasure Valley? Video tours, electronic signing, and a local agent as your eyes on the ground. Town guides and straight answers inside.',
+  },
   '/about': {
     title: 'About John Spilotros · Keller Williams Boise',
     description: 'Licensed Idaho real estate salesperson with Keller Williams Boise. Digital marketing background, one market: Boise and the Treasure Valley.',
@@ -45,6 +57,9 @@ export function metaForPath(pathname) {
 export const PRERENDER_ROUTES = [
   '/',
   '/listings',
+  '/buy',
+  '/sell',
+  '/relocation',
   '/about',
   '/contact',
   ...CITIES.map((c) => '/' + c.slug),

@@ -163,6 +163,9 @@ function Neighborhoods() {
           ))}
         </div>
         <p className="hood-source">Median sale prices: Redfin city market data, May 2026.</p>
+        <Reveal>
+          <p className="sec-more"><Link className="link-gold" to="/relocation">Moving from out of state? Start here →</Link></p>
+        </Reveal>
       </div>
     </section>
   );
@@ -200,6 +203,9 @@ function Buyers() {
             </Reveal>
           ))}
         </div>
+        <Reveal>
+          <p className="sec-more"><Link className="link-gold" to="/buy">The full buyer guide, costs included →</Link></p>
+        </Reveal>
       </div>
     </section>
   );
@@ -227,6 +233,7 @@ function Sellers() {
               <div className="move" key={t}><dt>{t}</dt><dd>{b}</dd></div>
             ))}
           </dl>
+          <p className="sec-more"><Link className="link-gold" to="/sell">How I run a sale, start to finish →</Link></p>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="tool">

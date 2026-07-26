@@ -4,6 +4,9 @@ import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS, NEI
 const LINKS = [
   ['/', 'Home'],
   ['/listings', 'Listings'],
+  ['/buy', 'Buy a Home'],
+  ['/sell', 'Sell a Home'],
+  ['/relocation', 'Relocation'],
   ['/about', 'About'],
   ['/contact', 'Contact'],
 ];
