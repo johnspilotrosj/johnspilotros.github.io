@@ -5,6 +5,8 @@ import SplitText from '../bits/SplitText.jsx';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
+import Faq from '../components/Faq.jsx';
+import CaseStudies from '../components/CaseStudies.jsx';
 import { HERO_CLIPS, NEIGHBORHOODS, PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL } from '../data/site.js';
 import { prefillContact } from '../data/prefill.js';
 
@@ -101,13 +103,14 @@ function VideoHero() {
         <div className="hero-scrim" />
       </div>
       <div className="wrap hero-content">
-        <p className="hero-eyeline">John Spilotros · Keller Williams Boise</p>
+        <p className="hero-eyeline">John Spilotros · Keller Williams Realty Boise</p>
         <h1><SplitText text="Your Next Move Starts Here" /></h1>
         <p className="hero-sub">Helping buyers and sellers navigate Boise, Meridian, Eagle, Nampa, and the Treasure Valley with confidence.</p>
         <div className="hero-actions">
           <Magnet><button type="button" className="btn btn-gold" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>Start Your Home Search</button></Magnet>
           <Magnet><Link className="btn btn-glass" to="/contact">Book a Consultation</Link></Magnet>
         </div>
+        <p className="hero-promise">Free to reach out. Replies within one business day.</p>
       </div>
       <button type="button" className="hero-scroll" aria-label="Scroll to home search" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>
         <span></span>
@@ -257,12 +260,12 @@ function MeetJohn() {
       <div className="wrap split">
         <Reveal>
           <div className="portrait">
-            <img loading="lazy" src="/headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Boise" />
+            <img loading="lazy" src="/headshot.jpg" alt="John Spilotros, real estate salesperson with Keller Williams Realty Boise" />
           </div>
         </Reveal>
         <Reveal className="split-body" delay={0.08}>
           <h2>Who you'll be working with.</h2>
-          <p className="lead-in">I'm John Spilotros, a real estate agent with Keller Williams Boise. Before real estate I spent years in digital marketing, so when your home hits the market, the photos, the write-up, and the online reach get done right.</p>
+          <p className="lead-in">I'm John Spilotros, a real estate agent with Keller Williams Realty Boise. Before real estate I spent years in digital marketing, so when your home hits the market, the photos, the write-up, and the online reach get done right.</p>
           <p className="lead-in">I work one market, Boise and the Treasure Valley. Call or text and you'll get a straight answer, usually the same day.</p>
           <div className="meet-contact">
             <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
@@ -275,6 +278,14 @@ function MeetJohn() {
   );
 }
 
+const HOME_FAQ = [
+  ['What does it cost to talk to you?', "Nothing. Calls, questions, and a read on your home or the market are all free, with no obligation attached. You only ever pay anything if we work together on a deal, and that gets agreed in writing first."],
+  ['Which areas do you cover?', 'Boise, Meridian, Eagle, Nampa, Kuna, Star, and Garden City. The whole Treasure Valley, and only the Treasure Valley. One market, known well.'],
+  ["I'm not ready to buy or sell yet. Is it too early to reach out?", "Not at all. Most of the best moves start with a conversation months before anything goes on the market. Reach out whenever, and I'll give you a straight read on timing with zero pressure to move faster than you want."],
+  ['How fast do you respond?', "Within one business day, and usually the same day. Calls and texts get the fastest answer. If you message through the site in the evening, expect to hear from me in the morning."],
+  ['Are you an agent or a brokerage?', "I'm a licensed Idaho real estate salesperson, license #1681619, with Keller Williams Realty Boise. You work with me directly, and the brokerage stands behind every transaction."],
+];
+
 export default function Home() {
   return (
     <>
@@ -283,7 +294,9 @@ export default function Home() {
       <Neighborhoods />
       <Buyers />
       <Sellers />
+      <CaseStudies />
       <MeetJohn />
+      <Faq heading="Questions people ask first." items={HOME_FAQ} />
     </>
   );
 }

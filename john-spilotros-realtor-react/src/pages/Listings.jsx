@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import TiltedCard from '../bits/TiltedCard.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import { isConfigured, fetchListings } from '../data/supabase.js';
 import { prefillContact } from '../data/prefill.js';
 
@@ -172,6 +173,7 @@ export default function Listings() {
     <>
       <section className="section page-head">
         <div className="wrap">
+          <Breadcrumbs current="Listings" path="/listings" />
           <p className="kicker">Listings</p>
           <h1>Homes for sale across the Treasure Valley.</h1>
           <p>Browse current listings below. Looking for something specific, or want to see homes the moment they hit the market? Tell me what you're after and I'll set up a personal search for you.</p>

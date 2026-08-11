@@ -12,6 +12,10 @@ import Buy from './pages/Buy.jsx';
 import Sell from './pages/Sell.jsx';
 import Relocation from './pages/Relocation.jsx';
 import CityPage from './pages/CityPage.jsx';
+import Privacy from './pages/Privacy.jsx';
+import ThankYou from './pages/ThankYou.jsx';
+import NotFound from './pages/NotFound.jsx';
+import StickyCta from './components/StickyCta.jsx';
 import { CITIES } from './data/cities.js';
 
 /* Admin is agent-only — keep it out of the main bundle. */
@@ -49,11 +53,14 @@ export default function App() {
           {CITIES.map((c) => (
             <Route key={c.slug} path={'/' + c.slug} element={<CityPage city={c} />} />
           ))}
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/admin" element={<Suspense fallback={null}><Admin /></Suspense>} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
+      <StickyCta />
       <Toaster />
     </>
   );

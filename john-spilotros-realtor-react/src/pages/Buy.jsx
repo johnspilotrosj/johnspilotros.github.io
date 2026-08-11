@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
 import Faq from '../components/Faq.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import { prefillContact } from '../data/prefill.js';
 
 const STEPS = [
@@ -38,6 +39,7 @@ export default function Buy() {
     <>
       <section className="page-head">
         <div className="wrap">
+          <Breadcrumbs current="Buy a Home" path="/buy" />
           <p className="kicker">For buyers</p>
           <h1>Buy a home in the Treasure Valley.</h1>
           <p>One agent from first tour to keys. Here's exactly how it works, what it costs, and the answers most buyers want before they pick up the phone.</p>

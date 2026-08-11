@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { LEAD_EMAIL, LEAD_ENDPOINT, PHONE_DISPLAY, PHONE_TEL } from '../data/site.js';
+import { useNavigate } from 'react-router-dom';
+import { LEAD_EMAIL, LEAD_ENDPOINT } from '../data/site.js';
 import { toast } from './Toast.jsx';
 
 /* Shared lead-capture behavior: honeypot, native validation, delivery via
    LEAD_ENDPOINT (Formspree/Netlify) with a pre-filled mailto fallback so a
-   lead is never silently lost, then a success state + toast. */
-export default function LeadForm({ subject, toastMsg, successMsg, labels = {}, submitLabel, submitClass = 'btn btn-accent', disclaimer, children }) {
-  const [done, setDone] = useState(false);
+   lead is never silently lost, then a toast + the /thank-you page (which
+   doubles as the analytics conversion page). */
+export default function LeadForm({ subject, toastMsg, labels = {}, submitLabel, submitClass = 'btn btn-accent', disclaimer, children }) {
+  const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
 
   function deliverByEmail(lines) {
@@ -31,7 +33,7 @@ export default function LeadForm({ subject, toastMsg, successMsg, labels = {}, s
       lines.push((labels[name] || name) + ': ' + (value === 'on' ? 'Yes' : value));
     }
 
-    function finish() { setDone(true); toast(toastMsg); }
+    function finish() { toast(toastMsg); navigate('/thank-you'); }
 
     if (LEAD_ENDPOINT) {
       setBusy(true);
@@ -43,19 +45,6 @@ export default function LeadForm({ subject, toastMsg, successMsg, labels = {}, s
       deliverByEmail(lines);
       finish();
     }
-  }
-
-  if (done) {
-    return (
-      <div className="form-success show" tabIndex={-1} role="status">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-        <div className="form-success-body">
-          <p className="form-success-title">Message received</p>
-          <p>{successMsg}</p>
-          <p className="form-success-direct">Need me sooner? Call or text <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>.</p>
-        </div>
-      </div>
-    );
   }
 
   return (

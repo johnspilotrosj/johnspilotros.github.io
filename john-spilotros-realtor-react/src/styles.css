@@ -821,3 +821,70 @@ body.modal-open { overflow: hidden; }
   .hero-content > * { animation: none; }
   .hero-scroll span { animation: none; }
 }
+
+/* ============ Breadcrumbs ============ */
+.crumbs { margin-bottom: 1.1rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+.crumbs ol { list-style: none; display: flex; align-items: center; gap: 0.55rem; margin: 0; padding: 0; }
+.crumbs li { display: flex; align-items: center; gap: 0.55rem; }
+.crumbs li + li::before { content: "/"; color: var(--faint); opacity: 0.6; }
+.crumbs a { color: var(--muted); text-decoration: none; transition: color 0.18s var(--ease-out); }
+.crumbs a:hover { color: var(--gold-deep); }
+.crumbs [aria-current] { color: var(--ink); }
+.crumbs-dark a { color: var(--ivory-dim); }
+.crumbs-dark a:hover { color: var(--gold); }
+.crumbs-dark [aria-current] { color: var(--ivory); }
+.crumbs-dark li + li::before { color: var(--ivory-dim); }
+
+/* ============ Hero microcopy ============ */
+.hero-promise { margin-top: 1.1rem; font-size: 0.85rem; letter-spacing: 0.03em; color: oklch(0.955 0.006 90 / 0.75); }
+
+/* ============ Sticky mobile CTA ============ */
+.sticky-cta {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: var(--z-header);
+  display: none; align-items: stretch; gap: 1px;
+  background: oklch(0.24 0.008 250 / 0.92);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-top: 1px solid oklch(1 0 0 / 0.12);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.sticky-cta a {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.9rem 0.5rem; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--ivory); text-decoration: none;
+}
+.sticky-cta a svg { width: 17px; height: 17px; }
+.sticky-cta a + a { border-left: 1px solid oklch(1 0 0 / 0.1); }
+.sticky-cta .sticky-cta-main { flex: 1.5; background: var(--gold); color: oklch(0.2 0.02 85); }
+@media (max-width: 720px) {
+  .sticky-cta { display: flex; }
+  body.has-sticky-cta .site-footer { padding-bottom: 4.6rem; }
+  body.nav-open .sticky-cta { display: none; }
+}
+
+/* ============ 404 & thank-you pages ============ */
+.notfound-actions { justify-content: flex-start; margin-top: 1.8rem; }
+.notfound .towns-row { margin-top: 1.6rem; }
+.notfound-call { margin-top: 1.8rem; font-size: 0.9rem; color: var(--muted); }
+.notfound-call a { color: var(--gold-deep); }
+.thankyou-next { margin-top: 2.4rem; max-width: 480px; }
+.thankyou-next h2 { font-size: 1.05rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 0.8rem; }
+.thankyou-next ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.thankyou-next a { color: var(--gold-deep); text-decoration: none; }
+.thankyou-next a:hover { text-decoration: underline; }
+.page-head .kicker { margin-top: 0; }
+
+/* ============ Case studies ============ */
+.case-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.case-card { padding: 1.8rem; }
+.case-tag { font-size: 0.75rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 0.6rem; }
+.case-card h3 { margin-bottom: 0.6rem; }
+.case-result { margin-top: 0.9rem; font-weight: 600; color: var(--ink); }
+
+/* ============ Footer additions ============ */
+.footer-promise { margin-top: 0.9rem; font-size: 0.84rem; color: var(--gold); }
+.footer-copy a { color: inherit; text-decoration: none; }
+.footer-copy a:hover { color: var(--ivory); text-decoration: underline; }
+
+/* ============ Privacy prose ============ */
+.legal-prose { max-width: var(--prose); }
+.legal-prose h3 { margin-top: 1.6rem; }

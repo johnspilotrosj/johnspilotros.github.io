@@ -20,6 +20,7 @@ export default function Footer() {
             <span className="brand-name" style={{ display: 'block' }}>John Spilotros</span>
             <span className="brand-sub" style={{ display: 'block', marginTop: 6 }}>Licensed Idaho Real Estate Salesperson</span>
             <p>Buyers and sellers across Boise, Meridian, Eagle, Nampa, and the Treasure Valley. One agent, start to close.</p>
+            <p className="footer-promise">Call, text, or message anytime. Replies within one business day, usually sooner.</p>
           </div>
           <div className="footer-col">
             <h4>Explore</h4>
@@ -40,7 +41,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Brokerage</h4>
             <span className="kw-chip"><img src="/kw-mark.svg" alt="Keller Williams" /></span>
-            <p>Keller Williams Boise<br />
+            <p>Keller Williams Realty Boise<br />
               {OFFICE_ADDRESS}<br />
               {OFFICE_HOURS}<br />
               Each office is independently owned and operated.</p>
@@ -64,10 +65,11 @@ export default function Footer() {
             <span className="license-badge">Idaho License <span>#1681619</span></span>
           </div>
           <p className="disclaimer">
-            <strong>John Spilotros is a licensed Idaho real estate salesperson</strong> affiliated with Keller Williams Boise, not a real estate broker or a licensed appraiser. All brokerage services are provided through Keller Williams Boise under the supervision of the responsible broker. This website is for general informational purposes only and is not intended to solicit buyers or sellers already represented by a broker. No agency relationship is created by using this site or submitting a form; representation begins only with a signed written agreement. John Spilotros is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the nation.
+            <strong>John Spilotros is a licensed Idaho real estate salesperson</strong> affiliated with Keller Williams Realty Boise, not a real estate broker or a licensed appraiser. All brokerage services are provided through Keller Williams Realty Boise under the supervision of the responsible broker. This website is for general informational purposes only and is not intended to solicit buyers or sellers already represented by a broker. No agency relationship is created by using this site or submitting a form; representation begins only with a signed written agreement. John Spilotros is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the nation.
           </p>
           <div className="footer-copy">
-            <span>© 2026 John Spilotros · Keller Williams Boise</span>
+            <span>© 2026 John Spilotros · Keller Williams Realty Boise</span>
+            <span><Link to="/privacy">Privacy Policy</Link></span>
             <span>Boise &amp; the Treasure Valley, Idaho</span>
           </div>
         </div>

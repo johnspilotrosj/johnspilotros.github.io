@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { metaForPath } from '../data/meta.js';
+import { trackPageview } from '../data/analytics.js';
 
 /* Keeps the document head in sync with the route on the client. The same
    values are baked into each page's static HTML by scripts/prerender.mjs,
@@ -15,6 +16,21 @@ export default function MetaManager() {
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', m.title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', m.description);
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', m.url);
+
+    /* Thank-you and 404 pages carry noindex; add or remove the tag to match. */
+    let robots = document.querySelector('meta[name="robots"]');
+    if (m.noindex) {
+      if (!robots) {
+        robots = document.createElement('meta');
+        robots.setAttribute('name', 'robots');
+        document.head.appendChild(robots);
+      }
+      robots.setAttribute('content', 'noindex');
+    } else if (robots) {
+      robots.remove();
+    }
+
+    trackPageview(pathname);
   }, [pathname]);
   return null;
 }

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import Faq from '../components/Faq.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import { NEIGHBORHOODS } from '../data/site.js';
 import { prefillContact } from '../data/prefill.js';
 
@@ -29,6 +30,7 @@ export default function Relocation() {
     <>
       <section className="page-head">
         <div className="wrap">
+          <Breadcrumbs current="Relocation" path="/relocation" />
           <p className="kicker">Relocation</p>
           <h1>Moving to the Treasure Valley.</h1>
           <p>Thousands of people move to the Boise area every year, and most of them start the search from another state. That distance is exactly what I'm set up to handle.</p>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Reveal from '../bits/Reveal.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import LeadForm from '../components/LeadForm.jsx';
 import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
 
@@ -29,13 +30,14 @@ export default function Contact() {
     <section className="section section-dark page-top" id="contact">
       <div className="wrap contact-grid">
         <Reveal className="contact-lead">
+          <Breadcrumbs current="Contact" path="/contact" onDark />
           <h1>Let's talk about your move.</h1>
           <p>No pressure and no obligation. You'll get a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
           <div className="contact-direct">
             <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
             <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
             <p className="contact-hours">{OFFICE_HOURS} · evenings &amp; weekends by appointment</p>
-            <p className="contact-office">Keller Williams Boise · {OFFICE_ADDRESS}</p>
+            <p className="contact-office">Keller Williams Realty Boise · {OFFICE_ADDRESS}</p>
             <span className="kw-chip"><img src="/kw-mark.svg" alt="Keller Williams" /></span>
             {liveSocials.length > 0 && (
               <div className="socials">
@@ -51,7 +53,6 @@ export default function Contact() {
             <LeadForm
               subject="New message from your website"
               toastMsg="Message sent. Thank you."
-              successMsg="Thank you for reaching out. I read every message personally, and you'll hear back from me within one business day."
               submitLabel="Start the Conversation"
               submitClass="btn btn-gold"
               labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'Consent to contact' }}

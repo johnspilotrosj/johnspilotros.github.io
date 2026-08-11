@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
 import Faq from '../components/Faq.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
+import CaseStudies from '../components/CaseStudies.jsx';
 import { prefillContact } from '../data/prefill.js';
 
 const PHASES = [
@@ -30,6 +32,7 @@ export default function Sell() {
     <>
       <section className="page-head">
         <div className="wrap">
+          <Breadcrumbs current="Sell a Home" path="/sell" />
           <p className="kicker">For sellers</p>
           <h1>Sell it well. Not just fast.</h1>
           <p>Your home will sell. The question is for how much, and how smoothly. Here's how I run a sale, what it costs, and the questions every seller asks first.</p>
@@ -57,6 +60,8 @@ export default function Sell() {
           </div>
         </div>
       </section>
+
+      <CaseStudies />
 
       <Faq heading="Seller questions, straight answers." items={FAQ_ITEMS} />
 

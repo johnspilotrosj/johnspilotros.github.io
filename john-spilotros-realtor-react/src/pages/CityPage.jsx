@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
+import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import { CITIES } from '../data/cities.js';
 import { prefillContact } from '../data/prefill.js';
 
@@ -16,6 +17,7 @@ export default function CityPage({ city }) {
     <>
       <section className="page-head">
         <div className="wrap">
+          <Breadcrumbs current={city.name} path={'/' + city.slug} />
           <p className="kicker">Treasure Valley towns</p>
           <h1>Homes in {city.name}, Idaho.</h1>
           <p>{city.intro}</p>

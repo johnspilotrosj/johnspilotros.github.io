@@ -8,6 +8,11 @@ export const LEAD_EMAIL = 'johnspilotros@kw.com';
    visitor's email client pre-filled (works with no account). */
 export const LEAD_ENDPOINT = 'https://formspree.io/f/mvzjjkjb';
 
+/* Google Analytics 4 measurement ID, e.g. 'G-XXXXXXXXXX'. Left empty,
+   analytics never loads and no cookies are set. Get one free at
+   https://analytics.google.com → Admin → Data streams → Web. */
+export const GA_MEASUREMENT_ID = '';
+
 export const PHONE_DISPLAY = '(215) 859-3267';
 export const PHONE_TEL = '+12158593267';
 
@@ -20,6 +25,18 @@ export const SOCIALS = [
   { name: 'Facebook', url: '' },
   { name: 'LinkedIn', url: '' },
 ];
+
+/* Real client stories — the "Recent moves" section stays hidden while this
+   list is empty. As deals close, add entries like:
+   {
+     tag: 'Seller',                    // or 'Buyer'
+     location: 'Meridian',
+     title: 'Sold in 9 days, $12K over list',
+     story: 'One or two sentences on the situation and what we did.',
+     result: 'The outcome in one line: price, days on market, or terms won.',
+   }
+   Real deals only — no composites, no invented numbers. */
+export const CASE_STUDIES = [];
 
 /* Hero drone footage (Pexels, free license) — city → suburb → farm.
    Each clip crossfades to the next; playback is slowed for the drift. */
