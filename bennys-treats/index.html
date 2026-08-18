@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Benny's Treats · Raw Ingredients, Sourced Locally · Boise, Idaho</title>
+<meta name="description" content="Small-batch frozen nutrition churned from raw milk, raw duck eggs and raw honey at the Evans Farmstead in Buhl, Idaho. A private membership association serving the Treasure Valley." />
+<meta name="theme-color" content="#1e2c44" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Benny's Treats · Raw Ingredients, Sourced Locally" />
+<meta property="og:description" content="Raw milk, raw duck eggs, raw honey. Nothing else. Sixteen flavors, two bases, members only." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link rel="preconnect" href="https://videos.pexels.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   Benny's Treats — Boise, Idaho
+
+   Layout model: there is no top nav bar and no stack of full-bleed
+   sections. A fixed vertical rail runs down the left edge, the cow
+   footage is a FIXED backdrop for the entire document, and the content
+   rides over it as one solid "sleeve" panel that leaves the footage
+   showing in the margins. Cover, sleeve, cover.
+
+   The flavours are a record tracklist — sixteen songs, two sides,
+   A1-A8 and B1-B8 — because that is literally what the naming is.
+   Both sides are visible at once; a tracklist is meant to be read whole.
+
+   Colour: deep freezer-blue bookends (rail, cover, footer) wrapping a
+   crisp white/off-white content sleeve. One rich royal-blue signal
+   throughout — no other hues. White and blue only.
+   Type: Bricolage Grotesque against Karla.
+   ============================================================ */
+
+/* ---------- Tokens ---------- */
+:root {
+  --ground:      oklch(0.29 0.082 255);
+  --ground-deep: oklch(0.225 0.07 256);
+  --ground-lift: oklch(0.355 0.075 254);
+  --ground-line: oklch(0.44 0.06 254);
+
+  --bone:      oklch(0.965 0.006 255);
+  --bone-dim:  oklch(0.815 0.018 250);
+  --bone-mute: oklch(0.7 0.025 252);
+
+  /* Paper: the white/off-white content sleeve that rides between the
+     dark cover and dark footer. */
+  --paper:     oklch(0.98 0.006 255);
+  --paper-dim: oklch(0.955 0.01 255);
+
+  /* Ink: text and hairlines on the paper sleeve. */
+  --ink:      oklch(0.27 0.05 258);
+  --ink-dim:  oklch(0.44 0.045 258);
+  --ink-mute: oklch(0.58 0.035 256);
+  --hairline: oklch(0.89 0.016 255);
+
+  /* Signal: one royal blue, tuned to read clearly on both navy and paper. */
+  --signal:        oklch(0.5 0.19 258);
+  --signal-bright: oklch(0.58 0.18 257);
+  --signal-deep:   oklch(0.38 0.17 261);
+  --on-signal:     oklch(0.99 0.004 255);
+
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --font-body: "Karla", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --step-0: 1.0625rem;
+  --step-1: clamp(1.12rem, 1.04rem + 0.4vw, 1.32rem);
+  --step-2: clamp(1.45rem, 1.3rem + 0.75vw, 1.9rem);
+  --step-3: clamp(1.9rem, 1.5rem + 1.9vw, 3rem);
+  /* weighted to viewport height so the cover always holds the fold */
+  --step-cover: clamp(2.8rem, 0.6rem + 1.8vw + 3.6vh, 5.6rem);
+
+  --rail: 86px;
+  --gutter: clamp(1.35rem, 4vw, 3.5rem);
+  --sleeve: 1080px;
+  --section: clamp(4rem, 3rem + 5vw, 7rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --z-back: -1;
+  --z-rail: 90;
+  --z-sheet: 200;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 2rem; background: var(--ground-deep); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--bone);
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+ul { list-style: none; padding: 0; }
+:focus-visible { outline: 2.5px solid var(--signal-bright); outline-offset: 3px; border-radius: 2px; }
+
+.skip { position: absolute; left: -9999px; top: 0; z-index: 999; background: var(--signal); color: var(--on-signal); padding: 0.8rem 1.2rem; font-weight: 700; }
+.skip:focus { left: 0; }
+
+/* ---------- Type ---------- */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em; color: var(--bone); text-wrap: balance; }
+h1 { font-size: var(--step-cover); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); font-weight: 700; }
+p { text-wrap: pretty; }
+
+.tag {
+  display: inline-block; font-family: var(--font-body);
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--signal-bright);
+}
+/* Inside the paper sleeve the tag sits on white, not navy — the bright
+   variant reads too pale there, so darken it for contrast. */
+.sleeve .tag { color: var(--signal); }
+
+/* ---------- Fixed footage backdrop ---------- */
+.backdrop { position: fixed; inset: 0; z-index: var(--z-back); overflow: hidden; background: var(--ground-deep); }
+.backdrop video, .backdrop img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%;
+  /* pulled way down: this runs behind the whole document, so it has to
+     behave as texture rather than compete with the type riding over it */
+  filter: saturate(0.32) contrast(1.02) brightness(0.54);
+}
+/* Multiply keeps the darkest frames dark, so cover copy stays clear of the
+   footage. Worked against a worst-case bright-sky frame: bone lands ~8:1
+   and even the small blue tag clears AA. Don't lift these much. */
+.backdrop::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--ground); mix-blend-mode: multiply; opacity: 0.6;
+}
+
+/* ---------- Fixed left rail ---------- */
+.rail {
+  position: fixed; left: 0; top: 0; bottom: 0; width: var(--rail); z-index: var(--z-rail);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 1.3rem 0;
+  background: var(--ground-deep);
+  border-right: 1px solid var(--ground-line);
+}
+.rail-mark { width: 30px; height: 30px; flex: none; color: var(--bone); }
+.rail-nav { display: flex; flex-direction: column; align-items: center; gap: 2.2rem; }
+.rail-nav a {
+  writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--bone-mute); transition: color 0.25s ease;
+  padding: 0.2rem 0;
+}
+.rail-nav a:hover { color: var(--signal-bright); }
+.rail-cta {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  background: var(--signal); color: var(--on-signal);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 1.3em 0.85em; border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+.rail-cta:hover { background: var(--signal-bright); }
+
+/* mobile: the rail becomes a slim bar + a sheet */
+.bar { display: none; }
+.sheet { display: none; }
+@media (max-width: 940px) {
+  .rail { display: none; }
+  .bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    position: fixed; inset-inline: 0; top: 0; z-index: var(--z-rail);
+    height: 62px; padding-inline: var(--gutter);
+    background: var(--ground-deep); border-bottom: 1px solid var(--ground-line);
+  }
+  .bar-brand { display: flex; align-items: center; gap: 0.55rem; }
+  .bar-brand svg { width: 24px; height: 24px; }
+  .bar-name { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; }
+  .bar-toggle { width: 42px; height: 42px; border: none; background: transparent; cursor: pointer; }
+  .bar-toggle span, .bar-toggle span::before, .bar-toggle span::after {
+    content: ""; display: block; width: 21px; height: 2px; background: var(--bone); border-radius: 2px;
+    transition: transform 0.35s var(--ease-out), opacity 0.2s ease;
+  }
+  .bar-toggle span { margin: 0 auto; position: relative; }
+  .bar-toggle span::before { position: absolute; top: -6px; }
+  .bar-toggle span::after { position: absolute; top: 6px; }
+  body.sheet-open .bar-toggle span { background: transparent; }
+  body.sheet-open .bar-toggle span::before { transform: translateY(6px) rotate(45deg); }
+  body.sheet-open .bar-toggle span::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .sheet {
+    display: flex; flex-direction: column; position: fixed; inset: 0; z-index: var(--z-sheet);
+    padding: 86px var(--gutter) 2rem; background: var(--ground-deep);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    overflow-y: auto;
+  }
+  body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
+  body.sheet-open { overflow: hidden; }
+  .sheet a {
+    font-family: var(--font-display); font-weight: 800; font-size: 2.1rem; letter-spacing: -0.02em;
+    padding: 0.6rem 0; border-bottom: 1px solid var(--ground-line);
+  }
+  .sheet .sheet-cta {
+    font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; background: var(--signal); color: var(--on-signal);
+    border-bottom: none; text-align: center; padding: 1.05em 1.5em; margin-top: 1.6rem; border-radius: 2px;
+  }
+}
+
+/* ---------- Shell ---------- */
+.shell { margin-left: var(--rail); }
+@media (max-width: 940px) { .shell { margin-left: 0; } }
+
+/* ---------- Cover: footage stays fully visible ---------- */
+.cover {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: flex-end;
+  padding: 6rem var(--gutter) clamp(2.5rem, 5vw, 4rem);
+}
+.cover-inner { width: min(100%, 56rem); }
+.cover h1 { margin: 0.7rem 0 0.9rem; text-transform: uppercase; }
+.cover-line { font-size: var(--step-1); line-height: 1.5; color: var(--bone); max-width: 42ch; font-weight: 500; }
+.cover-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.4rem;
+  margin-top: 1.6rem; padding-top: 1.1rem; border-top: 1px solid oklch(1 0 0 / 0.28);
+}
+.cover-meta li { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--bone-dim); }
+.stamp {
+  border: 1.5px solid var(--signal-bright); color: var(--signal-bright);
+  padding: 0.4em 0.75em; border-radius: 2px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+}
+.cover-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.8rem; }
+@media (max-width: 940px) { .cover { padding-top: 8rem; min-height: 0; padding-bottom: 3.5rem; } }
+@media (prefers-reduced-motion: no-preference) {
+  .cover-inner > * { animation: lift 0.85s var(--ease-out) both; }
+  .cover-inner > :nth-child(2) { animation-delay: 0.06s; }
+  .cover-inner > :nth-child(3) { animation-delay: 0.12s; }
+  .cover-inner > :nth-child(4) { animation-delay: 0.18s; }
+  .cover-inner > :nth-child(5) { animation-delay: 0.24s; }
+  @keyframes lift { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  padding: 0.95em 1.6em; border: 1.5px solid transparent; border-radius: 2px;
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.btn-signal { background: var(--signal); color: var(--on-signal); }
+.btn-signal:hover { background: var(--signal-deep); }
+.btn-bone { background: transparent; color: var(--bone); border-color: oklch(1 0 0 / 0.45); }
+.btn-bone:hover { border-color: var(--bone); background: oklch(1 0 0 / 0.08); }
+/* Sign-in/outline button reappears inside the paper sleeve (Join section) —
+   the bone/white styling above is invisible on a white background, so it
+   needs its own ink-toned variant there. */
+.sleeve .btn-bone { color: var(--ink); border-color: oklch(0.27 0.05 258 / 0.3); }
+.sleeve .btn-bone:hover { border-color: var(--ink); background: oklch(0.27 0.05 258 / 0.06); }
+.arrow { transition: transform 0.3s var(--ease-out); }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ---------- Sleeve: solid panel riding over the footage ---------- */
+.sleeve {
+  width: min(100% - 2 * var(--gutter), var(--sleeve));
+  margin-inline: auto;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  box-shadow: 0 30px 70px -30px oklch(0.15 0.05 258 / 0.55);
+}
+.sleeve h2 { color: var(--ink); }
+.pad { padding: var(--section) clamp(1.4rem, 4vw, 3.6rem); }
+.pad + .pad { border-top: 1px solid var(--hairline); }
+.head { max-width: 46ch; margin-bottom: clamp(2rem, 4vw, 3.2rem); }
+.head h2 { margin: 0.6rem 0 0.7rem; }
+.head p { color: var(--ink-dim); font-size: var(--step-1); }
+
+/* ---------- Tracklist ---------- */
+.sides { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); }
+.side-head { display: flex; align-items: baseline; gap: 0.7rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--signal); }
+.side-letter { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--signal); line-height: 1; }
+.side-name { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; }
+.side-base { margin: 0.75rem 0 0.3rem; font-size: 0.8rem; color: var(--ink-mute); line-height: 1.5; }
+.side-base b { color: var(--ink-dim); font-weight: 700; }
+
+.track { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.15rem 0.7rem; padding: 0.85rem 0; border-bottom: 1px solid var(--hairline); }
+.track:hover .track-name { color: var(--signal); }
+.track-no { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--ink-mute); padding-top: 0.15rem; }
+.track-name { font-family: var(--font-display); font-weight: 700; font-size: 1.18rem; line-height: 1.15; letter-spacing: -0.015em; transition: color 0.25s ease; }
+.track-kind { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); grid-column: 2; margin-top: 0.2rem; }
+.track-adds { grid-column: 2; font-size: 0.84rem; color: var(--ink-dim); margin-top: 0.3rem; }
+.track-adds .plain { color: var(--signal); font-weight: 700; }
+@media (max-width: 860px) { .sides { grid-template-columns: 1fr; } }
+
+/* ---------- Nothing ---------- */
+.nothing { text-align: center; }
+.nothing h2 { font-size: clamp(3rem, 1.5rem + 7vw, 5.5rem); margin: 0.8rem 0 0.6rem; }
+.nothing > p { max-width: 42ch; margin: 0 auto clamp(2rem, 4vw, 3rem); color: var(--ink-dim); font-size: var(--step-1); }
+.nots { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.45rem; max-width: 52rem; margin-inline: auto; }
+.nots li {
+  border: 1px solid var(--hairline); border-radius: 2px; padding: 0.45em 0.85em;
+  font-size: 0.78rem; color: var(--ink-dim); letter-spacing: 0.02em;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+.nots li:hover { border-color: var(--signal); color: var(--signal); background: var(--paper-dim); }
+
+/* ---------- Route ---------- */
+.week { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--hairline); margin-bottom: clamp(2rem, 4vw, 3rem); }
+.beat { padding: 1.2rem 1.3rem 1.3rem 0; }
+.beat + .beat { border-left: 1px solid var(--hairline); padding-left: 1.3rem; }
+.beat-day { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 1.1rem + 1.1vw, 2rem); letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
+.beat-time { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal); margin: 0.45rem 0 0.35rem; }
+.beat p { font-size: 0.86rem; color: var(--ink-dim); }
+@media (max-width: 780px) {
+  .week { grid-template-columns: 1fr; }
+  .beat { padding: 1rem 0; border-top: 1px solid var(--hairline); }
+  .beat:first-child { border-top: none; }
+  .beat + .beat { border-left: none; padding-left: 0; }
+}
+
+.stops { border-top: 1px solid var(--hairline); }
+.stop { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 0.3rem 1.6rem; align-items: baseline; padding: 1.15rem 0; border-bottom: 1px solid var(--hairline); }
+.stop-name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.015em; color: var(--ink); }
+.stop-hub .stop-name { color: var(--signal); }
+.stop-where { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-mute); margin-top: 0.3rem; }
+.stop-detail p { font-size: 0.86rem; color: var(--ink-dim); }
+.stop-detail p + p { margin-top: 0.1rem; }
+.chip { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4em 0.7em; border-radius: 2px; border: 1px solid var(--hairline); color: var(--ink-mute); white-space: nowrap; }
+.chip-on { background: var(--signal); border-color: var(--signal); color: var(--on-signal); }
+.chip-low { border-color: var(--signal); color: var(--signal); background: var(--paper-dim); }
+.stop-chips { display: flex; gap: 0.35rem; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 820px) { .stop { grid-template-columns: 1fr; gap: 0.55rem; } .stop-chips { justify-content: flex-start; } }
+
+/* ---------- Terms ---------- */
+.terms { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0 clamp(1.4rem, 3vw, 2.6rem); }
+.term { padding: 1.3rem 0; border-top: 1px solid var(--hairline); }
+.term dt { font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--signal); line-height: 1; letter-spacing: -0.02em; }
+.term h3 { font-size: 0.95rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0; margin: 0.55rem 0 0.2rem; color: var(--ink); }
+.term dd { margin: 0; font-size: 0.86rem; color: var(--ink-dim); }
+
+/* ---------- Join ---------- */
+.join { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.8rem, 4vw, 3.2rem); align-items: center; }
+.join p { color: var(--ink-dim); margin-top: 0.8rem; max-width: 42ch; }
+.join-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+.giving { background: var(--paper-dim); border: 1px solid var(--signal); border-radius: 2px; padding: 1.4rem 1.5rem; }
+.giving b { display: block; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 1rem + 1.2vw, 1.8rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.5rem; color: var(--ink); }
+.giving p { font-size: 0.88rem; margin-top: 0; }
+@media (max-width: 820px) { .join { grid-template-columns: 1fr; } }
+
+/* ---------- Colophon: footage shows again ---------- */
+/* rides the footage, so it carries its own graded scrim — without it the
+   small print sits at ~4.4:1 whenever a bright frame is behind it */
+.colophon {
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(to bottom, oklch(0.225 0.07 256 / 0.35), oklch(0.225 0.07 256 / 0.82) 55%);
+}
+.colophon-in { width: min(100% , var(--sleeve)); margin-inline: auto; }
+.colophon-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(1.4rem, 4vw, 3rem); }
+.colophon-name { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
+.colophon-sub { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone-dim); margin-top: 0.45rem; font-weight: 700; }
+.colophon-top p { font-size: 0.86rem; color: var(--bone-dim); margin-top: 0.9rem; max-width: 34ch; }
+.colophon h4 { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--signal-bright); margin-bottom: 0.9rem; font-family: var(--font-body); font-weight: 700; }
+.colophon ul { display: flex; flex-direction: column; gap: 0.55rem; }
+.colophon ul a { font-size: 0.88rem; color: var(--bone-dim); transition: color 0.25s ease; }
+.colophon ul a:hover { color: var(--bone); }
+.legal { margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1.4rem; border-top: 1px solid var(--ground-line); font-size: 0.76rem; line-height: 1.65; color: var(--bone-dim); max-width: 92ch; }
+@media (max-width: 780px) { .colophon-top { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="backdrop" aria-hidden="true">
+  <video id="bg" autoplay muted loop playsinline webkit-playsinline preload="auto"
+         poster="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1600&q=80">
+    <source src="https://videos.pexels.com/video-files/855340/855340-hd_1920_1080_25fps.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<!-- Desktop: fixed vertical rail. No top nav bar anywhere on this site. -->
+<nav class="rail" aria-label="Primary">
+  <a href="#top" aria-label="Benny's Treats, home">
+    <svg class="rail-mark" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+      <path d="M11 9.6h14v3.1c0 .9.5 1.3 1.1 1.9.9.9 1.4 2.1 1.4 3.4V28a2.6 2.6 0 0 1-2.6 2.6H12.1A2.6 2.6 0 0 1 9.5 28V18c0-1.3.5-2.5 1.4-3.4.6-.6 1.1-1 1.1-1.9V9.6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M10.2 6.4h15.6" stroke="#3862d6" stroke-width="2.8" stroke-linecap="round"/>
+    </svg>
+  </a>
+  <div class="rail-nav">
+    <a href="#tracklist">Tracklist</a>
+    <a href="#route">Route</a>
+    <a href="#terms">Terms</a>
+  </div>
+  <a class="rail-cta" href="#join">Become a Member</a>
+</nav>
+
+<!-- Mobile bar + sheet -->
+<div class="bar">
+  <a class="bar-brand" href="#top">
+    <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+      <path d="M11 9.6h14v3.1c0 .9.5 1.3 1.1 1.9.9.9 1.4 2.1 1.4 3.4V28a2.6 2.6 0 0 1-2.6 2.6H12.1A2.6 2.6 0 0 1 9.5 28V18c0-1.3.5-2.5 1.4-3.4.6-.6 1.1-1 1.1-1.9V9.6Z" stroke="#f4f6fb" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M10.2 6.4h15.6" stroke="#3862d6" stroke-width="2.8" stroke-linecap="round"/>
+    </svg>
+    <span class="bar-name">Benny's Treats</span>
+  </a>
+  <button class="bar-toggle" id="sheetToggle" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><span></span></button>
+</div>
+<div class="sheet" id="sheet">
+  <a href="#tracklist">Tracklist</a>
+  <a href="#route">Route</a>
+  <a href="#terms">Terms</a>
+  <a href="#join">Sign in</a>
+  <a class="sheet-cta" href="#join">Become a Member</a>
+</div>
+
+<div class="shell" id="main">
+
+  <!-- Cover -->
+  <header class="cover" id="top">
+    <div class="cover-inner">
+      <span class="tag">Buhl, Idaho · Est. for members only</span>
+      <h1>Benny's Treats</h1>
+      <p class="cover-line">
+        Raw ingredients, sourced locally. Ice cream churned from raw milk, raw duck eggs
+        and raw honey. Four things in a pint, and nothing else at all.
+      </p>
+      <ul class="cover-meta">
+        <li class="stamp">Members only</li>
+        <li>16 flavors</li>
+        <li>2 bases</li>
+        <li>Glass jars, $2 deposit</li>
+      </ul>
+      <div class="cover-actions">
+        <a class="btn btn-signal" href="#join">Become a Member <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-bone" href="#route">Find Your Freezer</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sleeve -->
+  <main class="sleeve">
+
+    <!-- Tracklist -->
+    <section class="pad" id="tracklist" aria-labelledby="tracklist-h">
+      <div class="head">
+        <span class="tag">The tracklist</span>
+        <h2 id="tracklist-h">Sixteen flavors, two sides.</h2>
+        <p>Every flavor is named after a song. Same four things under each side, so the line on the row is only what gets added.</p>
+      </div>
+
+      <div class="sides">
+        <div>
+          <div class="side-head">
+            <span class="side-letter">A</span>
+            <span class="side-name">Raw Milk</span>
+          </div>
+          <p class="side-base">Every pint on this side: <b>raw milk, raw duck eggs, whey concentrate, raw honey.</b></p>
+
+          <div class="track">
+            <span class="track-no">A1</span>
+            <span class="track-name">The Ecstasy of Gold</span>
+            <span class="track-kind">Honey</span>
+            <span class="track-adds"><span class="plain">Nothing added.</span> Just the base.</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A2</span>
+            <span class="track-name">Stairway to Heaven</span>
+            <span class="track-kind">Chocolate</span>
+            <span class="track-adds">Ferg's Mushroom Cocoa Powder</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A3</span>
+            <span class="track-name">Free Bird</span>
+            <span class="track-kind">Mint Chip</span>
+            <span class="track-adds">Pure peppermint oil, Equal Exchange chocolate</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A4</span>
+            <span class="track-name">Smooth</span>
+            <span class="track-kind">Strawberry</span>
+            <span class="track-adds">Strawberries</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A5</span>
+            <span class="track-name">Cherry Pie</span>
+            <span class="track-kind">Cherry Chip</span>
+            <span class="track-adds">Cherries, Equal Exchange chocolate</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A6</span>
+            <span class="track-name">Purple Haze</span>
+            <span class="track-kind">Huckleberry</span>
+            <span class="track-adds">Huckleberries</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A7</span>
+            <span class="track-name">Kickstart My Heart</span>
+            <span class="track-kind">Coffee</span>
+            <span class="track-adds">Dawson Taylor Espresso Primo Blend</span>
+          </div>
+          <div class="track">
+            <span class="track-no">A8</span>
+            <span class="track-name">Sweet Child o' Mine</span>
+            <span class="track-kind">Caramel Sea Salt</span>
+            <span class="track-adds">Béquet caramels</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="side-head">
+            <span class="side-letter">B</span>
+            <span class="side-name">Raw Colostrum</span>
+          </div>
+          <p class="side-base">Every pint on this side: <b>raw colostrum, raw duck eggs, whey concentrate, raw honey.</b></p>
+
+          <div class="track">
+            <span class="track-no">B1</span>
+            <span class="track-name">Rooster</span>
+            <span class="track-kind">Honey</span>
+            <span class="track-adds"><span class="plain">Nothing added.</span> Just the base.</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B2</span>
+            <span class="track-name">Cowboys From Hell</span>
+            <span class="track-kind">Chocolate</span>
+            <span class="track-adds">Ferg's Mushroom Cocoa Powder</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B3</span>
+            <span class="track-name">We Didn't Start The Fire</span>
+            <span class="track-kind">Mint Chip</span>
+            <span class="track-adds">Pure peppermint oil, Equal Exchange chocolate</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B4</span>
+            <span class="track-name">Radar Love</span>
+            <span class="track-kind">Strawberry</span>
+            <span class="track-adds">Strawberries</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B5</span>
+            <span class="track-name">Hot For Teacher</span>
+            <span class="track-kind">Cherry Chip</span>
+            <span class="track-adds">Cherries, Equal Exchange chocolate</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B6</span>
+            <span class="track-name">Space Cowboy</span>
+            <span class="track-kind">Huckleberry</span>
+            <span class="track-adds">Huckleberries</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B7</span>
+            <span class="track-name">Doctor, Doctor</span>
+            <span class="track-kind">Coffee</span>
+            <span class="track-adds">Dawson Taylor Espresso Primo Blend</span>
+          </div>
+          <div class="track">
+            <span class="track-no">B8</span>
+            <span class="track-name">Don't You Forget About Me</span>
+            <span class="track-kind">Caramel Sea Salt</span>
+            <span class="track-adds">Béquet caramels</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nothing -->
+    <section class="pad nothing" aria-labelledby="nothing-h">
+      <span class="tag">And the rest of the ingredient list</span>
+      <h2 id="nothing-h">Nothing.</h2>
+      <p>Read the back of a pint at the store, then read ours. That difference is the whole business.</p>
+      <ul class="nots">
+        <li>No soy</li>
+        <li>No seed oils</li>
+        <li>No synthetic gums</li>
+        <li>No emulsifiers</li>
+        <li>No added cream</li>
+        <li>No refined sugar</li>
+        <li>No flavorings</li>
+        <li>No colorings</li>
+        <li>No preservatives</li>
+      </ul>
+    </section>
+
+    <!-- Route -->
+    <section class="pad" id="route" aria-labelledby="route-h">
+      <div class="head">
+        <span class="tag">The route</span>
+        <h2 id="route-h">One run a week, three ways to get a pint.</h2>
+        <p>Nothing in a pint holds it together artificially, so batches stay small and the schedule is real.</p>
+      </div>
+
+      <div class="week">
+        <div class="beat">
+          <div class="beat-day">Wednesday</div>
+          <div class="beat-time">4:00p – 7:00p</div>
+          <p>Will-call window at the Garden City batch facility.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-day">Thursday</div>
+          <div class="beat-time">6:00a – 11:00a</div>
+          <p>Partner freezers restocked across Boise, Meridian, Eagle and Nampa.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-day">Saturday</div>
+          <div class="beat-time">9:00a – 1:00p</div>
+          <p>Garden City pickup. Jar returns credited on site.</p>
+        </div>
+      </div>
+
+      <div class="stops">
+        <div class="stop stop-hub">
+          <div>
+            <div class="stop-name">Garden City Hub</div>
+            <div class="stop-where">Batch facility</div>
+          </div>
+          <div class="stop-detail">
+            <p>4th &amp; Chinden, Garden City, ID 83714</p>
+            <p>Wed 4p–7p · Sat 9a–1p</p>
+          </div>
+          <div class="stop-chips"><span class="chip chip-on">Stocked</span><span class="chip">Jar return</span></div>
+        </div>
+        <div class="stop">
+          <div>
+            <div class="stop-name">SBG Idaho</div>
+            <div class="stop-where">Boise</div>
+          </div>
+          <div class="stop-detail">
+            <p>6152 W State St, Boise, ID 83703</p>
+            <p>Mon–Fri 5a–9p · Sat 8a–2p</p>
+          </div>
+          <div class="stop-chips"><span class="chip chip-on">Stocked</span><span class="chip">Jar return</span></div>
+        </div>
+        <div class="stop">
+          <div>
+            <div class="stop-name">CrossFit Meridian</div>
+            <div class="stop-where">Meridian</div>
+          </div>
+          <div class="stop-detail">
+            <p>1735 W Franklin Rd, Meridian, ID 83642</p>
+            <p>Mon–Fri 5a–8p · Sat 8a–12p</p>
+          </div>
+          <div class="stop-chips"><span class="chip chip-low">Low</span><span class="chip">Jar return</span></div>
+        </div>
+        <div class="stop">
+          <div>
+            <div class="stop-name">Eagle Fitness</div>
+            <div class="stop-where">Eagle</div>
+          </div>
+          <div class="stop-detail">
+            <p>3084 E State St, Eagle, ID 83616</p>
+            <p>Daily 5a–10p</p>
+          </div>
+          <div class="stop-chips"><span class="chip chip-on">Stocked</span><span class="chip">Jar return</span></div>
+        </div>
+        <div class="stop">
+          <div>
+            <div class="stop-name">Snake River CrossFit</div>
+            <div class="stop-where">Nampa</div>
+          </div>
+          <div class="stop-detail">
+            <p>824 Caldwell Blvd, Nampa, ID 83651</p>
+            <p>Mon–Fri 5a–8p · Sat 9a–12p</p>
+          </div>
+          <div class="stop-chips"><span class="chip">In route</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms -->
+    <section class="pad" id="terms" aria-labelledby="terms-h">
+      <div class="head">
+        <span class="tag">Membership</span>
+        <h2 id="terms-h">How it works once you're in.</h2>
+      </div>
+      <dl class="terms">
+        <div class="term">
+          <dt>$2.00</dt>
+          <h3>Jar deposit</h3>
+          <dd>Every pint comes in glass. Bring the jar back to any return station and the deposit comes back with it.</dd>
+        </div>
+        <div class="term">
+          <dt>10%</dt>
+          <h3>Off for service</h3>
+          <dd>Military, veterans, police, firefighters, EMTs, coaches and teachers.</dd>
+        </div>
+        <div class="term">
+          <dt>Ten</dt>
+          <h3>Referrals, one free pint</h3>
+          <dd>Every ten members you send our way earns you a free pint every month.</dd>
+        </div>
+        <div class="term">
+          <dt>$1.00</dt>
+          <h3>Per pint, given away</h3>
+          <dd>A dollar from every pint sold goes back out to a cause we pick together.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Join -->
+    <section class="pad" id="join" aria-labelledby="join-h">
+      <div class="join">
+        <div>
+          <span class="tag">Join</span>
+          <h2 id="join-h">Become a member.</h2>
+          <p>Membership opens the full list, the pickup schedule and the jar deposit program. Members only, by design.</p>
+          <div class="join-actions">
+            <!-- Swap these two href values for your real member portal links -->
+            <a class="btn btn-signal" href="#join">Become a Member <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <a class="btn btn-bone" href="#join">Sign In</a>
+          </div>
+        </div>
+        <div class="giving">
+          <b>That dollar is going to Boise State baseball.</b>
+          <p>Members are funding the effort to restart the program, one pint at a time.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Colophon: the footage comes back -->
+  <footer class="colophon">
+    <div class="colophon-in">
+      <div class="colophon-top">
+        <div>
+          <div class="colophon-name">Benny's Treats</div>
+          <div class="colophon-sub">A Private Membership Association · Boise, Idaho</div>
+          <p>Churned at the Evans Farmstead in Buhl and picked up cold across the Treasure Valley.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#tracklist">Tracklist</a></li>
+            <li><a href="#route">The route</a></li>
+            <li><a href="#terms">Membership terms</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Members</h4>
+          <ul>
+            <li><a href="#join">Become a member</a></li>
+            <li><a href="#join">Sign in</a></li>
+            <li><a href="#terms">Jar deposit &amp; returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="legal">
+        Products are prepared for and distributed solely to members of the Benny's Treats Private
+        Membership Association. Raw dairy products are not offered for public retail sale. Freezer
+        stock levels reflect the most recent route and can change between deliveries. Pasture
+        footage and still photography are representative, not shot at the Evans Farmstead.
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Backdrop footage. Poster carries it if we never play, so reduced motion
+     and autoplay refusals both land on a still frame. */
+  var v = document.getElementById('bg');
+  if (v) {
+    if (reduced) { v.removeAttribute('autoplay'); v.pause(); }
+    else {
+      v.playbackRate = 0.7;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+      document.addEventListener('visibilitychange', function once() {
+        if (!document.hidden && v.paused) { v.play().catch(function () {}); document.removeEventListener('visibilitychange', once); }
+      });
+    }
+  }
+
+  /* Mobile sheet */
+  var toggle = document.getElementById('sheetToggle');
+  var close = function () { document.body.classList.remove('sheet-open'); toggle.setAttribute('aria-expanded', 'false'); };
+  toggle.addEventListener('click', function () {
+    var open = document.body.classList.toggle('sheet-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('#sheet a').forEach(function (a) { a.addEventListener('click', close); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>
