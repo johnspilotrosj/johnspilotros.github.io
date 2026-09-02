@@ -382,6 +382,23 @@
   .modal-date { display: flex; gap: 0.6rem; align-items: center; margin-top: 0.6rem; }
   .modal-date .input { flex: 1 1 auto; }
 
+  /* ---------- Their schedule ---------- */
+  .sched { display: grid; gap: 0.25rem; max-height: 260px; overflow-y: auto; }
+  .sched-row {
+    display: flex; gap: 0.6rem; align-items: baseline;
+    font-size: 0.82rem; line-height: 1.45; padding: 0.32rem 0.45rem;
+    border: 1px solid transparent; border-radius: var(--r-sm);
+  }
+  .sched-row.is-done { opacity: 0.4; }
+  .sched-row.is-done .sched-what { text-decoration: line-through; }
+  .sched-row.is-now {
+    background: var(--gold-soft); border-color: var(--gold-line); font-weight: 650;
+  }
+  .sched-when { flex: none; width: 5.8rem; color: var(--muted); font-size: 0.78rem; }
+  .sched-row.is-now .sched-when { color: var(--gold-deep); }
+  .sched-what { min-width: 0; }
+  .sched-tick { flex: none; width: 1rem; color: oklch(0.55 0.13 150); font-weight: 700; }
+
   /* ---------- Farm ---------- */
   .farm-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1.2rem; }
   .farm-bar .btn { padding: 0.6rem 1.1rem; font-size: 0.78rem; }
@@ -2235,6 +2252,15 @@
       var flagRow = el('div', 'opts');
       flagWrap.appendChild(flagRow);
 
+      /* The drip is invisible otherwise. Nothing here is a button you press
+         to start it, because it started the day they signed in. This is just
+         so you can see where they are in it. */
+      var schedWrap = mblock(box, 'Their schedule');
+      var sched = el('div', 'sched');
+      schedWrap.appendChild(sched);
+      var schedNote = el('p', 'week-note');
+      schedWrap.appendChild(schedNote);
+
       var acts = el('div', 'modal-actions');
       var save = el('button', 'btn btn-dark', 'Save');
       save.type = 'button';
@@ -2314,6 +2340,27 @@
           draft.dnc_registry = !draft.dnc_registry;
           refresh();
         }, true));
+
+        sched.textContent = '';
+        var steps = sequences[draft.segment] || [];
+        var at = Number(lead.seq_step) || 0;
+
+        if (!steps.length) {
+          schedNote.textContent = 'Segment ' + draft.segment + ' has no steps set. Add some in the Templates tab.';
+        } else {
+          steps.forEach(function (st, i) {
+            var done = i < at;
+            var row = el('div', 'sched-row' + (done ? ' is-done' : i === at ? ' is-now' : ''));
+            row.appendChild(el('span', 'sched-tick', done ? '✓' : ''));
+            row.appendChild(el('span', 'sched-when', fmtDay(seqDue(lead, st))));
+            row.appendChild(el('span', 'sched-what', st.label));
+            sched.appendChild(row);
+          });
+          schedNote.textContent = at >= steps.length
+            ? 'They have been through the whole run. Keep them warm by hand from here.'
+            : 'Step ' + (at + 1) + ' of ' + steps.length + '. Dates count from the day they signed in. '
+              + 'Nothing sends on its own, these turn up in Today when they come due.';
+        }
       }
 
       cancel.addEventListener('click', function () { closeModal(true); });
