@@ -98,7 +98,7 @@
   .list { display: grid; gap: 0.6rem; }
   .lead {
     background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md);
-    padding: 0.85rem 1rem; box-shadow: var(--shadow-sm);
+    padding: 0.75rem 0.9rem; box-shadow: var(--shadow-sm);
   }
   .lead.is-hot { border-color: oklch(0.82 0.09 25); box-shadow: 0 0 0 1px oklch(0.82 0.09 25 / 0.4), var(--shadow-sm); }
   .lead-top { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
@@ -111,26 +111,26 @@
   .badge-hot { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
   .badge-new { color: var(--gold-deep); background: var(--gold-soft); border-color: var(--gold-line); }
   .lead-prop { margin-top: 0.15rem; font-size: 0.85rem; color: var(--muted); }
-  .lead-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
+  .lead-meta { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.45rem; align-items: center; }
   .tag {
-    font-size: 0.78rem; color: var(--ink); background: var(--bg-alt);
-    border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0.22rem 0.5rem;
+    font-size: 0.74rem; color: var(--muted); background: var(--bg-alt);
+    border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0.16rem 0.42rem;
   }
   .tag.warn { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
   .lead-notes {
     margin-top: 0.55rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink);
     border-left: 2px solid var(--gold-line); padding-left: 0.9rem;
   }
-  .lead-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+  .lead-actions { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
   .lead-actions a {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    padding: 0.5rem 0.9rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
-    font-size: 0.84rem; font-weight: 600; transition: background-color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex; align-items: center; gap: 0.34rem;
+    padding: 0.42rem 0.72rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    font-size: 0.8rem; font-weight: 600; transition: background-color 0.2s ease, border-color 0.2s ease;
   }
   .lead-actions a:hover { background: var(--bg-alt); border-color: var(--ink); }
   .lead-actions a.primary { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
   .lead-actions a.primary:hover { background: var(--charcoal-deep); }
-  .lead-actions svg { width: 15px; height: 15px; }
+  .lead-actions svg { width: 13px; height: 13px; opacity: 0.75; }
   .lead-track {
     display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
     margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line);
@@ -223,7 +223,9 @@
     .add-grid { grid-template-columns: 1fr; }
     .add-grid .span2, .add-grid .span3 { grid-column: auto; }
     .qr-row { grid-template-columns: 1fr; }
-    .lead-actions a { flex: 1 1 auto; justify-content: center; }
+    .lead-actions { gap: 0.35rem; }
+    .lead-actions a.primary { flex: 1 1 100%; justify-content: center; }
+    .lead-actions a, .lead-actions button.act { flex: 1 1 auto; justify-content: center; }
     .bar h1 { font-size: 1.25rem; }
   }
 
@@ -261,9 +263,12 @@
   }
   .due-when.is-over { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
   .due-when.is-today { color: var(--gold-deep); background: var(--gold-soft); border-color: var(--gold-line); }
-  .due-action {
-    margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.5; font-weight: 600;
-    border-left: 2px solid var(--gold-line); padding-left: 0.9rem;
+  /* The step sits on the same line as how late it is, so the two things you
+     actually read are one glance instead of two. It still wraps to its own
+     line on a narrow phone rather than squeezing. */
+  .due-action-inline {
+    flex: 1 1 14rem; min-width: 0;
+    font-size: 0.86rem; line-height: 1.4; font-weight: 650; color: var(--ink);
   }
 
   /* ---------- Segment and read ---------- */
@@ -306,16 +311,16 @@
   }
   .blocked b { font-weight: 700; color: var(--ink); }
   .lead-actions button.act {
-    display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;
-    padding: 0.5rem 0.9rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    display: inline-flex; align-items: center; gap: 0.34rem; cursor: pointer;
+    padding: 0.42rem 0.72rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
     background: var(--bg); color: var(--ink);
-    font-size: 0.84rem; font-weight: 600; font-family: inherit;
+    font-size: 0.8rem; font-weight: 600; font-family: inherit;
     transition: background-color 0.2s ease, border-color 0.2s ease;
   }
   .lead-actions button.act:hover { background: var(--bg-alt); border-color: var(--ink); }
   .lead-actions button.act.primary { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
   .lead-actions button.act.primary:hover { background: var(--charcoal-deep); }
-  .lead-actions button.act svg { width: 15px; height: 15px; }
+  .lead-actions button.act svg { width: 13px; height: 13px; opacity: 0.75; }
 
   /* ---------- Touch history ---------- */
   .hist { margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); }
@@ -325,7 +330,7 @@
     font-size: 0.78rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
   }
   .hist-head:hover { color: var(--ink); }
-  .hist-head .caret { transition: transform 0.2s ease; }
+  .hist-head .caret { width: 12px; height: 12px; flex: none; transition: transform 0.2s ease; }
   .hist-head[aria-expanded="true"] .caret { transform: rotate(90deg); }
   .hist-rows { margin-top: 0.6rem; display: grid; gap: 0.4rem; }
   .hist-row { display: flex; gap: 0.6rem; align-items: baseline; font-size: 0.84rem; line-height: 1.5; }
@@ -993,6 +998,10 @@
     svg.setAttribute('stroke-linecap', 'round');
     svg.setAttribute('stroke-linejoin', 'round');
     svg.setAttribute('aria-hidden', 'true');
+    /* Without these an icon has no intrinsic size and stretches to fill
+       whatever flex row it lands in. Any CSS rule still overrides them. */
+    svg.setAttribute('width', '14');
+    svg.setAttribute('height', '14');
     var p = document.createElementNS(NS, 'path');
     p.setAttribute('d', d);
     svg.appendChild(p);
@@ -1068,7 +1077,7 @@
     top.appendChild(sb);
 
     if (hot) top.appendChild(el('span', 'badge badge-hot', 'Hot'));
-    if (lead.status === 'new') top.appendChild(el('span', 'badge badge-new', 'New'));
+    if (lead.status === 'new' && !due) top.appendChild(el('span', 'badge badge-new', 'New'));
     if (badPhone) {
       var bp = el('span', 'badge badge-bad', 'Check phone');
       bp.title = 'That area code is not a real one. Worth confirming before you waste a call on it.';
@@ -1093,23 +1102,27 @@
                 : 'Due ' + fmtDay(lead.next_action_date);
       var line = el('div', 'lead-meta');
       line.appendChild(el('span', 'due-when' + (over > 0 ? ' is-over' : over === 0 ? ' is-today' : ''), stamp));
+      if (lead.next_action) line.appendChild(el('span', 'due-action-inline', lead.next_action));
       wrap.appendChild(line);
-      if (lead.next_action) wrap.appendChild(el('p', 'due-action', lead.next_action));
     }
 
     /* ---- Captured facts, quieter than your read ---- */
     var meta = el('div', 'lead-meta');
-    if (lead.timeline) meta.appendChild(el('span', 'tag' + (months(lead) <= 3 ? ' warn' : ''), lead.timeline));
-    meta.appendChild(el('span', 'tag' + (lead.has_agent === false ? ' warn' : ''),
-      lead.has_agent === false ? 'No agent' : lead.has_agent === true ? 'Has an agent' : 'Agent unknown'));
-    if (lead.financing) meta.appendChild(el('span', 'tag' + (/cash/i.test(lead.financing) ? ' warn' : ''), lead.financing));
+    if (lead.timeline) meta.appendChild(el('span', 'tag', lead.timeline));
+    /* "No agent" is what segments A, B and C mean, so printing it again is
+       noise. Only the exceptions are worth a tag. */
+    if (lead.has_agent === true) meta.appendChild(el('span', 'tag', 'Has an agent'));
+    else if (lead.has_agent !== false) meta.appendChild(el('span', 'tag', 'Agent unknown'));
+    /* Cash is the one financing answer that changes how you work them. */
+    if (/cash/i.test(lead.financing || '')) meta.appendChild(el('span', 'tag warn', 'Cash'));
+    else if (lead.financing) meta.appendChild(el('span', 'tag', lead.financing));
     if (lead.source && lead.source !== 'open house') meta.appendChild(el('span', 'tag', lead.source));
     if (lead.last_touch) {
       var lt = el('span', 'tag', 'Last touch ' + ago(lead.last_touch));
       lt.title = new Date(lead.last_touch).toLocaleString('en-US');
       meta.appendChild(lt);
     } else {
-      meta.appendChild(el('span', 'tag warn', 'Never touched'));
+      meta.appendChild(el('span', 'tag', 'Never touched'));
     }
     wrap.appendChild(meta);
 
@@ -1178,7 +1191,8 @@
     var logb = el('button', 'act');
     logb.type = 'button';
     logb.appendChild(icon(ICON_LOG));
-    logb.appendChild(document.createTextNode('Log a touch'));
+    logb.appendChild(document.createTextNode('Log'));
+    logb.title = 'Log a touch and set what happens next';
     logb.addEventListener('click', function () { openLog(lead, null); });
     acts.appendChild(logb);
 
@@ -1228,7 +1242,11 @@
     if (mine.length) hist.appendChild(rows);
     wrap.appendChild(hist);
 
-    /* ---- Status, private notes, archive ---- */
+    /* ---- Status, private notes, archive ----
+       Skipped in the Today view. That screen is a list of things to do, and
+       the editing controls push the next card off the bottom of the phone. */
+    if (due) return wrap;
+
     var track = el('div', 'lead-track');
     var sel = el('select', 'select');
     STATUSES.forEach(function (st) {
@@ -2427,14 +2445,29 @@
       price.addEventListener('input', paint);
       value.addEventListener('input', paint);
 
+      /* Once it is on your clipboard you are about to send it, so the exit
+         button turns into the next step instead of making you find the Log
+         button again on the card behind this panel. */
+      var logNext = false;
+
       copy.addEventListener('click', function () {
         if (!out.value.trim()) return;
         copyText(out.value, function () {
           copy.textContent = 'Copied';
           setTimeout(function () { copy.textContent = 'Copy To Clipboard'; }, 1600);
+          if (!logNext) {
+            logNext = true;
+            done.className = 'btn btn-dark';
+            done.textContent = 'Sent It, Log It';
+          }
         });
       });
-      done.addEventListener('click', function () { closeModal(true); });
+
+      done.addEventListener('click', function () {
+        var ch = logNext && chosen ? chosen.channel : null;
+        closeModal(true);
+        if (ch) openLog(lead, ch);
+      });
 
       refresh();
     });
