@@ -106,6 +106,13 @@ h1 { font-size: var(--step-hero); }
 h2 { font-size: var(--step-3); }
 h3, h4 { font-family: var(--font-body); font-weight: 650; letter-spacing: -0.01em; line-height: 1.25; color: var(--ink); text-wrap: balance; }
 h3 { font-size: var(--step-1); }
+
+/* Italiana ships at one weight, so a hairline stroke does the thickening.
+   In em so every title size gains the same amount. */
+h1, h2, .tool h3, .reloc-town-name {
+  -webkit-text-stroke: 0.008em currentColor;
+  paint-order: stroke fill;
+}
 p { text-wrap: pretty; }
 strong { font-weight: 650; }
 
@@ -859,11 +866,26 @@ body.modal-open { overflow: hidden; }
   .sticky-cta { display: flex; }
   body.has-sticky-cta .site-footer { padding-bottom: 4.6rem; }
   body.nav-open .sticky-cta { display: none; }
+  /* Same clearance the footer gets. Without it the call bar covers the
+     bottom of the viewport and the centred 404 reads as sitting low. */
+  body.has-sticky-cta .notfound { padding-bottom: calc(4.6rem + clamp(2rem, 5vw, 3.5rem)); }
 }
 
 /* ============ 404 & thank-you pages ============ */
-.notfound-actions { justify-content: flex-start; margin-top: 1.8rem; }
-.notfound .towns-row { margin-top: 1.6rem; }
+/* The 404 has almost nothing on it, so left aligned it read as a page that
+   had failed to finish loading. Centred in the viewport it reads as a
+   deliberate dead end with one way out. */
+.notfound {
+  min-height: 100vh;   /* fallback for browsers without svh (iOS < 15.4) */
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  text-align: center;
+  padding-top: calc(78px + clamp(2rem, 5vw, 3.5rem));
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.notfound h1, .notfound p { margin-inline: auto; }
+.notfound-actions { justify-content: center; margin-top: 1.8rem; }
 .notfound-call { margin-top: 1.8rem; font-size: 0.9rem; color: var(--muted); }
 .notfound-call a { color: var(--gold-deep); }
 .thankyou-next { margin-top: 2.4rem; max-width: 480px; }

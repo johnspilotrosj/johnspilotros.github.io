@@ -1,0 +1,3386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard · John Spilotros</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Private dashboard.">
+<meta name="theme-color" content="#faf9f6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/index-BMl0_tLN.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231b3a2c'/%3E%3Cpath d='M11 27 20 13 29 27' fill='none' stroke='%23eef7f0' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M20 14v13' stroke='%23e08a52' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  body { background: var(--bg-alt); }
+  [hidden] { display: none !important; }
+
+  /* ---------- Sign in ---------- */
+  .gate { width: min(100% - 2rem, 420px); margin: 0 auto; padding: clamp(3rem, 12vh, 7rem) 0 4rem; }
+  .gate h1 { font-size: clamp(2.2rem, 1.8rem + 2vw, 3rem); margin-top: 0.5rem; }
+  .gate form { display: grid; gap: 1rem; margin-top: 1.8rem; }
+  .gate .btn { width: 100%; }
+
+  /* ---------- Shell ---------- */
+  .bar {
+    position: sticky; top: 0; z-index: 50;
+    background: oklch(0.975 0.004 90 / 0.94); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner {
+    width: min(100% - 2rem, 1120px); margin-inline: auto;
+    display: flex; align-items: center; gap: 1rem; padding: 0.85rem 0;
+  }
+  .bar h1 { font-size: 1.5rem; line-height: 1; }
+  .bar-actions { margin-left: auto; display: flex; gap: 0.5rem; }
+  .bar-actions .btn { padding: 0.55rem 0.95rem; font-size: 0.74rem; }
+
+  .tabs {
+    width: min(100% - 2rem, 1120px); margin-inline: auto;
+    display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.6rem;
+  }
+  .tab {
+    padding: 0.55rem 1.05rem; border: 1px solid transparent; border-radius: 100px;
+    background: transparent; font-size: 0.86rem; font-weight: 600; cursor: pointer;
+    color: var(--muted); white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .tab:hover { color: var(--ink); background: var(--bg); }
+  .tab[aria-selected="true"] { background: var(--charcoal); color: var(--ivory); }
+  .tab .count {
+    display: inline-block; margin-left: 0.45rem; padding: 0.05rem 0.4rem;
+    border-radius: 100px; background: oklch(0.5 0.17 25); color: #fff;
+    font-size: 0.7rem; font-weight: 700;
+  }
+
+  .page { width: min(100% - 2rem, 1120px); margin: 0 auto; padding: 1.5rem 0 5rem; }
+
+  .err {
+    font-size: 0.9rem; line-height: 1.55; color: oklch(0.42 0.16 25);
+    background: oklch(0.97 0.02 25); border: 1px solid oklch(0.82 0.09 25);
+    border-radius: var(--r-sm); padding: 0.85rem 1rem; margin-bottom: 1.2rem;
+  }
+
+  /* ---------- Stats ---------- */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 1rem 1.1rem; }
+  .stat b { display: block; font-family: var(--font-display); font-size: 2.1rem; line-height: 1; font-weight: 400; }
+  .stat span { display: block; margin-top: 0.35rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .stat.is-hot b { color: oklch(0.5 0.17 25); }
+
+  /* ---------- Controls ---------- */
+  .controls { display: grid; grid-template-columns: 1fr 260px; gap: 0.8rem; margin-bottom: 1rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .chip {
+    padding: 0.55rem 1rem; border: 1px solid var(--line-strong); border-radius: 100px;
+    background: var(--bg); font-size: 0.84rem; font-weight: 550; cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .chip:hover { border-color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+
+  /* ---------- Add someone ---------- */
+  .add {
+    background: var(--card); border: 1px solid var(--gold-line); border-radius: var(--r-md);
+    padding: 1.3rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
+  }
+  .add h2 { font-size: 1.5rem; margin-bottom: 1.1rem; }
+  .add-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+  .add-grid .span2 { grid-column: span 2; }
+  .add-grid .span3 { grid-column: 1 / -1; }
+  .add-grid .input, .add-grid .select, .add-grid .textarea { margin-top: 0.35rem; }
+  .add-grid .textarea { min-height: 70px; }
+  .add-actions { display: flex; gap: 0.7rem; margin-top: 1.2rem; align-items: center; }
+  .add-err { font-size: 0.86rem; color: oklch(0.45 0.17 25); }
+
+  /* ---------- Lead cards ---------- */
+  .list { display: grid; gap: 0.6rem; }
+  .lead {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 0.85rem 1rem; box-shadow: var(--shadow-sm);
+  }
+  .lead.is-hot { border-color: oklch(0.82 0.09 25); box-shadow: 0 0 0 1px oklch(0.82 0.09 25 / 0.4), var(--shadow-sm); }
+  .lead-top { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+  .lead-name { font-size: 1.02rem; font-weight: 650; letter-spacing: -0.01em; }
+  .lead-when { margin-left: auto; font-size: 0.78rem; color: var(--faint); white-space: nowrap; }
+  .badge {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+    padding: 0.18rem 0.42rem; border-radius: var(--r-sm); border: 1px solid;
+  }
+  .badge-hot { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
+  .badge-new { color: var(--gold-deep); background: var(--gold-soft); border-color: var(--gold-line); }
+  .lead-prop { margin-top: 0.15rem; font-size: 0.85rem; color: var(--muted); }
+  .lead-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
+  .tag {
+    font-size: 0.78rem; color: var(--ink); background: var(--bg-alt);
+    border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0.22rem 0.5rem;
+  }
+  .tag.warn { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
+  .lead-notes {
+    margin-top: 0.55rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink);
+    border-left: 2px solid var(--gold-line); padding-left: 0.9rem;
+  }
+  .lead-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+  .lead-actions a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.5rem 0.9rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    font-size: 0.84rem; font-weight: 600; transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .lead-actions a:hover { background: var(--bg-alt); border-color: var(--ink); }
+  .lead-actions a.primary { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+  .lead-actions a.primary:hover { background: var(--charcoal-deep); }
+  .lead-actions svg { width: 15px; height: 15px; }
+  .lead-track {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+    margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line);
+  }
+  /* A dead lead stays readable but stops competing for attention. */
+  .lead.is-dead { opacity: 0.5; }
+  .lead.is-dead:hover, .lead.is-dead:focus-within { opacity: 1; }
+  .lead-del {
+    margin-left: auto; padding: 0.42rem 0.75rem; font-size: 0.78rem; font-weight: 600;
+    color: var(--faint); background: none; border: 1px solid var(--line);
+    border-radius: var(--r-sm); cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .lead-del:hover {
+    color: oklch(0.45 0.17 25); border-color: oklch(0.85 0.09 25); background: oklch(0.965 0.028 25);
+  }
+  .lead-track .select { width: auto; min-width: 150px; padding: 0.42rem 0.7rem; font-size: 0.85rem; }
+  .lead-track .textarea { min-height: 38px; font-size: 0.85rem; padding: 0.5rem 0.7rem; flex: 1 1 240px; }
+
+  .saved {
+    position: fixed; left: 50%; bottom: 1.6rem; transform: translate(-50%, 12px);
+    z-index: 80; padding: 0.7rem 1.3rem; border-radius: 100px;
+    background: var(--charcoal); color: var(--ivory);
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s var(--ease-out);
+  }
+  .saved.on { opacity: 1; transform: translate(-50%, 0); }
+
+  .empty { text-align: center; padding: 4rem 1rem; color: var(--muted); }
+
+  /* ---------- QR panel ---------- */
+  .qr-setup { margin-bottom: 2rem; }
+  .qr-setup h2 { font-size: 1.9rem; }
+  .qr-row { display: grid; grid-template-columns: 1fr auto auto; gap: 0.7rem; margin-top: 1.3rem; align-items: end; }
+  .qr-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; align-items: center; }
+  .qr-url {
+    font-size: 0.82rem; color: var(--muted); word-break: break-all;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm);
+    padding: 0.5rem 0.7rem; flex: 1 1 320px;
+  }
+  .qr-links .btn { padding: 0.55rem 1rem; font-size: 0.76rem; }
+
+  .sign {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--r-md);
+    box-shadow: var(--shadow-md); padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+    text-align: center; max-width: 720px; margin: 0 auto;
+  }
+  .sign-kicker { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-deep); font-weight: 650; }
+  .sign h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.4rem, 1.8rem + 3.2vw, 4rem); margin-top: 0.7rem; line-height: 1.02; }
+  .sign-addr { margin-top: 1rem; font-size: 0.95rem; font-weight: 650; color: var(--gold-deep); }
+  .qr-holder { margin: clamp(1.6rem, 4vw, 2.4rem) auto 0; width: fit-content; }
+  .qr-holder svg { display: block; width: clamp(200px, 40vw, 300px); height: auto; }
+  .sign-help { margin-top: 1.3rem; font-size: 1rem; color: var(--muted); }
+  .sign-foot {
+    margin-top: clamp(1.6rem, 4vw, 2.2rem); padding-top: 1.2rem; border-top: 1px solid var(--line);
+    font-size: 0.84rem; color: var(--muted); line-height: 1.6;
+  }
+  .sign-foot strong { color: var(--ink); }
+  .sign-err { color: oklch(0.45 0.17 25); font-size: 0.95rem; margin-top: 1.5rem; }
+
+  /* ---------- Cards used by Listings and Status ---------- */
+  .panel-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-sm);
+  }
+  .panel-card h2 { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .panel-card p { color: var(--muted); font-size: 0.94rem; line-height: 1.65; }
+  .panel-card .btn { margin-top: 1.2rem; }
+  .links-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
+  .links-row .btn { padding: 0.6rem 1.1rem; font-size: 0.78rem; }
+
+  .check { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.95rem 0; border-bottom: 1px solid var(--line); }
+  .check:last-child { border-bottom: none; }
+  .check-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; margin-top: 0.45rem; background: var(--faint); }
+  .check-dot.ok { background: oklch(0.62 0.15 150); }
+  .check-dot.bad { background: oklch(0.55 0.19 25); }
+  .check-dot.warn { background: var(--gold); }
+  .check-body { min-width: 0; }
+  .check-body b { display: block; font-size: 0.96rem; font-weight: 650; }
+  .check-body p { font-size: 0.87rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.6; }
+  .check-body code { font-size: 0.82rem; background: var(--bg-alt); padding: 0.1rem 0.35rem; border-radius: 3px; }
+
+  @media (max-width: 780px) {
+    .controls { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { display: flex; align-items: baseline; gap: 0.8rem; }
+    .stat b { font-size: 1.7rem; }
+    .stat span { margin-top: 0; }
+    .add-grid { grid-template-columns: 1fr; }
+    .add-grid .span2, .add-grid .span3 { grid-column: auto; }
+    .qr-row { grid-template-columns: 1fr; }
+    .lead-actions a { flex: 1 1 auto; justify-content: center; }
+    .bar h1 { font-size: 1.25rem; }
+  }
+
+  /* ---------- Backup nag ---------- */
+  .nag {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem;
+    background: var(--gold-soft); border: 1px solid var(--gold-line);
+    border-radius: var(--r-md); padding: 0.9rem 1.1rem; margin-bottom: 1.2rem;
+    font-size: 0.88rem; line-height: 1.55; color: var(--ink);
+  }
+  .nag b { font-weight: 700; }
+  .nag .btn { padding: 0.5rem 0.95rem; font-size: 0.75rem; margin-left: auto; }
+
+  /* ---------- Today ---------- */
+  .week {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 1.2rem 1.3rem; margin-bottom: 1.4rem; box-shadow: var(--shadow-sm);
+  }
+  .week-top { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .week-num { font-family: var(--font-display); font-size: 2.4rem; line-height: 1; font-weight: 400; }
+  .week-of { font-size: 0.95rem; color: var(--muted); }
+  .week-label { margin-left: auto; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .week-bar { height: 8px; border-radius: 100px; background: var(--bg-alt); border: 1px solid var(--line); margin-top: 0.9rem; overflow: hidden; }
+  .week-fill { height: 100%; background: var(--charcoal); border-radius: 100px; transition: width 0.4s var(--ease-out); }
+  .week-fill.is-there { background: oklch(0.62 0.15 150); }
+  .week-note { margin-top: 0.6rem; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+  .due { border-left: 3px solid var(--line-strong); }
+  .due.is-over { border-left-color: oklch(0.55 0.19 25); }
+  .due.is-today { border-left-color: var(--gold); }
+  .due-when {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.18rem 0.45rem; border-radius: var(--r-sm); border: 1px solid;
+    color: var(--muted); background: var(--bg-alt); border-color: var(--line);
+  }
+  .due-when.is-over { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
+  .due-when.is-today { color: var(--gold-deep); background: var(--gold-soft); border-color: var(--gold-line); }
+  .due-action {
+    margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.5; font-weight: 600;
+    border-left: 2px solid var(--gold-line); padding-left: 0.9rem;
+  }
+
+  /* ---------- Segment and read ---------- */
+  .seg {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.18rem 0.45rem; border-radius: var(--r-sm);
+    border: 1px solid var(--line-strong); background: var(--bg); color: var(--ink);
+  }
+  .seg-A { color: oklch(0.45 0.17 25);  background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
+  .seg-B { color: var(--gold-deep);     background: var(--gold-soft);      border-color: var(--gold-line); }
+  .seg-C { color: oklch(0.4 0.11 250);  background: oklch(0.96 0.02 250);  border-color: oklch(0.83 0.07 250); }
+  .seg-D { color: var(--faint);         background: var(--bg-alt);         border-color: var(--line); }
+  .seg-E { color: oklch(0.42 0.09 150); background: oklch(0.96 0.03 150);  border-color: oklch(0.83 0.07 150); }
+
+  /* My read outranks whatever they wrote on the clipboard, so it gets the
+     loud treatment and the captured timeline gets the quiet one. */
+  .read {
+    font-size: 0.74rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.24rem 0.6rem; border-radius: 100px; border: 1.5px solid;
+  }
+  .read-hot  { color: #fff; background: oklch(0.55 0.19 25); border-color: oklch(0.5 0.19 25); }
+  .read-warm { color: var(--charcoal); background: var(--gold); border-color: var(--gold-deep); }
+  .read-cold { color: var(--muted); background: var(--bg-alt); border-color: var(--line-strong); }
+  .read-set {
+    font-size: 0.74rem; font-weight: 600; padding: 0.24rem 0.6rem; border-radius: 100px;
+    border: 1.5px dashed var(--line-strong); background: none; color: var(--faint);
+    cursor: pointer; font-family: inherit;
+  }
+  .read-set:hover { border-color: var(--ink); color: var(--ink); }
+  .read-note { margin-top: 0.45rem; font-size: 0.86rem; line-height: 1.5; color: var(--ink); font-style: italic; }
+
+  .badge-bad { color: oklch(0.45 0.17 25); background: oklch(0.965 0.028 25); border-color: oklch(0.85 0.09 25); }
+  .badge-dnc { color: #fff; background: oklch(0.42 0.02 260); border-color: oklch(0.42 0.02 260); }
+
+  /* ---------- Blocked outbound ---------- */
+  .blocked {
+    margin-top: 0.7rem; font-size: 0.84rem; line-height: 1.55;
+    color: oklch(0.42 0.03 260); background: var(--bg-alt);
+    border: 1px dashed var(--line-strong); border-radius: var(--r-sm); padding: 0.65rem 0.85rem;
+  }
+  .blocked b { font-weight: 700; color: var(--ink); }
+  .lead-actions button.act {
+    display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;
+    padding: 0.5rem 0.9rem; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    background: var(--bg); color: var(--ink);
+    font-size: 0.84rem; font-weight: 600; font-family: inherit;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .lead-actions button.act:hover { background: var(--bg-alt); border-color: var(--ink); }
+  .lead-actions button.act.primary { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+  .lead-actions button.act.primary:hover { background: var(--charcoal-deep); }
+  .lead-actions button.act svg { width: 15px; height: 15px; }
+
+  /* ---------- Touch history ---------- */
+  .hist { margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); }
+  .hist-head {
+    display: flex; align-items: center; gap: 0.5rem; width: 100%;
+    background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;
+    font-size: 0.78rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  }
+  .hist-head:hover { color: var(--ink); }
+  .hist-head .caret { transition: transform 0.2s ease; }
+  .hist-head[aria-expanded="true"] .caret { transform: rotate(90deg); }
+  .hist-rows { margin-top: 0.6rem; display: grid; gap: 0.4rem; }
+  .hist-row { display: flex; gap: 0.6rem; align-items: baseline; font-size: 0.84rem; line-height: 1.5; }
+  .hist-when { color: var(--faint); font-size: 0.78rem; white-space: nowrap; flex: none; width: 5.4rem; }
+  .hist-what { min-width: 0; }
+  .hist-out { font-weight: 650; }
+  .hist-out.good { color: oklch(0.45 0.14 150); }
+  .hist-out.meh  { color: var(--muted); }
+  .hist-out.bad  { color: oklch(0.5 0.17 25); }
+  .hist-note { color: var(--muted); }
+
+  /* ---------- Modal ---------- */
+  .scrim {
+    position: fixed; inset: 0; z-index: 90; background: oklch(0.2 0.01 260 / 0.55);
+    display: flex; align-items: flex-end; justify-content: center; padding: 0;
+    overscroll-behavior: contain;
+  }
+  .sheet-modal {
+    background: var(--card); width: 100%; max-width: 560px;
+    border-radius: var(--r-md) var(--r-md) 0 0;
+    max-height: 92vh; overflow-y: auto;
+    padding: 1.3rem 1.2rem calc(1.4rem + env(safe-area-inset-bottom));
+    box-shadow: var(--shadow-md);
+  }
+  .sheet-modal h2 { font-size: 1.4rem; }
+  .sheet-modal .who { margin-top: 0.2rem; font-size: 0.88rem; color: var(--muted); }
+  .modal-block { margin-top: 1.2rem; }
+  .modal-block > .flabel { display: block; margin-bottom: 0.5rem; }
+  .opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .opt {
+    flex: 1 1 auto; min-width: 0; padding: 0.75rem 0.7rem; cursor: pointer;
+    border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    background: var(--bg); color: var(--ink); font-family: inherit;
+    font-size: 0.86rem; font-weight: 600; text-align: center; white-space: nowrap;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .opt:hover { border-color: var(--ink); }
+  .opt[aria-pressed="true"] { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+  .opt.wide { flex: 1 1 45%; }
+  .modal-actions { display: flex; gap: 0.7rem; margin-top: 1.5rem; align-items: center; }
+  .modal-actions .btn { flex: 1 1 auto; }
+  .modal-actions .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .modal-err { margin-top: 0.8rem; font-size: 0.86rem; color: oklch(0.45 0.17 25); }
+  .forced {
+    margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; color: var(--gold-deep);
+    background: var(--gold-soft); border: 1px solid var(--gold-line);
+    border-radius: var(--r-sm); padding: 0.6rem 0.8rem;
+  }
+  .modal-date { display: flex; gap: 0.6rem; align-items: center; margin-top: 0.6rem; }
+  .modal-date .input { flex: 1 1 auto; }
+
+  /* ---------- Farm ---------- */
+  .farm-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1.2rem; }
+  .farm-bar .btn { padding: 0.6rem 1.1rem; font-size: 0.78rem; }
+  .street { margin-bottom: 1.6rem; }
+  .street-head {
+    display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap;
+    padding-bottom: 0.5rem; border-bottom: 2px solid var(--line-strong); margin-bottom: 0.6rem;
+  }
+  .street-head h3 { font-size: 1.15rem; font-weight: 650; }
+  .street-head span { font-size: 0.8rem; color: var(--muted); margin-left: auto; }
+  .parcel {
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm);
+    padding: 0.7rem 0.85rem; margin-bottom: 0.4rem;
+  }
+  .parcel.is-knocked { opacity: 0.55; }
+  .parcel-knock {
+    flex: none; width: 26px; height: 26px; margin-top: 0.1rem; cursor: pointer;
+    border: 1.5px solid var(--line-strong); border-radius: var(--r-sm);
+    background: var(--bg); display: grid; place-items: center; padding: 0;
+    color: transparent; transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .parcel-knock[aria-pressed="true"] { background: oklch(0.62 0.15 150); border-color: oklch(0.55 0.15 150); color: #fff; }
+  .parcel-knock svg { width: 15px; height: 15px; }
+  .parcel-body { min-width: 0; flex: 1 1 auto; }
+  .parcel-addr { font-size: 0.95rem; font-weight: 650; }
+  .parcel-meta { margin-top: 0.25rem; font-size: 0.8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .parcel-side { flex: none; display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-end; }
+  .parcel-side .mini {
+    padding: 0.34rem 0.65rem; font-size: 0.74rem; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    background: var(--bg); color: var(--ink); font-family: inherit; white-space: nowrap;
+  }
+  .parcel-side .mini:hover { border-color: var(--ink); background: var(--bg-alt); }
+  .tag-abs { color: oklch(0.4 0.11 250); background: oklch(0.96 0.02 250); border: 1px solid oklch(0.83 0.07 250); border-radius: var(--r-sm); padding: 0.1rem 0.4rem; }
+
+  /* ---------- Templates ---------- */
+  .tpl { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 1rem 1.1rem; margin-bottom: 0.7rem; }
+  .tpl-top { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+  .tpl-top .input { flex: 1 1 200px; }
+  .tpl-top .select { width: auto; min-width: 110px; }
+  .tpl .textarea { margin-top: 0.6rem; min-height: 96px; font-size: 0.88rem; }
+  .tpl-foot { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.6rem; flex-wrap: wrap; }
+  .tpl-foot .mini {
+    padding: 0.42rem 0.8rem; font-size: 0.76rem; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    background: var(--bg); color: var(--ink); font-family: inherit;
+  }
+  .tpl-foot .mini:hover { border-color: var(--ink); background: var(--bg-alt); }
+  .tpl-foot .mini.danger:hover { color: oklch(0.45 0.17 25); border-color: oklch(0.85 0.09 25); background: oklch(0.965 0.028 25); }
+  .tpl-hint { font-size: 0.78rem; color: var(--faint); margin-left: auto; }
+  .json-edit { width: 100%; min-height: 220px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.8rem; line-height: 1.5; }
+
+  @media (max-width: 780px) {
+    .hist-when { width: 4.6rem; }
+    .parcel-side { flex-direction: row; }
+    .week-label { margin-left: 0; width: 100%; }
+  }
+
+  /* ---------- Farm walk sheet, landscape on a clipboard ---------- */
+  .walk { display: none; }
+  @media print {
+    body.printing-walk .bar,
+    body.printing-walk .page > section:not(#panel-farm) { display: none !important; }
+    body.printing-walk #panel-farm > *:not(.walk) { display: none !important; }
+    body.printing-walk .walk { display: block; }
+    body.printing-walk .walk h2 { font-size: 16pt; margin-bottom: 0.12in; }
+    body.printing-walk .walk h3 { font-size: 12pt; margin: 0.18in 0 0.06in; border-bottom: 1.5pt solid #000; padding-bottom: 0.04in; }
+    body.printing-walk .walk table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+    body.printing-walk .walk th { text-align: left; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.04in 0.05in; border-bottom: 0.5pt solid #666; }
+    body.printing-walk .walk td { padding: 0.075in 0.05in; border-bottom: 0.5pt solid #ccc; vertical-align: top; }
+    body.printing-walk .walk .box { display: inline-block; width: 0.16in; height: 0.16in; border: 1pt solid #000; }
+    body.printing-walk .walk .note-line { display: block; min-width: 1.6in; border-bottom: 0.5pt solid #999; height: 0.16in; }
+  }
+
+  /* ---------- Print: only the sign, portrait US Letter ----------
+     margin 0 on the page box is what stops the browser printing its own
+     header and footer (date, title, URL) into the margin area. The half
+     inch of breathing room is put back as padding on the sign itself. */
+  @page { size: Letter portrait; margin: 0; }
+
+  @media print {
+    html, body { margin: 0; padding: 0; background: #fff; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bar, .tabs, .qr-setup, .saved, .no-print { display: none !important; }
+    .page { width: 8.5in; max-width: 8.5in; margin: 0; padding: 0; }
+    #panel-qr { display: block !important; }
+    .sign {
+      width: 8.5in; max-width: 8.5in; height: 10.9in;
+      margin: 0; padding: 0.5in; border: none; box-shadow: none; border-radius: 0;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .sign-addr { display: none; }
+    .sign-kicker { font-size: 11pt; }
+    .sign h3 { font-size: 52pt; margin-top: 0.12in; }
+    .qr-holder { margin: 0.5in auto 0; }
+    .qr-holder svg { width: 3.4in; height: 3.4in; }
+    .sign-help { font-size: 14pt; margin-top: 0.3in; }
+    .sign-foot { margin-top: 0.5in; padding-top: 0.2in; font-size: 10.5pt; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ---------- Sign in ---------- -->
+<main class="gate" id="gate" hidden>
+  <p class="kicker">Private</p>
+  <h1>Dashboard</h1>
+  <form id="login">
+    <div>
+      <label class="flabel" for="email">Email</label>
+      <input class="input" id="email" type="email" autocomplete="username" required>
+    </div>
+    <div>
+      <label class="flabel" for="password">Password</label>
+      <input class="input" id="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button class="btn btn-dark" type="submit" id="login-btn">Sign In</button>
+    <p class="admin-err" id="login-err" hidden></p>
+  </form>
+</main>
+
+<!-- ---------- App ---------- -->
+<div id="app" hidden>
+  <header class="bar">
+    <div class="bar-inner">
+      <h1>Dashboard</h1>
+      <div class="bar-actions">
+        <a class="btn btn-line" href="/" target="_blank" rel="noopener">View Site</a>
+        <button class="btn btn-line" type="button" id="signout">Sign Out</button>
+      </div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" type="button" role="tab" data-panel="today"    aria-selected="true">Today<span class="count" id="due-count" hidden></span></button>
+      <button class="tab" type="button" role="tab" data-panel="leads"    aria-selected="false">Leads</button>
+      <button class="tab" type="button" role="tab" data-panel="farm"     aria-selected="false">Farm</button>
+      <button class="tab" type="button" role="tab" data-panel="tools"    aria-selected="false">Templates</button>
+      <button class="tab" type="button" role="tab" data-panel="qr"       aria-selected="false">Sign In Sheets</button>
+      <button class="tab" type="button" role="tab" data-panel="listings" aria-selected="false">Listings</button>
+      <button class="tab" type="button" role="tab" data-panel="status"   aria-selected="false">Security<span class="count" id="status-count" hidden></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="err" id="app-err" hidden></div>
+    <div class="nag" id="nag" hidden></div>
+
+    <!-- ===== Today ===== -->
+    <section id="panel-today">
+      <div class="week">
+        <div class="week-top">
+          <span class="week-num" id="w-num">0</span>
+          <span class="week-of">of 25 real conversations this week</span>
+          <span class="week-label" id="w-range"></span>
+        </div>
+        <div class="week-bar"><div class="week-fill" id="w-fill" style="width:0%"></div></div>
+        <p class="week-note">Connected and replied only. Dials nobody picked up, doors nobody answered, and emails nobody wrote back to are not in this number.</p>
+      </div>
+
+      <div class="chips" id="due-chips">
+        <button class="chip" type="button" data-due="due"  aria-pressed="true">Due today</button>
+        <button class="chip" type="button" data-due="over" aria-pressed="false">Overdue only</button>
+        <button class="chip" type="button" data-due="week" aria-pressed="false">Next 7 days</button>
+      </div>
+
+      <div class="list" id="due-list"></div>
+      <p class="empty" id="due-empty" hidden></p>
+    </section>
+
+    <!-- ===== Leads ===== -->
+    <section id="panel-leads" hidden>
+      <div class="stats">
+        <div class="stat"><b id="s-total">0</b><span>Total leads</span></div>
+        <div class="stat is-hot"><b id="s-hot">0</b><span>Hot right now</span></div>
+        <div class="stat"><b id="s-week">0</b><span>Past 7 days</span></div>
+      </div>
+
+      <div class="links-row" style="margin-top:0;margin-bottom:1.3rem">
+        <button class="btn btn-gold" type="button" id="add-toggle">Add Someone</button>
+        <button class="btn btn-line" type="button" id="export">Export CSV</button>
+        <button class="btn btn-line" type="button" id="refresh">Refresh</button>
+      </div>
+
+      <form class="add" id="add" hidden>
+        <h2>Add someone</h2>
+        <div class="add-grid">
+          <div class="span2">
+            <label class="flabel" for="a-name">Name <span class="req">*</span></label>
+            <input class="input" id="a-name" autocomplete="off">
+          </div>
+          <div>
+            <label class="flabel" for="a-phone">Phone</label>
+            <input class="input" id="a-phone" type="tel" inputmode="tel" autocomplete="off">
+          </div>
+          <div class="span2">
+            <label class="flabel" for="a-email">Email</label>
+            <input class="input" id="a-email" type="email" autocomplete="off">
+          </div>
+          <div>
+            <label class="flabel" for="a-property">Property</label>
+            <input class="input" id="a-property" autocomplete="off" placeholder="Where you met">
+          </div>
+          <div>
+            <label class="flabel" for="a-timeline">Timeline</label>
+            <select class="select" id="a-timeline"></select>
+          </div>
+          <div>
+            <label class="flabel" for="a-agent">Has an agent</label>
+            <select class="select" id="a-agent">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+              <option value="">Not sure</option>
+            </select>
+          </div>
+          <div>
+            <label class="flabel" for="a-financing">Financing</label>
+            <select class="select" id="a-financing">
+              <option value="">Unknown</option>
+              <option>Pre-approved</option>
+              <option>Talking to a lender</option>
+              <option>Paying cash</option>
+              <option>Not started yet</option>
+            </select>
+          </div>
+          <div class="span3">
+            <label class="flabel" for="a-notes">Notes</label>
+            <textarea class="textarea" id="a-notes" placeholder="Where you met them, what they want, anything."></textarea>
+          </div>
+        </div>
+        <div class="add-actions">
+          <button class="btn btn-dark" type="submit" id="a-save">Save Lead</button>
+          <button class="btn btn-line" type="button" id="a-cancel">Cancel</button>
+          <span class="add-err" id="a-err" hidden></span>
+        </div>
+      </form>
+
+      <div class="controls">
+        <input class="input" id="q" type="search" placeholder="Search name, phone, email, notes">
+        <select class="select" id="prop"><option value="">Every property</option></select>
+      </div>
+
+      <div class="chips" id="chips">
+        <button class="chip" type="button" data-filter="active" aria-pressed="true">Active</button>
+        <button class="chip" type="button" data-filter="hot" aria-pressed="false">Hot</button>
+        <button class="chip" type="button" data-filter="new" aria-pressed="false">New</button>
+        <button class="chip" type="button" data-filter="open" aria-pressed="false">Still open</button>
+        <button class="chip" type="button" data-filter="overdue" aria-pressed="false">Overdue</button>
+        <button class="chip" type="button" data-filter="A" aria-pressed="false">A &middot; Buying now</button>
+        <button class="chip" type="button" data-filter="B" aria-pressed="false">B &middot; 6 to 12 mo</button>
+        <button class="chip" type="button" data-filter="C" aria-pressed="false">C &middot; Sellers</button>
+        <button class="chip" type="button" data-filter="D" aria-pressed="false">D &middot; Represented</button>
+        <button class="chip" type="button" data-filter="E" aria-pressed="false">E &middot; Farm</button>
+        <button class="chip" type="button" data-filter="dead" aria-pressed="false">Dead</button>
+        <button class="chip" type="button" data-filter="archived" aria-pressed="false">Archived</button>
+        <button class="chip" type="button" data-filter="all" aria-pressed="false">All</button>
+      </div>
+
+      <div class="list" id="list"></div>
+      <p class="empty" id="empty" hidden></p>
+    </section>
+
+    <!-- ===== Farm ===== -->
+    <section id="panel-farm" hidden>
+      <div class="stats">
+        <div class="stat"><b id="f-total">0</b><span>Parcels</span></div>
+        <div class="stat"><b id="f-knocked">0</b><span>Knocked</span></div>
+        <div class="stat"><b id="f-abs">0</b><span>Absentee</span></div>
+      </div>
+
+      <div class="farm-bar">
+        <button class="btn btn-gold" type="button" id="f-import">Import CSV</button>
+        <input type="file" id="f-file" accept=".csv,text/csv" hidden>
+        <button class="btn btn-line" type="button" id="f-print">Print Walk Sheet</button>
+        <span class="tpl-hint" id="f-hint"></span>
+      </div>
+
+      <div class="chips" id="farm-chips">
+        <button class="chip" type="button" data-farm="all"      aria-pressed="true">Every parcel</button>
+        <button class="chip" type="button" data-farm="todo"     aria-pressed="false">Not knocked</button>
+        <button class="chip" type="button" data-farm="absentee" aria-pressed="false">Absentee owners</button>
+        <button class="chip" type="button" data-farm="knocked"  aria-pressed="false">Knocked</button>
+      </div>
+
+      <div id="farm-list"></div>
+      <p class="empty" id="farm-empty" hidden></p>
+
+      <div class="walk" id="walk"></div>
+    </section>
+
+    <!-- ===== Templates, sequences, backup ===== -->
+    <section id="panel-tools" hidden>
+      <div class="panel-card">
+        <h2>Backup</h2>
+        <p>A full backup is every contact, every touch, every template, every sequence, and every parcel in one file. Keep it somewhere that is not this laptop. Restoring merges by id, so it adds and updates but never wipes what is already there.</p>
+        <div class="links-row">
+          <button class="btn btn-dark" type="button" id="b-json">Download Full Backup</button>
+          <button class="btn btn-line" type="button" id="b-restore">Restore From Backup</button>
+          <input type="file" id="b-file" accept=".json,application/json" hidden>
+          <button class="btn btn-line" type="button" id="b-csv">Export Contacts CSV</button>
+        </div>
+        <p class="week-note" id="b-when"></p>
+      </div>
+
+      <div class="panel-card">
+        <h2>Templates</h2>
+        <p>Merge fields you can drop into any of these: <code>{firstName}</code> <code>{street}</code> <code>{area}</code> <code>{price}</code> <code>{value}</code>. On a contact, one tap fills them in and copies the result to your clipboard. Nothing sends by itself.</p>
+        <div id="tpl-list" style="margin-top:1.2rem"></div>
+        <div class="tpl-foot">
+          <button class="btn btn-line" type="button" id="tpl-add">Add Template</button>
+          <button class="btn btn-line" type="button" id="tpl-seed">Load The Starter Set</button>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <h2>Sequences</h2>
+        <p>The schedule behind each segment, as plain JSON you can edit. A step is <code>dayOffset</code> counted from the day they signed in, a <code>channel</code>, a <code>templateId</code>, and a <code>label</code>. Steps come due in the Today tab. You send every one of them by hand.</p>
+        <div class="chips" id="seq-chips" style="margin-top:1.2rem">
+          <button class="chip" type="button" data-seq="A" aria-pressed="true">A</button>
+          <button class="chip" type="button" data-seq="B" aria-pressed="false">B</button>
+          <button class="chip" type="button" data-seq="C" aria-pressed="false">C</button>
+          <button class="chip" type="button" data-seq="D" aria-pressed="false">D</button>
+          <button class="chip" type="button" data-seq="E" aria-pressed="false">E</button>
+        </div>
+        <textarea class="textarea json-edit" id="seq-json" spellcheck="false"></textarea>
+        <div class="tpl-foot">
+          <button class="btn btn-dark" type="button" id="seq-save">Save Sequence</button>
+          <button class="btn btn-line" type="button" id="seq-reset">Reset To Default</button>
+          <span class="modal-err" id="seq-err" hidden></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QR ===== -->
+    <section id="panel-qr" hidden>
+      <div class="qr-setup">
+        <h2>Sign in sheets</h2>
+        <p style="color:var(--muted);margin-top:0.6rem">Type the address, print the sign, prop it by the door. The address is never printed, it only travels inside the code so the lead lands tagged to the right house.</p>
+        <div class="qr-row">
+          <div>
+            <label class="flabel" for="addr">Property address</label>
+            <input class="input" id="addr" placeholder="1234 W Main St, Boise" autocomplete="off">
+          </div>
+          <button class="btn btn-dark" type="button" id="print">Print Sign</button>
+          <button class="btn btn-line" type="button" id="copy">Copy Link</button>
+        </div>
+        <div class="qr-links">
+          <span class="qr-url" id="url"></span>
+          <a class="btn btn-line" id="open" href="/signin" target="_blank" rel="noopener">Open Sheet</a>
+        </div>
+      </div>
+
+      <section class="sign" id="sign">
+        <p class="sign-kicker">Open House</p>
+        <h3>Sign in here.</h3>
+        <p class="sign-addr" id="sign-addr" hidden></p>
+        <div class="qr-holder" id="qr"></div>
+        <p class="sign-help">Point your phone camera at the code.</p>
+        <p class="sign-foot">
+          <strong>John Spilotros</strong><br>
+          Keller Williams Realty Boise &middot; (215) 859-3267<br>
+          Licensed Idaho Salesperson #1681619
+        </p>
+      </section>
+    </section>
+
+    <!-- ===== Listings ===== -->
+    <section id="panel-listings" hidden>
+      <div class="panel-card">
+        <h2>Listings</h2>
+        <p>Add and edit the homes shown on your public listings page. Paste the details straight out of a Paragon report and it fills the fields in for you, then drag in photos.</p>
+        <a class="btn btn-dark" href="/admin">Open Listings Manager</a>
+      </div>
+      <div class="panel-card">
+        <h2>Quick links</h2>
+        <p>The places you end up needing when something looks wrong.</p>
+        <div class="links-row">
+          <a class="btn btn-line" href="/listings" target="_blank" rel="noopener">Public Listings Page</a>
+          <a class="btn btn-line" href="/signin" target="_blank" rel="noopener">Blank Sign In Sheet</a>
+          <a class="btn btn-line" href="https://supabase.com/dashboard/project/zwsjdcrjwqkzsxollwnc" target="_blank" rel="noopener">Supabase Project</a>
+          <a class="btn btn-line" href="https://supabase.com/dashboard/project/zwsjdcrjwqkzsxollwnc/sql/new" target="_blank" rel="noopener">SQL Editor</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Security ===== -->
+    <section id="panel-status" hidden>
+      <div class="panel-card">
+        <h2>Security</h2>
+        <p>Checked live against your database every time you open this tab.</p>
+        <div id="checks" style="margin-top:1.2rem"></div>
+        <button class="btn btn-line" type="button" id="recheck" style="margin-top:1.4rem">Check Again</button>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="scrim" id="scrim" hidden>
+    <div class="sheet-modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"></div>
+  </div>
+
+  <div class="saved" id="saved" role="status" aria-live="polite">Saved</div>
+</div>
+
+<script>
+/*__QR_ENCODER__*/
+</script>
+
+<script>
+(function () {
+  var SB_URL = 'https://zwsjdcrjwqkzsxollwnc.supabase.co';
+  var SB_KEY = 'sb_publishable_FBnSV2WoIc_7MXSAXM0Xww_uEElzvkk';
+  var STORE = 'spilo_leads_session';
+
+  var TIMELINES = [
+    { label: 'Ready now',      months: 0 },
+    { label: '1 to 3 months',  months: 3 },
+    { label: '3 to 6 months',  months: 6 },
+    { label: '6 to 12 months', months: 12 },
+    { label: 'Just looking',   months: 99 }
+  ];
+  var MONTHS = {};
+  TIMELINES.forEach(function (t) { MONTHS[t.label] = t.months; });
+
+  var STATUSES = ['new', 'contacted', 'following up', 'client', 'dead'];
+  var OPEN_STATUSES = ['new', 'contacted', 'following up'];
+
+  /* The stored status strings cannot change without a migration, so the
+     wording on screen is mapped here instead. */
+  var STATUS_LABEL = {
+    'new': 'New', 'contacted': 'Contacted', 'following up': 'Working',
+    'client': 'Client', 'dead': 'Dead'
+  };
+
+  var SEGMENTS = {
+    A: 'Buying now, no agent',
+    B: 'Buying later, no agent',
+    C: 'Might sell',
+    D: 'Has an agent',
+    E: 'Farm, mail only'
+  };
+
+  var CHANNELS = [
+    { id: 'call',      label: 'Call',      outcomes: ['connected', 'no_answer', 'left_voicemail'] },
+    { id: 'text',      label: 'Text',      outcomes: ['replied', 'sent'] },
+    { id: 'email',     label: 'Email',     outcomes: ['replied', 'sent', 'bounced'] },
+    { id: 'door',      label: 'Door',      outcomes: ['connected', 'no_answer'] },
+    { id: 'mail',      label: 'Mail',      outcomes: ['sent'] },
+    { id: 'in_person', label: 'In person', outcomes: ['connected'] }
+  ];
+  var CHANNEL_LABEL = {};
+  CHANNELS.forEach(function (c) { CHANNEL_LABEL[c.id] = c.label; });
+
+  var OUTCOME_LABEL = {
+    connected: 'Talked to them', no_answer: 'No answer', left_voicemail: 'Left a voicemail',
+    sent: 'Sent it', bounced: 'Bounced', replied: 'They wrote back'
+  };
+  /* The only two that count toward the weekly number. Everything else is
+     effort, not a conversation. */
+  var REAL = { connected: 1, replied: 1 };
+
+  var WEEK_TARGET = 25;
+
+  /* Calling window, local time. Federal rule is 8am to 9pm where THEY are,
+     which this cannot know, so it uses your clock and warns rather than blocks. */
+  var CALL_OPEN = 8, CALL_SHUT = 21;
+
+  /* A segment A lead that has not written back in this many days from the
+     day they signed in drops to B on its own. */
+  var A_TO_B_DAYS = 22;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var leads = [];
+  var touches = [];
+  var templates = [];
+  var sequences = {};
+  var parcels = [];
+  var byContact = {};        /* contact id -> touches, newest first */
+  var filter = 'active';
+  var dueFilter = 'due';
+  var farmFilter = 'all';
+  var seqPick = 'A';
+  var flashTimer = null;
+
+  function flash() {
+    var t = $('saved');
+    t.classList.add('on');
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function () { t.classList.remove('on'); }, 1600);
+  }
+
+  /* ---------- Session ---------- */
+
+  function netError(err) {
+    var msg = String(err && err.message ? err.message : err);
+    if (err instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(msg)) {
+      return new Error('Cannot reach the database. The Supabase project is most likely paused. Open supabase.com/dashboard, hit Restore on the project, wait a minute, then try again.');
+    }
+    return err;
+  }
+
+  function saveSession(s) {
+    if (!s.expires_at) s.expires_at = Math.floor(Date.now() / 1000) + (s.expires_in || 3600);
+    try { localStorage.setItem(STORE, JSON.stringify(s)); } catch (e) {}
+  }
+  function loadSession() {
+    try { return JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { return null; }
+  }
+  function clearSession() { try { localStorage.removeItem(STORE); } catch (e) {} }
+
+  function token(grant, body) {
+    return fetch(SB_URL + '/auth/v1/token?grant_type=' + grant, {
+      method: 'POST',
+      headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (!r.ok) throw new Error(j.error_description || j.msg || j.error || 'Sign in failed');
+        saveSession(j);
+        return j;
+      });
+    }).catch(function (e) { throw netError(e); });
+  }
+
+  function refresh() {
+    var s = loadSession();
+    if (!s || !s.refresh_token) return Promise.resolve(null);
+    return token('refresh_token', { refresh_token: s.refresh_token })
+      .catch(function () { clearSession(); return null; });
+  }
+
+  function api(path, opts, retry) {
+    opts = opts || {};
+    var s = loadSession();
+    if (!s) return Promise.reject(new Error('signed out'));
+    var headers = { apikey: SB_KEY, Authorization: 'Bearer ' + s.access_token, 'Content-Type': 'application/json' };
+    if (opts.headers) for (var k in opts.headers) headers[k] = opts.headers[k];
+
+    return fetch(SB_URL + '/rest/v1' + path, { method: opts.method || 'GET', headers: headers, body: opts.body })
+      .then(function (r) {
+        if (r.status === 401 && retry !== false) {
+          return refresh().then(function (ok) {
+            if (!ok) throw new Error('signed out');
+            return api(path, opts, false);
+          });
+        }
+        if (!r.ok) return r.text().then(function (t) { throw new Error(t || ('HTTP ' + r.status)); });
+        if (r.status === 204) return null;
+        return r.text().then(function (t) { return t ? JSON.parse(t) : null; });
+      })
+      .catch(function (e) { throw netError(e); });
+  }
+
+  /* ---------- Helpers ---------- */
+
+  function months(lead) {
+    if (lead.timeline_months !== null && lead.timeline_months !== undefined) return lead.timeline_months;
+    var m = MONTHS[lead.timeline];
+    return m === undefined ? 99 : m;
+  }
+  function isHot(lead) { return lead.has_agent === false && months(lead) <= 3; }
+  function digits(s) { return String(s || '').replace(/\D/g, ''); }
+  function prettyPhone(s) {
+    var d = digits(s);
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    if (d.length !== 10) return s || '';
+    return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  }
+  function telHref(s) {
+    var d = digits(s);
+    if (d.length === 10) d = '1' + d;
+    return '+' + d;
+  }
+  /* The clock time is the useful part at an open house: it shows you how the
+     traffic actually flowed through the day. The relative part stays because
+     it is what you want when glancing at a lead that just came in. */
+  function clock(iso) {
+    return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  }
+  function ago(iso) {
+    var then = new Date(iso).getTime();
+    if (!then) return '';
+    var mins = Math.round((Date.now() - then) / 60000);
+    var rel;
+    if (mins < 1) rel = 'just now';
+    else if (mins < 60) rel = mins + 'm ago';
+    else {
+      var hrs = Math.round(mins / 60);
+      if (hrs < 24) rel = hrs + 'h ago';
+      else {
+        var days = Math.round(hrs / 24);
+        rel = days < 30
+          ? days + 'd ago'
+          : new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    }
+    return rel + ' · ' + clock(iso);
+  }
+
+  /* Everything a guest typed goes through here, never innerHTML. */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null && text !== '') n.textContent = text;
+    return n;
+  }
+
+  function icon(d) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '1.9');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', d);
+    svg.appendChild(p);
+    return svg;
+  }
+
+  var ICON_PHONE = 'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c1 .3 1.9.5 2.9.7a2 2 0 0 1 1.7 2Z';
+  var ICON_SMS = 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z';
+  var ICON_MAIL = 'M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm18 2-10 7L2 6';
+
+  /* ---------- Leads ---------- */
+
+  function matches(lead) {
+    /* Archived leads are hidden everywhere except the Archived and All
+       views. Nothing is ever deleted, so this is the only thing standing
+       between you and a list full of records you are done with. */
+    if (filter === 'archived') { if (!lead.archived) return false; }
+    else if (filter !== 'all' && lead.archived) return false;
+
+    /* Dead leads are hidden everywhere except the Dead and All views, so a
+       lead you have written off cannot resurface as Hot months later. */
+    if (filter === 'dead') { if (lead.status !== 'dead') return false; }
+    else if (filter !== 'all' && lead.status === 'dead') return false;
+    if (filter === 'hot' && !isHot(lead)) return false;
+    if (filter === 'new' && lead.status !== 'new') return false;
+    if (filter === 'open' && OPEN_STATUSES.indexOf(lead.status) === -1) return false;
+    if (filter === 'overdue' && !isOverdue(lead)) return false;
+    if ('ABCDE'.indexOf(filter) !== -1 && filter.length === 1 && segmentOf(lead) !== filter) return false;
+    var prop = $('prop').value;
+    if (prop && (lead.property || '') !== prop) return false;
+    var q = $('q').value.trim().toLowerCase();
+    if (!q) return true;
+    var hay = [lead.name, lead.phone, lead.email, lead.property, lead.notes, lead.agent_notes, lead.timeline].join(' ').toLowerCase();
+    if (hay.indexOf(q) !== -1) return true;
+    return digits(q).length >= 3 && digits(lead.phone).indexOf(digits(q)) !== -1;
+  }
+
+  /* A contact card. Pass a due object to get the Today-tab treatment on top:
+     a days-overdue badge and the next action spelled out. */
+  function card(lead, due) {
+    var hot = isHot(lead);
+    var seg = segmentOf(lead);
+    var block = outboundBlock(lead);
+    var badPhone = lead.phone && !phoneOk(lead.phone);
+
+    var cls = 'lead';
+    if (hot) cls += ' is-hot';
+    if (lead.status === 'dead' || lead.archived) cls += ' is-dead';
+    if (due) cls += ' due' + (due.over > 0 ? ' is-over' : ' is-today');
+    var wrap = el('article', cls);
+
+    /* ---- Name row. My read sits first because it outranks the sheet. ---- */
+    var top = el('div', 'lead-top');
+    top.appendChild(el('span', 'lead-name', lead.name || 'No name'));
+
+    if (lead.my_read) {
+      var rb = el('button', 'read read-' + lead.my_read, lead.my_read);
+      rb.type = 'button';
+      rb.title = 'Your read on them. Tap to change.';
+      rb.addEventListener('click', function () { openRead(lead); });
+      top.appendChild(rb);
+    } else {
+      var rs = el('button', 'read-set', 'Your read?');
+      rs.type = 'button';
+      rs.addEventListener('click', function () { openRead(lead); });
+      top.appendChild(rs);
+    }
+
+    var sb = el('button', 'seg seg-' + seg, seg);
+    sb.type = 'button';
+    sb.title = SEGMENTS[seg] + '. Tap to change.';
+    sb.addEventListener('click', function () { openRead(lead); });
+    top.appendChild(sb);
+
+    if (hot) top.appendChild(el('span', 'badge badge-hot', 'Hot'));
+    if (lead.status === 'new') top.appendChild(el('span', 'badge badge-new', 'New'));
+    if (badPhone) {
+      var bp = el('span', 'badge badge-bad', 'Check phone');
+      bp.title = 'That area code is not a real one. Worth confirming before you waste a call on it.';
+      top.appendChild(bp);
+    }
+    if (lead.do_not_contact) top.appendChild(el('span', 'badge badge-dnc', 'Do not contact'));
+    if (lead.dnc_registry) top.appendChild(el('span', 'badge badge-dnc', 'DNC list'));
+    if (lead.archived) top.appendChild(el('span', 'badge', 'Archived'));
+
+    var when = el('span', 'lead-when', ago(lead.created_at));
+    when.title = new Date(lead.created_at).toLocaleString('en-US');
+    top.appendChild(when);
+    wrap.appendChild(top);
+
+    if (lead.property) wrap.appendChild(el('p', 'lead-prop', lead.property));
+
+    /* ---- What you said you would do, and how late you are ---- */
+    if (lead.next_action_date) {
+      var over = dayDiff(lead.next_action_date, todayYmd());
+      var stamp = over > 0 ? over + (over === 1 ? ' day late' : ' days late')
+                : over === 0 ? 'Due today'
+                : 'Due ' + fmtDay(lead.next_action_date);
+      var line = el('div', 'lead-meta');
+      line.appendChild(el('span', 'due-when' + (over > 0 ? ' is-over' : over === 0 ? ' is-today' : ''), stamp));
+      wrap.appendChild(line);
+      if (lead.next_action) wrap.appendChild(el('p', 'due-action', lead.next_action));
+    }
+
+    /* ---- Captured facts, quieter than your read ---- */
+    var meta = el('div', 'lead-meta');
+    if (lead.timeline) meta.appendChild(el('span', 'tag' + (months(lead) <= 3 ? ' warn' : ''), lead.timeline));
+    meta.appendChild(el('span', 'tag' + (lead.has_agent === false ? ' warn' : ''),
+      lead.has_agent === false ? 'No agent' : lead.has_agent === true ? 'Has an agent' : 'Agent unknown'));
+    if (lead.financing) meta.appendChild(el('span', 'tag' + (/cash/i.test(lead.financing) ? ' warn' : ''), lead.financing));
+    if (lead.source && lead.source !== 'open house') meta.appendChild(el('span', 'tag', lead.source));
+    if (lead.last_touch) {
+      var lt = el('span', 'tag', 'Last touch ' + ago(lead.last_touch));
+      lt.title = new Date(lead.last_touch).toLocaleString('en-US');
+      meta.appendChild(lt);
+    } else {
+      meta.appendChild(el('span', 'tag warn', 'Never touched'));
+    }
+    wrap.appendChild(meta);
+
+    if (lead.my_read_note) wrap.appendChild(el('p', 'read-note', lead.my_read_note));
+    if (lead.notes) wrap.appendChild(el('p', 'lead-notes', lead.notes));
+
+    /* ---- Outbound ---- */
+    var acts = el('div', 'lead-actions');
+
+    function sendable(kind) {
+      if (!block) return true;
+      if (block.mailOnly) return kind === 'mail';
+      return false;
+    }
+
+    if (lead.phone && sendable('phone')) {
+      var noCall = callBlocked(lead);
+      if (noCall) {
+        var cb = el('button', 'act', 'Calling is off');
+        cb.type = 'button';
+        cb.title = noCall;
+        cb.addEventListener('click', function () { window.alert(noCall); });
+        acts.appendChild(cb);
+      } else {
+        var call = el('a', 'primary');
+        call.href = 'tel:' + telHref(lead.phone);
+        call.appendChild(icon(ICON_PHONE));
+        call.appendChild(document.createTextNode('Call ' + prettyPhone(lead.phone)));
+        call.addEventListener('click', function (e) {
+          if (outsideHours() && !window.confirm(
+              'It is ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) +
+              '. Calling a lead outside 8am to 9pm is against the rules, and their time zone may be' +
+              ' further off than yours.\n\nPlace the call anyway?')) {
+            e.preventDefault();
+            return;
+          }
+          setTimeout(function () { openLog(lead, 'call'); }, 400);
+        });
+        acts.appendChild(call);
+      }
+
+      var sms = el('a');
+      sms.href = 'sms:' + telHref(lead.phone);
+      sms.appendChild(icon(ICON_SMS));
+      sms.appendChild(document.createTextNode('Text'));
+      sms.addEventListener('click', function () { setTimeout(function () { openLog(lead, 'text'); }, 400); });
+      acts.appendChild(sms);
+    }
+
+    if (lead.email && sendable('email')) {
+      var mail = el('a');
+      mail.href = 'mailto:' + lead.email;
+      mail.appendChild(icon(ICON_MAIL));
+      mail.appendChild(document.createTextNode('Email'));
+      mail.addEventListener('click', function () { setTimeout(function () { openLog(lead, 'email'); }, 400); });
+      acts.appendChild(mail);
+    }
+
+    var copy = el('button', 'act');
+    copy.type = 'button';
+    copy.appendChild(icon(ICON_COPY));
+    copy.appendChild(document.createTextNode('Compose'));
+    copy.addEventListener('click', function () { openCompose(lead); });
+    acts.appendChild(copy);
+
+    var logb = el('button', 'act');
+    logb.type = 'button';
+    logb.appendChild(icon(ICON_LOG));
+    logb.appendChild(document.createTextNode('Log a touch'));
+    logb.addEventListener('click', function () { openLog(lead, null); });
+    acts.appendChild(logb);
+
+    wrap.appendChild(acts);
+
+    if (block) {
+      var note = el('div', 'blocked');
+      note.appendChild(el('b', null, block.mailOnly ? 'Mail only. ' : 'Outbound is off. '));
+      note.appendChild(document.createTextNode(block.why));
+      wrap.appendChild(note);
+    }
+
+    /* ---- Touch history ---- */
+    var mine = byContact[lead.id] || [];
+    var hist = el('div', 'hist');
+    var hh = el('button', 'hist-head');
+    hh.type = 'button';
+    hh.setAttribute('aria-expanded', 'false');
+    var caret = icon(ICON_CARET);
+    caret.setAttribute('class', 'caret');
+    hh.appendChild(caret);
+    hh.appendChild(document.createTextNode(
+      mine.length ? mine.length + (mine.length === 1 ? ' touch' : ' touches') : 'No touches yet'));
+    var rows = el('div', 'hist-rows');
+    rows.hidden = true;
+    mine.forEach(function (t) {
+      var r = el('div', 'hist-row');
+      r.appendChild(el('span', 'hist-when', fmtDay(String(t.date).slice(0, 10))));
+      var what = el('span', 'hist-what');
+      what.appendChild(el('b', null, CHANNEL_LABEL[t.channel] || t.channel));
+      what.appendChild(document.createTextNode(' '));
+      what.appendChild(el('span', 'hist-out ' + (REAL[t.outcome] ? 'good' : t.outcome === 'bounced' ? 'bad' : 'meh'),
+        OUTCOME_LABEL[t.outcome] || t.outcome));
+      if (t.note) {
+        what.appendChild(document.createTextNode(' '));
+        what.appendChild(el('span', 'hist-note', t.note));
+      }
+      r.appendChild(what);
+      rows.appendChild(r);
+    });
+    hh.addEventListener('click', function () {
+      var open = hh.getAttribute('aria-expanded') === 'true';
+      hh.setAttribute('aria-expanded', String(!open));
+      rows.hidden = open;
+    });
+    hist.appendChild(hh);
+    if (mine.length) hist.appendChild(rows);
+    wrap.appendChild(hist);
+
+    /* ---- Status, private notes, archive ---- */
+    var track = el('div', 'lead-track');
+    var sel = el('select', 'select');
+    STATUSES.forEach(function (st) {
+      var o = el('option', null, STATUS_LABEL[st] || st);
+      o.value = st;
+      if (st === lead.status) o.selected = true;
+      sel.appendChild(o);
+    });
+    track.appendChild(sel);
+
+    var note2 = el('textarea', 'textarea');
+    note2.placeholder = 'Private notes';
+    note2.value = lead.agent_notes || '';
+    track.appendChild(note2);
+
+    sel.addEventListener('change', function () {
+      patchLead(lead, { status: sel.value }).then(render);
+    });
+    note2.addEventListener('blur', function () {
+      var v = note2.value.trim();
+      if (v === (lead.agent_notes || '')) return;
+      patchLead(lead, { agent_notes: v || null });
+    });
+
+    var del = el('button', 'lead-del', lead.archived ? 'Unarchive' : 'Archive');
+    del.type = 'button';
+    del.title = lead.archived
+      ? 'Put this one back in your active list.'
+      : 'Hide this record without destroying it. Nothing here is ever deleted.';
+    del.addEventListener('click', function () {
+      if (!lead.archived && !window.confirm(
+          'Archive ' + (lead.name || 'this contact') + '?\n\n' +
+          'The record stays exactly where it is, it just stops showing up in your' +
+          ' lists. You can bring it back any time from the Archived tab.')) return;
+      del.disabled = true;
+      patchLead(lead, { archived: !lead.archived }).then(function () {
+        del.disabled = false;
+        render();
+      });
+    });
+    track.appendChild(del);
+
+    wrap.appendChild(track);
+    return wrap;
+  }
+
+  function render() {
+    var shown = leads.filter(matches);
+    var list = $('list');
+    list.textContent = '';
+    shown.forEach(function (l) { list.appendChild(card(l)); });
+    $('empty').hidden = shown.length > 0;
+    $('empty').textContent = leads.length
+      ? 'No leads match that.'
+      : 'No leads yet. Print a sign from the Sign In Sheets tab.';
+
+    var live = leads.filter(function (l) { return !l.archived; });
+    var week = Date.now() - 7 * 24 * 3600 * 1000;
+    $('s-total').textContent = live.length;
+    $('s-hot').textContent = live.filter(isHot).length;
+    $('s-week').textContent = live.filter(function (l) { return new Date(l.created_at).getTime() >= week; }).length;
+
+    renderToday();
+  }
+
+  function fillProperties() {
+    var sel = $('prop');
+    var current = sel.value;
+    var seen = {}, props = [];
+    leads.forEach(function (l) {
+      if (l.property && !seen[l.property]) { seen[l.property] = 1; props.push(l.property); }
+    });
+    props.sort();
+    sel.textContent = '';
+    var all = el('option', null, 'Every property');
+    all.value = '';
+    sel.appendChild(all);
+    props.forEach(function (p) {
+      var o = el('option', null, p);
+      o.value = p;
+      if (p === current) o.selected = true;
+      sel.appendChild(o);
+    });
+  }
+
+  function showAppError(e) {
+    var msg = String(e && e.message ? e.message : e);
+    if (msg.indexOf('signed out') !== -1) { signOut(); return; }
+    if (msg.indexOf('PGRST205') !== -1 || msg.indexOf('schema cache') !== -1 || msg.indexOf('42P01') !== -1) {
+      msg = 'The leads table does not exist yet. Run leads-table.sql in the Supabase SQL editor, then hit Refresh.';
+    }
+    $('app-err').textContent = msg;
+    $('app-err').hidden = false;
+  }
+
+  function indexTouches() {
+    byContact = {};
+    touches.forEach(function (t) {
+      (byContact[t.contact_id] = byContact[t.contact_id] || []).push(t);
+    });
+    Object.keys(byContact).forEach(function (k) {
+      byContact[k].sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+    });
+  }
+
+  /* True once we know the upgrade tables are missing, which means
+     crm-upgrade.sql has not been run yet. */
+  var notUpgraded = false;
+
+  function missingTable(e) {
+    var m = String((e && e.message) || e);
+    return /PGRST205|PGRST20[0-9]|schema cache|42P01|does not exist|42703/i.test(m);
+  }
+
+  /* The five new tables are optional at read time. If the migration has not
+     been run the dashboard still has to come up and show your leads, because
+     a CRM that shows a red error instead of your contacts is worse than one
+     that is missing its new half. */
+  function optional(path) {
+    return api(path).catch(function (e) {
+      if (missingTable(e)) { notUpgraded = true; return []; }
+      throw e;
+    });
+  }
+
+  function load() {
+    notUpgraded = false;
+    return Promise.all([
+      api('/leads?select=*&order=created_at.desc'),
+      optional('/touches?select=*&order=date.desc'),
+      optional('/templates?select=*&order=sort.asc,created_at.asc'),
+      optional('/sequences?select=*'),
+      optional('/parcels?select=*&order=street.asc,house_number.asc')
+    ]).then(function (r) {
+      leads = r[0] || [];
+      touches = r[1] || [];
+      templates = r[2] || [];
+      parcels = r[4] || [];
+
+      sequences = {};
+      (r[3] || []).forEach(function (row) { sequences[row.segment] = row.steps || []; });
+      /* Anything you have not saved yet falls back to the shipped schedule,
+         so a fresh install behaves before you touch the Templates tab. */
+      Object.keys(DEFAULT_SEQUENCES).forEach(function (k) {
+        if (!sequences[k] || !sequences[k].length) sequences[k] = DEFAULT_SEQUENCES[k];
+      });
+
+      indexTouches();
+      $('app-err').hidden = true;
+      fillProperties();
+      return syncDerived();
+    }).then(function () {
+      render();
+      renderFarm();
+      renderTemplates();
+      renderSeq();
+      checkBackupAge();
+      if (notUpgraded) showUpgradeNotice();
+    }).catch(showAppError);
+  }
+
+  function showUpgradeNotice() {
+    var box = $('app-err');
+    box.textContent = '';
+    box.appendChild(el('b', null, 'The database upgrade has not been run yet. '));
+    box.appendChild(document.createTextNode(
+      'Your leads are all here and safe, but next actions, the touch log, templates, ' +
+      'sequences and the farm list have nowhere to save to. Open the Supabase SQL ' +
+      'editor, paste in all of spilo/crm-upgrade.sql, run it once, then hit Refresh.'));
+    box.hidden = false;
+  }
+
+  /* Everything that has to be true about a record but is not the database's
+     job to enforce. Runs on every load, writes back only what actually
+     changed, and never touches more than a handful of rows. */
+  function syncDerived() {
+    /* Every column this touches was added by crm-upgrade.sql. Writing to
+       them before it has run just produces a wall of failed requests. */
+    if (notUpgraded) return Promise.resolve();
+
+    var writes = [];
+    var today = todayYmd();
+
+    leads.forEach(function (l) {
+      var body = {};
+
+      /* Represented forces D. This one is not a suggestion, it is the rule
+         that keeps you off someone else's client. */
+      if (l.has_agent === true && l.segment !== 'D') {
+        l.segment = 'D';
+        body.segment = 'D';
+      }
+
+      /* And the other direction. A contact sitting in D who is no longer
+         marked represented is a leftover, and leaving it there would keep
+         them locked out of contact for no reason. */
+      if (l.has_agent !== true && l.segment === 'D') {
+        l.segment = deriveSegment(l);
+        l.segment_manual = false;
+        body.segment = l.segment;
+        body.segment_manual = false;
+      }
+
+      /* No segment yet, so read one off what the sheet already captured. */
+      if (!l.segment) {
+        l.segment = deriveSegment(l);
+        body.segment = l.segment;
+      }
+
+      /* A goes quiet for 22 days with nothing written back, it becomes B.
+         Manual overrides are respected everywhere except here, because the
+         whole point is that A is a claim the calendar can disprove. */
+      if (l.segment === 'A' && !l.archived && l.status !== 'dead') {
+        var age = dayDiff(String(l.created_at).slice(0, 10), today);
+        if (age >= A_TO_B_DAYS && !hasReplied(l)) {
+          l.segment = 'B';
+          l.segment_manual = false;
+          body.segment = 'B';
+          body.segment_manual = false;
+          if (l.seq_step) { l.seq_step = 0; body.seq_step = 0; }
+        }
+      }
+
+      /* Nothing lives without a next action date. This is the rule the
+         whole upgrade exists for, so it gets enforced on read as well as
+         on write. */
+      if (!l.next_action_date && !l.archived && l.status !== 'dead') {
+        var nxt = nextSeqStep(l);
+        l.next_action      = nxt ? nxt.step.label : 'First contact, never been reached';
+        l.next_action_date = nxt && nxt.due > today ? nxt.due : today;
+        body.next_action      = l.next_action;
+        body.next_action_date = l.next_action_date;
+      }
+
+      if (Object.keys(body).length) writes.push(patchLead(l, body, true));
+    });
+
+    return writes.length ? Promise.all(writes) : Promise.resolve();
+  }
+
+  /* ---------- Export ---------- */
+
+  function csv(v) {
+    var s = v === null || v === undefined ? '' : String(v);
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+
+  function download(name, text, mime) {
+    var blob = new Blob([text], { type: mime });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  /* Every contact, every time. The old version exported whatever the chips
+     happened to be filtered to, which meant hitting Export on the Hot tab
+     handed you six rows and the comfortable feeling of a backup. */
+  function exportCsv() {
+    var cols = ['id', 'created_at', 'name', 'phone', 'email', 'property', 'timeline',
+                'has_agent', 'financing', 'segment', 'my_read', 'my_read_note',
+                'status', 'next_action', 'next_action_date', 'last_touch',
+                'do_not_contact', 'dnc_registry', 'archived', 'notes', 'agent_notes'];
+    var rows = [cols.join(',')];
+    leads.forEach(function (l) {
+      rows.push(cols.map(function (c) { return csv(l[c]); }).join(','));
+    });
+    download('spilo-contacts-' + todayYmd() + '.csv', rows.join('\r\n'), 'text/csv;charset=utf-8');
+    markBackedUp();
+  }
+
+  $('export').addEventListener('click', exportCsv);
+  $('b-csv').addEventListener('click', exportCsv);
+
+  /* ---------- Add someone ---------- */
+
+  TIMELINES.forEach(function (t, i) {
+    var o = el('option', null, t.label);
+    o.value = String(i);
+    if (i === 1) o.selected = true;
+    $('a-timeline').appendChild(o);
+  });
+
+  function resetAdd() {
+    ['a-name', 'a-phone', 'a-email', 'a-property', 'a-notes'].forEach(function (id) { $(id).value = ''; });
+    $('a-timeline').value = '1';
+    $('a-agent').value = 'false';
+    $('a-financing').value = '';
+    $('a-err').hidden = true;
+  }
+
+  $('add-toggle').addEventListener('click', function () {
+    var open = $('add').hidden;
+    $('add').hidden = !open;
+    $('add-toggle').textContent = open ? 'Close' : 'Add Someone';
+    if (open) { resetAdd(); $('a-name').focus(); }
+  });
+
+  $('a-cancel').addEventListener('click', function () {
+    $('add').hidden = true;
+    $('add-toggle').textContent = 'Add Someone';
+  });
+
+  $('add').addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('a-err').hidden = true;
+    var name = $('a-name').value.trim();
+    if (!name) { $('a-err').textContent = 'Name is required.'; $('a-err').hidden = false; $('a-name').focus(); return; }
+
+    var t = TIMELINES[Number($('a-timeline').value)] || TIMELINES[1];
+    var agent = $('a-agent').value;
+    var row = {
+      name: name,
+      phone: $('a-phone').value.trim() || null,
+      email: $('a-email').value.trim() || null,
+      property: $('a-property').value.trim() || null,
+      timeline: t.label,
+      timeline_months: t.months,
+      has_agent: agent === '' ? null : agent === 'true',
+      financing: $('a-financing').value || null,
+      notes: $('a-notes').value.trim() || null,
+      source: 'added by hand'
+    };
+
+    var btn = $('a-save');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    api('/leads', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(row) })
+      .then(function () {
+        resetAdd();
+        $('add').hidden = true;
+        $('add-toggle').textContent = 'Add Someone';
+        flash();
+        return load();
+      })
+      .catch(function (err) {
+        $('a-err').textContent = String(err && err.message ? err.message : err);
+        $('a-err').hidden = false;
+      })
+      .then(function () { btn.disabled = false; btn.textContent = 'Save Lead'; });
+  });
+
+  /* ---------- QR ---------- */
+
+  function signinUrl(addr) {
+    return addr ? location.origin + '/signin?p=' + encodeURIComponent(addr) : location.origin + '/signin';
+  }
+
+  function renderQr(text) {
+    var holder = $('qr');
+    holder.textContent = '';
+    var q;
+    try { q = qrMatrix(text); }
+    catch (e) { holder.appendChild(el('p', 'sign-err', e.message)); return; }
+
+    var quiet = 4, dim = q.size + quiet * 2;
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + dim + ' ' + dim);
+    svg.setAttribute('shape-rendering', 'crispEdges');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'QR code linking to the open house sign in sheet');
+    var bg = document.createElementNS(NS, 'rect');
+    bg.setAttribute('width', dim); bg.setAttribute('height', dim); bg.setAttribute('fill', '#fff');
+    svg.appendChild(bg);
+    var d = '';
+    for (var r = 0; r < q.size; r++) {
+      for (var c = 0; c < q.size; c++) {
+        if (q.modules[r][c]) d += 'M' + (c + quiet) + ' ' + (r + quiet) + 'h1v1h-1z';
+      }
+    }
+    var path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', '#111');
+    svg.appendChild(path);
+    holder.appendChild(svg);
+  }
+
+  function updateQr(addr) {
+    var url = signinUrl(addr);
+    $('url').textContent = url;
+    $('open').href = addr ? '/signin?p=' + encodeURIComponent(addr) : '/signin';
+    $('sign-addr').textContent = addr ? 'This sheet: ' + addr : '';
+    $('sign-addr').hidden = !addr;
+    renderQr(url);
+  }
+
+  var qrDebounce = null;
+  $('addr').addEventListener('input', function () {
+    clearTimeout(qrDebounce);
+    qrDebounce = setTimeout(function () { updateQr($('addr').value.trim()); }, 250);
+  });
+
+  $('print').addEventListener('click', function () { window.print(); });
+
+  $('copy').addEventListener('click', function () {
+    var btn = $('copy');
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy Link'; }, 1600); };
+    var text = $('url').textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {});
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+
+  /* ---------- Security checks ---------- */
+
+  function checkRow(state, title, detail) {
+    var row = el('div', 'check');
+    row.appendChild(el('span', 'check-dot ' + state));
+    var body = el('div', 'check-body');
+    body.appendChild(el('b', null, title));
+    var p = el('p');
+    p.innerHTML = detail;   /* fixed strings written here, no user data */
+    body.appendChild(p);
+    row.appendChild(body);
+    return row;
+  }
+
+  function runChecks() {
+    var box = $('checks');
+    box.textContent = '';
+    box.appendChild(checkRow('', 'Checking...', 'Asking the database how things stand.'));
+
+    var results = [];
+    var problems = 0;
+
+    /* Can a stranger register an account? That is the one that matters,
+       because every policy below trusts who you are. */
+    var signupCheck = fetch(SB_URL + '/auth/v1/settings', { headers: { apikey: SB_KEY } })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.disable_signup === true) {
+          results.push(['ok', 'Public signup is off', 'Nobody can create an account on your project. This is the setting that keeps everything else honest.']);
+        } else {
+          problems++;
+          results.push(['bad', 'Public signup is ON', 'Anyone can register an account on your project. Turn it off: Supabase dashboard, Authentication, Sign In / Providers, Email, uncheck <b>Allow new users to sign up</b>.']);
+        }
+      })
+      .catch(function () {
+        results.push(['warn', 'Could not check signup', 'The auth service did not answer. If the project is paused, restore it first.']);
+      });
+
+    /* Does the leads table exist, and can we read it as ourselves? */
+    var leadsCheck = api('/leads?select=id&limit=1')
+      .then(function () {
+        results.push(['ok', 'Leads table is live', 'It exists and you can read it.']);
+      })
+      .catch(function (e) {
+        problems++;
+        var msg = String(e && e.message ? e.message : e);
+        if (msg.indexOf('PGRST205') !== -1 || msg.indexOf('schema cache') !== -1) {
+          results.push(['bad', 'Leads table does not exist', 'Run <code>leads-table.sql</code> in the SQL editor. Until then every sign in is stranded on the phone that captured it.']);
+        } else {
+          results.push(['bad', 'Cannot read the leads table', msg]);
+        }
+      });
+
+    /* Anonymous read attempt. This is the actual test that matters:
+       it uses the public key with no login, exactly like a stranger would. */
+    var anonCheck = fetch(SB_URL + '/rest/v1/leads?select=id&limit=1', {
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+    }).then(function (r) {
+      if (r.status === 200) {
+        problems++;
+        results.push(['bad', 'Your leads are readable by the public', 'A signed out request just read the table. Run <code>leads-table.sql</code>, it is the file that turns row level security on.']);
+      } else if (r.status === 404) {
+        results.push(['warn', 'Public read blocked, table missing', 'Nothing is exposed, but only because the table is not there yet.']);
+      } else {
+        results.push(['ok', 'Leads are private', 'A signed out request was refused. Only you can read them.']);
+      }
+    }).catch(function () {
+      results.push(['warn', 'Could not test public access', 'The database did not answer.']);
+    });
+
+    Promise.all([signupCheck, leadsCheck, anonCheck]).then(function () {
+      box.textContent = '';
+      var order = { bad: 0, warn: 1, ok: 2 };
+      results.sort(function (a, b) { return order[a[0]] - order[b[0]]; });
+      results.forEach(function (r) { box.appendChild(checkRow(r[0], r[1], r[2])); });
+      var badge = $('status-count');
+      badge.hidden = problems === 0;
+      badge.textContent = problems;
+    });
+  }
+
+  $('recheck').addEventListener('click', runChecks);
+
+  /* =================================================================
+     Dates. Everything user facing is local. next_action_date is a plain
+     Postgres date, so it is handled as a YYYY-MM-DD string and never as a
+     UTC timestamp, otherwise anything logged in the evening lands on the
+     wrong day.
+     ================================================================= */
+
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function ymd(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function todayYmd() { return ymd(new Date()); }
+
+  function parseYmd(v) {
+    if (!v) return null;
+    var p = String(v).slice(0, 10).split('-');
+    if (p.length !== 3) return null;
+    var d = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function addDays(d, n) { var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function shiftYmd(v, n) { var d = parseYmd(v); return d ? ymd(addDays(d, n)) : null; }
+  function dayDiff(a, b) {
+    var x = parseYmd(a), y = parseYmd(b);
+    if (!x || !y) return 0;
+    return Math.round((y.getTime() - x.getTime()) / 86400000);
+  }
+  function fmtDay(v) {
+    var d = parseYmd(v);
+    return d ? d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+  }
+
+  var ICON_COPY  = 'M8 4h10a2 2 0 0 1 2 2v10M16 8H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2Z';
+  var ICON_LOG   = 'M12 8v8m-4-4h8M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z';
+  var ICON_CARET = 'm9 6 6 6-6 6';
+  var ICON_CHECK = 'M20 6 9 17l-5-5';
+
+  /* =================================================================
+     Phone. Area codes are checked against the assigned NANP list, which
+     is what catches a made up one. This is a snapshot, so a brand new
+     area code could read as invalid. It is a warning badge and never a
+     block, exactly so that costs you nothing when it happens.
+     ================================================================= */
+
+  var NANP = {};
+  ('201 202 203 204 205 206 207 208 209 210 212 213 214 215 216 217 218 219 220 223 224 225 226 227 228 229 231 234 236 239 240 242 246 248 249 250 251 252 253 254 256 260 262 263 264 267 268 269 270 272 274 276 279 281 284 289 301 302 303 304 305 306 307 308 309 310 312 313 314 315 316 317 318 319 320 321 323 325 326 327 330 331 332 334 336 337 339 340 341 343 345 346 347 351 352 360 361 363 364 365 367 368 380 382 385 386 401 402 403 404 405 406 407 408 409 410 412 413 414 415 416 417 418 419 423 424 425 428 430 431 432 434 435 437 438 440 441 442 443 445 447 448 450 458 463 464 468 469 470 473 474 475 478 479 480 484 501 502 503 504 505 506 507 508 509 510 512 513 514 515 516 517 518 519 520 530 531 534 539 540 541 548 551 557 559 561 562 563 564 567 570 571 572 573 574 575 579 580 581 582 584 585 586 587 601 602 603 604 605 606 607 608 609 610 612 613 614 615 616 617 618 619 620 623 626 628 629 630 631 636 639 640 641 646 647 649 650 651 656 657 658 659 660 661 662 664 667 669 670 671 672 678 679 680 681 682 683 684 689 701 702 703 704 705 706 707 708 709 712 713 714 715 716 717 718 719 720 721 724 725 726 727 731 732 734 737 740 742 743 747 753 754 757 758 760 762 763 765 767 769 770 771 772 773 774 775 778 779 780 781 782 784 785 786 787 800 801 802 803 804 805 806 807 808 809 810 812 813 814 815 816 817 818 819 820 825 828 829 830 831 832 833 838 839 843 844 845 847 848 849 850 854 855 856 857 858 859 860 862 863 864 865 866 867 868 869 870 872 873 876 877 878 879 888 901 902 903 904 905 906 907 908 909 910 912 913 914 915 916 917 918 919 920 925 928 929 930 931 934 936 937 938 939 940 941 943 945 947 949 951 952 954 956 959 970 971 972 973 975 978 979 980 984 985 986 989').split(' ').forEach(function (a) { NANP[a] = 1; });
+
+  function phoneOk(v) {
+    var d = digits(v);
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    if (d.length !== 10) return false;
+    if (!NANP[d.slice(0, 3)]) return false;
+    /* The exchange has the same shape rule as the area code, and 555-01xx
+       is the reserved make believe range. Both are what somebody reaches
+       for when they are inventing a number on a clipboard. */
+    var ex = d.slice(3, 6);
+    if (ex.charAt(0) === '0' || ex.charAt(0) === '1') return false;
+    if (ex.charAt(1) === '1' && ex.charAt(2) === '1') return false;
+    if (ex === '555' && d.slice(6, 8) === '01') return false;
+    return true;
+  }
+
+  /* =================================================================
+     Segments
+     ================================================================= */
+
+  function isSellerish(l) {
+    var hay = ((l.notes || '') + ' ' + (l.agent_notes || '') + ' ' + (l.my_read_note || '')).toLowerCase();
+    return /\bsell|list(ing)? my|my (home|house|place)|downsiz|worth|apprais|equity/.test(hay);
+  }
+
+  function deriveSegment(l) {
+    if (l.has_agent === true) return 'D';
+    if (l.source === 'farm' && !l.phone) return 'E';
+    if (isSellerish(l)) return 'C';
+    var m = months(l);
+    /* Cash and no agent counts as inside the window even when they wrote a
+       longer timeline, because a cash buyer moves the week the right house
+       shows up. Timeline plus represented plus cash, which is what the
+       sheet already asks. */
+    if (m <= 3 || (/cash/i.test(l.financing || '') && m <= 6)) return 'A';
+    return 'B';
+  }
+
+  /* Represented is not an opinion, so it wins over any manual override. */
+  function segmentOf(l) {
+    if (l.has_agent === true) return 'D';
+    return l.segment || deriveSegment(l);
+  }
+
+  function hasReplied(l) {
+    var t = byContact[l.id] || [];
+    for (var i = 0; i < t.length; i++) if (t[i].outcome === 'replied') return true;
+    return false;
+  }
+
+  function isOverdue(l) {
+    if (l.archived || l.status === 'dead' || !l.next_action_date) return false;
+    return dayDiff(l.next_action_date, todayYmd()) > 0;
+  }
+
+  /* =================================================================
+     Compliance. These are the rules that can cost you a license, so they
+     are enforced in the interface rather than left to memory.
+     ================================================================= */
+
+  function outboundBlock(l) {
+    if (l.do_not_contact) return {
+      why: 'They asked not to be contacted, and you flagged it. There is no override on this one.'
+    };
+    if (segmentOf(l) === 'D') return {
+      why: 'They are under agreement with another agent. Going after a client who is already under agreement is a license problem, so calling, texting and emailing are switched off here. If they tell you the agreement has ended, open this card, set Has an agent to no, and everything opens back up.'
+    };
+    if (segmentOf(l) === 'E') return {
+      mailOnly: true,
+      why: 'A farm address, not a lead. Nobody here handed you a phone number or said you could call, so this one goes out as a mail piece.'
+    };
+    return null;
+  }
+
+  function callBlocked(l) {
+    if (l.dnc_registry) return 'This number is on the Do Not Call registry and you flagged it by hand. Calling is off. Text and email still work.';
+    return null;
+  }
+
+  function outsideHours() {
+    var h = new Date().getHours();
+    return h < CALL_OPEN || h >= CALL_SHUT;
+  }
+
+  /* =================================================================
+     Writing
+     ================================================================= */
+
+  function patchLead(lead, body, quiet) {
+    Object.keys(body).forEach(function (k) { lead[k] = body[k]; });
+    return api('/leads?id=eq.' + encodeURIComponent(lead.id), {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify(body)
+    }).then(function () {
+      if (!quiet) { flash(); checkBackupAge(); }
+    }).catch(function (e) {
+      showAppError(e);
+    });
+  }
+
+  /* =================================================================
+     Sequences. These are the shipped defaults. Anything you save in the
+     Templates tab overrides them, per segment, and the copy lives in the
+     templates rather than in here.
+     ================================================================= */
+
+  var DEFAULT_SEQUENCES = {
+    A: [
+      { dayOffset: 1,  channel: 'email', templateId: 'a-day1-email',  label: 'Send the listing sheet plus two comparables' },
+      { dayOffset: 4,  channel: 'text',  templateId: 'a-day4-text',   label: 'Text: two new ones that fit' },
+      { dayOffset: 8,  channel: 'email', templateId: 'a-day8-email',  label: 'Email: what is actually moving out there' },
+      { dayOffset: 14, channel: 'text',  templateId: 'a-day14-text',  label: 'Text: has anything changed on timing' },
+      { dayOffset: 21, channel: 'email', templateId: 'a-day21-email', label: 'Email: easing off, still here when they are ready' }
+    ],
+    B: [
+      { dayOffset: 7,   channel: 'text',  templateId: 'b-w1-text',        label: 'Text: what price are they trying to stay under' },
+      { dayOffset: 14,  channel: 'email', templateId: 'b-w2-email',       label: 'Email: the area at a glance' },
+      { dayOffset: 28,  channel: 'email', templateId: 'b-w4-email',       label: 'Email: what you get at each price' },
+      { dayOffset: 60,  channel: 'email', templateId: 'b-m2-email',       label: 'Email: what the payment actually looks like' },
+      { dayOffset: 90,  channel: 'call',  templateId: 'b-m3-call',        label: 'Call: check in on timing' },
+      { dayOffset: 120, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 150, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 180, channel: 'call',  templateId: 'b-quarterly-call', label: 'Call: quarterly check in' },
+      { dayOffset: 210, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 240, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 270, channel: 'call',  templateId: 'b-quarterly-call', label: 'Call: quarterly check in' },
+      { dayOffset: 300, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 330, channel: 'email', templateId: 'b-monthly-email',  label: 'Email: monthly area update' },
+      { dayOffset: 360, channel: 'call',  templateId: 'b-quarterly-call', label: 'Call: quarterly check in' }
+    ],
+    C: [
+      { dayOffset: 2,   channel: 'email', templateId: 'c-value',          label: 'Send what their place is worth right now' },
+      { dayOffset: 14,  channel: 'text',  templateId: 'c-w2-text',        label: 'Text: did that number look about right' },
+      { dayOffset: 30,  channel: 'email', templateId: 'c-m1-email',       label: 'Email: what sold near them this month' },
+      { dayOffset: 60,  channel: 'email', templateId: 'c-m2-email',       label: 'Email: what buyers are asking for right now' },
+      { dayOffset: 90,  channel: 'call',  templateId: 'c-m3-call',        label: 'Call: talk through timing' },
+      { dayOffset: 180, channel: 'call',  templateId: 'c-quarterly-call', label: 'Call with a refreshed value' },
+      { dayOffset: 270, channel: 'call',  templateId: 'c-quarterly-call', label: 'Call with a refreshed value' },
+      { dayOffset: 360, channel: 'call',  templateId: 'c-quarterly-call', label: 'Call with a refreshed value' }
+    ],
+    /* D has exactly one step and it is not an outreach. Every send button on
+       a D contact stays off. This is a reminder to find out whether they are
+       still represented, by asking them at an open house, checking the MLS,
+       or whatever else does not involve soliciting them. */
+    D: [
+      { dayOffset: 180, channel: 'review', templateId: '', label: 'Check whether they are still with that agent. Do not contact them to ask.' }
+    ],
+    E: [
+      { dayOffset: 7,   channel: 'mail', templateId: 'e-just-listed', label: 'Mail: just listed' },
+      { dayOffset: 56,  channel: 'mail', templateId: 'e-just-sold',   label: 'Mail: just sold' },
+      { dayOffset: 105, channel: 'mail', templateId: 'e-snapshot',    label: 'Mail: market snapshot' },
+      { dayOffset: 154, channel: 'mail', templateId: 'e-value-offer', label: 'Mail: what is your place worth' },
+      { dayOffset: 203, channel: 'mail', templateId: 'e-just-listed', label: 'Mail: just listed' },
+      { dayOffset: 252, channel: 'mail', templateId: 'e-just-sold',   label: 'Mail: just sold' },
+      { dayOffset: 301, channel: 'mail', templateId: 'e-snapshot',    label: 'Mail: market snapshot' },
+      { dayOffset: 350, channel: 'mail', templateId: 'e-value-offer', label: 'Mail: what is your place worth' }
+    ]
+  };
+
+  function seqDue(lead, step) {
+    var start = parseYmd(String(lead.created_at).slice(0, 10));
+    return start ? ymd(addDays(start, Number(step.dayOffset) || 0)) : null;
+  }
+
+  function nextSeqStep(lead) {
+    var steps = sequences[segmentOf(lead)] || [];
+    var i = Number(lead.seq_step) || 0;
+    if (i < 0 || i >= steps.length) return null;
+    return { index: i, step: steps[i], due: seqDue(lead, steps[i]) };
+  }
+
+  /* =================================================================
+     Modal
+     ================================================================= */
+
+  var modalLocked = false;
+
+  function openModal(build) {
+    modalLocked = false;
+    var box = $('modal');
+    box.textContent = '';
+    build(box);
+    $('scrim').hidden = false;
+    document.body.style.overflow = 'hidden';
+    box.scrollTop = 0;
+  }
+
+  function closeModal(force) {
+    if (modalLocked && !force) return false;
+    modalLocked = false;
+    $('scrim').hidden = true;
+    $('modal').textContent = '';
+    document.body.style.overflow = '';
+    return true;
+  }
+
+  $('scrim').addEventListener('click', function (e) {
+    if (e.target === $('scrim')) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !$('scrim').hidden) closeModal();
+  });
+
+  function optBtn(label, on, fn, wide) {
+    var b = el('button', 'opt' + (wide ? ' wide' : ''), label);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(!!on));
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  function mblock(box, label) {
+    var b = el('div', 'modal-block');
+    if (label) b.appendChild(el('span', 'flabel', label));
+    box.appendChild(b);
+    return b;
+  }
+
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+    } else fallback();
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  }
+
+  /* =================================================================
+     Log a touch.
+
+     One save writes the touch and the next action date together, so a
+     touch cannot exist without a next action date even for a moment.
+     Save stays disabled until a date is picked. Once you choose an
+     outcome the panel locks, and the only ways out are saving it or
+     hitting Throw It Away, which records nothing at all.
+     ================================================================= */
+
+  function openLog(lead, channel) {
+    var pick = { channel: channel || 'call', outcome: null, date: '', usedStep: false };
+    var nxt = nextSeqStep(lead);
+
+    openModal(function (box) {
+      var h = el('h2', null, 'Log a touch');
+      h.id = 'modal-title';
+      box.appendChild(h);
+      box.appendChild(el('p', 'who', (lead.name || 'This contact') + (lead.property ? ' at ' + lead.property : '')));
+
+      var cRow = el('div', 'opts');
+      mblock(box, 'What did you do?').appendChild(cRow);
+
+      var oWrap = mblock(box, 'How did it go?');
+      var oRow = el('div', 'opts');
+      oWrap.appendChild(oRow);
+
+      var noteWrap = mblock(box, 'Anything worth remembering?');
+      var note = el('textarea', 'textarea');
+      note.placeholder = 'Optional. One line is plenty.';
+      note.style.minHeight = '64px';
+      noteWrap.appendChild(note);
+
+      var actWrap = mblock(box, 'What happens next, and when?');
+      var act = el('input', 'input');
+      act.type = 'text';
+      act.placeholder = 'Call her back about the Meridian one';
+      act.value = nxt ? nxt.step.label : '';
+      actWrap.appendChild(act);
+
+      var quick = el('div', 'opts');
+      quick.style.marginTop = '0.6rem';
+      actWrap.appendChild(quick);
+
+      var dateRow = el('div', 'modal-date');
+      var date = el('input', 'input');
+      date.type = 'date';
+      date.min = todayYmd();
+      dateRow.appendChild(date);
+      actWrap.appendChild(dateRow);
+
+      var forced = el('p', 'forced',
+        'A contact never sits here without a next action date. That is the whole point of this box, so there is no skip and no default.');
+      actWrap.appendChild(forced);
+
+      var err = el('p', 'modal-err');
+      err.hidden = true;
+
+      var acts = el('div', 'modal-actions');
+      var save = el('button', 'btn btn-dark', 'Save It');
+      save.type = 'button';
+      save.disabled = true;
+      var toss = el('button', 'btn btn-line', 'Throw It Away');
+      toss.type = 'button';
+      acts.appendChild(save);
+      acts.appendChild(toss);
+      box.appendChild(acts);
+      box.appendChild(err);
+
+      function refresh() {
+        cRow.textContent = '';
+        CHANNELS.forEach(function (c) {
+          cRow.appendChild(optBtn(c.label, pick.channel === c.id, function () {
+            pick.channel = c.id;
+            if (CHANNELS.filter(function (x) { return x.id === c.id; })[0].outcomes.indexOf(pick.outcome) === -1) {
+              pick.outcome = null;
+            }
+            refresh();
+          }));
+        });
+
+        var chan = CHANNELS.filter(function (c) { return c.id === pick.channel; })[0];
+        oRow.textContent = '';
+        chan.outcomes.forEach(function (o) {
+          oRow.appendChild(optBtn(OUTCOME_LABEL[o], pick.outcome === o, function () {
+            pick.outcome = o;
+            modalLocked = true;   /* committed now, no accidental dismiss */
+            refresh();
+          }, chan.outcomes.length > 2));
+        });
+
+        quick.textContent = '';
+        var picks = [['Tomorrow', 1], ['In 3 days', 3], ['Next week', 7], ['In 2 weeks', 14], ['In a month', 30]];
+        if (nxt && nxt.due) {
+          var stepDate = nxt.due > todayYmd() ? nxt.due : shiftYmd(todayYmd(), 1);
+          quick.appendChild(optBtn('Next step, ' + fmtDay(stepDate), pick.date === stepDate, function () {
+            pick.date = stepDate;
+            pick.usedStep = true;
+            act.value = nxt.step.label;
+            refresh();
+          }, true));
+        }
+        picks.forEach(function (p) {
+          var d = shiftYmd(todayYmd(), p[1]);
+          quick.appendChild(optBtn(p[0], pick.date === d, function () {
+            pick.date = d;
+            pick.usedStep = false;
+            refresh();
+          }));
+        });
+
+        date.value = pick.date || '';
+        save.disabled = !(pick.outcome && pick.date);
+        forced.hidden = !!pick.date;
+      }
+
+      date.addEventListener('change', function () {
+        pick.date = date.value;
+        pick.usedStep = false;
+        refresh();
+      });
+
+      toss.addEventListener('click', function () {
+        if (pick.outcome && !window.confirm(
+            'Throw this away? Nothing gets logged and nothing changes on the record.')) return;
+        closeModal(true);
+      });
+
+      save.addEventListener('click', function () {
+        if (!pick.outcome || !pick.date) return;
+        save.disabled = true;
+        save.textContent = 'Saving...';
+        err.hidden = true;
+
+        var row = {
+          contact_id: lead.id,
+          date: new Date().toISOString(),
+          channel: pick.channel,
+          outcome: pick.outcome,
+          note: note.value.trim() || null
+        };
+
+        api('/touches', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify(row) })
+          .then(function (rows) {
+            var t = (rows && rows[0]) || row;
+            touches.unshift(t);
+            indexTouches();
+
+            var upd = {
+              next_action: act.value.trim() || 'Reach out again',
+              next_action_date: pick.date,
+              last_touch: t.date
+            };
+            if (lead.status === 'new') upd.status = 'contacted';
+            if (pick.usedStep && nxt) upd.seq_step = nxt.index + 1;
+            return patchLead(lead, upd, true);
+          })
+          .then(function () {
+            modalLocked = false;
+            closeModal(true);
+            flash();
+            render();
+            checkBackupAge();
+          })
+          .catch(function (e) {
+            save.disabled = false;
+            save.textContent = 'Save It';
+            err.textContent = String(e && e.message ? e.message : e);
+            err.hidden = false;
+          });
+      });
+
+      refresh();
+    });
+  }
+
+  /* =================================================================
+     Your read, the segment, and the flags that switch outbound off
+     ================================================================= */
+
+  function openRead(lead) {
+    openModal(function (box) {
+      var h = el('h2', null, 'Your read');
+      h.id = 'modal-title';
+      box.appendChild(h);
+      box.appendChild(el('p', 'who', lead.name || 'This contact'));
+
+      var readRow = el('div', 'opts');
+      mblock(box, 'How did they actually strike you?').appendChild(readRow);
+
+      var hint = el('p', 'week-note',
+        'People write "just looking" on a clipboard because it is the safe thing to say to a stranger. This is your read after talking to them, and it beats whatever the sheet says.');
+      box.appendChild(hint);
+
+      var noteWrap = mblock(box, 'Why');
+      var note = el('textarea', 'textarea');
+      note.placeholder = 'Said just looking but asked about schools twice.';
+      note.style.minHeight = '64px';
+      note.value = lead.my_read_note || '';
+      noteWrap.appendChild(note);
+
+      var segRow = el('div', 'opts');
+      var segWrap = mblock(box, 'Segment');
+      segWrap.appendChild(segRow);
+      var segNote = el('p', 'week-note');
+      segWrap.appendChild(segNote);
+
+      var flagWrap = mblock(box, 'Switches');
+      var flagRow = el('div', 'opts');
+      flagWrap.appendChild(flagRow);
+
+      var acts = el('div', 'modal-actions');
+      var save = el('button', 'btn btn-dark', 'Save');
+      save.type = 'button';
+      var cancel = el('button', 'btn btn-line', 'Cancel');
+      cancel.type = 'button';
+      acts.appendChild(save);
+      acts.appendChild(cancel);
+      box.appendChild(acts);
+
+      var draft = {
+        my_read: lead.my_read || null,
+        segment: segmentOf(lead),
+        segment_manual: !!lead.segment_manual,
+        has_agent: lead.has_agent,
+        do_not_contact: !!lead.do_not_contact,
+        dnc_registry: !!lead.dnc_registry
+      };
+
+      function refresh() {
+        readRow.textContent = '';
+        ['hot', 'warm', 'cold'].forEach(function (r) {
+          readRow.appendChild(optBtn(r.charAt(0).toUpperCase() + r.slice(1), draft.my_read === r, function () {
+            draft.my_read = draft.my_read === r ? null : r;
+            refresh();
+          }));
+        });
+
+        segRow.textContent = '';
+        'ABCDE'.split('').forEach(function (k) {
+          segRow.appendChild(optBtn(k, draft.segment === k, function () {
+            if (draft.has_agent === true && k !== 'D') {
+              window.alert('They are marked as represented, which pins them to D. Set "They have an agent" to no first if that has changed.');
+              return;
+            }
+            draft.segment = k;
+            draft.segment_manual = true;
+            refresh();
+          }));
+        });
+        segNote.textContent = SEGMENTS[draft.segment] + '. '
+          + (draft.segment_manual ? 'Set by you.' : 'Worked out from the sign in sheet.')
+          + (draft.segment === 'A' ? ' Drops to B on its own after ' + A_TO_B_DAYS + ' days if they never write back.' : '');
+
+        flagRow.textContent = '';
+        flagRow.appendChild(optBtn(
+          draft.has_agent === true ? 'They have an agent' : 'No agent',
+          draft.has_agent === true,
+          function () {
+            draft.has_agent = draft.has_agent === true ? false : true;
+            if (draft.has_agent === true) {
+              draft.segment = 'D';
+              draft.segment_manual = false;
+            } else if (draft.segment === 'D') {
+              /* Derive off the draft, not the saved record. The record still
+                 says represented until you hit Save, so asking it would just
+                 hand back D again and the contact could never be released. */
+              var shadow = {};
+              Object.keys(lead).forEach(function (k) { shadow[k] = lead[k]; });
+              shadow.has_agent = false;
+              draft.segment = deriveSegment(shadow);
+              draft.segment_manual = false;
+            }
+            refresh();
+          }, true));
+
+        flagRow.appendChild(optBtn('Do not contact', draft.do_not_contact, function () {
+          if (draft.do_not_contact) {
+            window.alert('Do not contact does not come back off. If it was set by mistake, make a fresh record.');
+            return;
+          }
+          if (!window.confirm('Switch off every channel for ' + (lead.name || 'this contact') + ' permanently?\n\nThis one does not come back off.')) return;
+          draft.do_not_contact = true;
+          refresh();
+        }, true));
+
+        flagRow.appendChild(optBtn('On the DNC registry', draft.dnc_registry, function () {
+          draft.dnc_registry = !draft.dnc_registry;
+          refresh();
+        }, true));
+      }
+
+      cancel.addEventListener('click', function () { closeModal(true); });
+
+      save.addEventListener('click', function () {
+        save.disabled = true;
+        patchLead(lead, {
+          my_read: draft.my_read,
+          my_read_note: note.value.trim() || null,
+          segment: draft.segment,
+          segment_manual: draft.segment_manual,
+          has_agent: draft.has_agent,
+          do_not_contact: draft.do_not_contact,
+          dnc_registry: draft.dnc_registry
+        }).then(function () {
+          closeModal(true);
+          render();
+        });
+      });
+
+      refresh();
+    });
+  }
+
+  /* =================================================================
+     Compose. Fills a template in and copies it. Nothing sends from here,
+     on purpose: an automated text to somebody who signed a clipboard at
+     an open house is the kind of thing that turns into a complaint.
+     ================================================================= */
+
+  function areaOf(prop) {
+    var parts = String(prop || '').split(',');
+    return parts.length > 1 ? parts[1].trim() : 'the Boise area';
+  }
+
+  function fillTemplate(body, lead, extra) {
+    var first = String(lead.name || '').trim().split(/\s+/)[0] || 'there';
+    return String(body || '')
+      .replace(/\{firstName\}/g, first)
+      .replace(/\{street\}/g, lead.property || 'the open house')
+      .replace(/\{area\}/g, areaOf(lead.property))
+      .replace(/\{price\}/g, extra.price || '{price}')
+      .replace(/\{value\}/g, extra.value || '{value}');
+  }
+
+  function openCompose(lead) {
+    var extra = { price: '', value: '' };
+    var chosen = null;
+    var blocked = outboundBlock(lead);
+
+    openModal(function (box) {
+      var h = el('h2', null, 'Compose');
+      h.id = 'modal-title';
+      box.appendChild(h);
+      box.appendChild(el('p', 'who', lead.name || 'This contact'));
+
+      if (blocked) {
+        var warn = el('div', 'blocked');
+        warn.appendChild(el('b', null, blocked.mailOnly ? 'Mail only. ' : 'Outbound is off. '));
+        warn.appendChild(document.createTextNode(blocked.why));
+        box.appendChild(warn);
+      }
+
+      var pickRow = el('div', 'opts');
+      mblock(box, 'Which one?').appendChild(pickRow);
+
+      var vals = mblock(box, 'Numbers, if the template asks for them');
+      var vrow = el('div', 'modal-date');
+      var price = el('input', 'input');
+      price.type = 'text';
+      price.placeholder = 'price, e.g. $525,000';
+      var value = el('input', 'input');
+      value.type = 'text';
+      value.placeholder = 'value, e.g. $610,000';
+      vrow.appendChild(price);
+      vrow.appendChild(value);
+      vals.appendChild(vrow);
+
+      var outWrap = mblock(box, 'What gets copied');
+      var out = el('textarea', 'textarea');
+      out.style.minHeight = '190px';
+      out.placeholder = 'Pick a template above, then edit it here before you copy.';
+      outWrap.appendChild(out);
+
+      var acts = el('div', 'modal-actions');
+      var copy = el('button', 'btn btn-dark', 'Copy To Clipboard');
+      copy.type = 'button';
+      var done = el('button', 'btn btn-line', 'Close');
+      done.type = 'button';
+      acts.appendChild(copy);
+      acts.appendChild(done);
+      box.appendChild(acts);
+
+      function usable(t) {
+        if (!blocked) return true;
+        if (blocked.mailOnly) return t.channel === 'mail';
+        return false;
+      }
+
+      function refresh() {
+        pickRow.textContent = '';
+        var list = templates.filter(usable);
+        if (!list.length) {
+          pickRow.appendChild(el('p', 'week-note', templates.length
+            ? 'Nothing in your library fits this contact. Mail pieces only.'
+            : 'No templates yet. Open the Templates tab and load the starter set.'));
+        }
+        list.forEach(function (t) {
+          pickRow.appendChild(optBtn(t.name, chosen && chosen.id === t.id, function () {
+            chosen = t;
+            paint();
+          }, true));
+        });
+      }
+
+      function paint() {
+        extra.price = price.value.trim();
+        extra.value = value.value.trim();
+        if (!chosen) return;
+        var text = '';
+        if (chosen.channel === 'email' && chosen.subject) {
+          text += 'Subject: ' + fillTemplate(chosen.subject, lead, extra) + '\n\n';
+        }
+        text += fillTemplate(chosen.body, lead, extra);
+        out.value = text;
+        refresh();
+      }
+
+      price.addEventListener('input', paint);
+      value.addEventListener('input', paint);
+
+      copy.addEventListener('click', function () {
+        if (!out.value.trim()) return;
+        copyText(out.value, function () {
+          copy.textContent = 'Copied';
+          setTimeout(function () { copy.textContent = 'Copy To Clipboard'; }, 1600);
+        });
+      });
+      done.addEventListener('click', function () { closeModal(true); });
+
+      refresh();
+    });
+  }
+
+  /* =================================================================
+     Today
+     ================================================================= */
+
+  function weekStart() {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return addDays(d, -((d.getDay() + 6) % 7));   /* Monday */
+  }
+
+  function renderWeek() {
+    var start = weekStart().getTime();
+    var n = touches.filter(function (t) {
+      return REAL[t.outcome] && new Date(t.date).getTime() >= start;
+    }).length;
+    var pct = Math.min(100, Math.round((n / WEEK_TARGET) * 100));
+    $('w-num').textContent = n;
+    $('w-fill').style.width = pct + '%';
+    $('w-fill').className = 'week-fill' + (n >= WEEK_TARGET ? ' is-there' : '');
+    var s = weekStart();
+    $('w-range').textContent = 'week of ' + s.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function renderToday() {
+    renderWeek();
+
+    var today = todayYmd();
+    var live = leads.filter(function (l) {
+      /* Archived, written off, or told you to stop. None of those belong on
+         a list of things to do today. */
+      return !l.archived && l.status !== 'dead' && !l.do_not_contact && l.next_action_date;
+    });
+
+    var rows = live.filter(function (l) {
+      var over = dayDiff(l.next_action_date, today);
+      if (dueFilter === 'over') return over > 0;
+      if (dueFilter === 'week') return over >= -7;
+      return over >= 0;
+    });
+
+    /* Oldest first, so the one that has been rotting the longest is the one
+       your thumb lands on. */
+    rows.sort(function (a, b) {
+      if (a.next_action_date !== b.next_action_date) return a.next_action_date < b.next_action_date ? -1 : 1;
+      return new Date(a.created_at) - new Date(b.created_at);
+    });
+
+    var list = $('due-list');
+    list.textContent = '';
+    rows.forEach(function (l) {
+      list.appendChild(card(l, { over: dayDiff(l.next_action_date, today) }));
+    });
+
+    var empty = $('due-empty');
+    empty.hidden = rows.length > 0;
+    empty.textContent = dueFilter === 'over'
+      ? 'Nothing overdue. That is the whole game.'
+      : dueFilter === 'week'
+        ? 'Nothing on the books for the next seven days.'
+        : leads.length ? 'Nothing due today. Go knock some doors.' : 'No contacts yet.';
+
+    var n = live.filter(function (l) { return dayDiff(l.next_action_date, today) >= 0; }).length;
+    var badge = $('due-count');
+    badge.hidden = n === 0;
+    badge.textContent = n;
+  }
+
+  /* =================================================================
+     Templates panel
+     ================================================================= */
+
+  var MAIL_FOOT = '\n\n--\nJohn Spilotros, Keller Williams Realty Boise\n[office address goes here]\nYou are getting this because you signed in at one of my open houses. Say the word and I will take you off the list.';
+
+  var STARTER_TEMPLATES = [
+    { slug: 'a-day1-email', channel: 'email', name: 'A day 1, listing sheet',
+      subject: 'The one you walked through at {street}',
+      body: '{firstName},\n\nGood meeting you at {street}. Attached is that listing plus two others in {area} sitting close on price and layout.\n\nNo rush on any of it. If you want to walk through one, tell me a day that works and I will set it up.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'a-day4-text', channel: 'text', name: 'A day 4, two new ones',
+      body: '{firstName}, John Spilotros here, we met at {street}. Couple new ones hit in {area} this week that line up with what you described. Want me to send them over?' },
+
+    { slug: 'a-day8-email', channel: 'email', name: 'A day 8, what is moving',
+      subject: 'What is actually moving in {area}',
+      body: '{firstName},\n\nShort read on {area}: what is sitting, what goes in a weekend, and what people are really paying against list.\n\nIf you are still looking come spring that is fine. This is so you are not guessing when you get there.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'a-day14-text', channel: 'text', name: 'A day 14, timing check',
+      body: '{firstName}, quick one. Anything shift on timing, or still thinking {area}?' },
+
+    { slug: 'a-day21-email', channel: 'email', name: 'A day 21, easing off',
+      subject: 'Still here when you are ready',
+      body: '{firstName},\n\nI will ease off the emails. You are on my list for new {area} listings and I will send anything that looks like the one you walked through at {street}.\n\nWhen you want to go see something, call or text me and we will go.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'b-w1-text', channel: 'text', name: 'B week 1, price ceiling',
+      body: '{firstName}, John here from the open house at {street}. Putting you on my list for {area}. What number are you trying to stay under?' },
+
+    { slug: 'b-w2-email', channel: 'email', name: 'B week 2, area at a glance',
+      subject: '{area} at a glance',
+      body: '{firstName},\n\nWhere {area} sits this month: what came on, what closed, and how long things are taking.\n\nNothing to do with this. Just so the market is not a surprise when you are ready.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'b-w4-email', channel: 'email', name: 'B week 4, what you get at each price',
+      subject: 'What {price} actually buys in {area}',
+      body: '{firstName},\n\nHere is what {price} gets you in {area} right now versus what it got you a year ago. The gap surprises most people.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'b-m2-email', channel: 'email', name: 'B month 2, the payment',
+      subject: 'What the payment really looks like',
+      body: '{firstName},\n\nMost people budget off the price and then get hit by the rest of it. Here is a real payment on a {price} house in {area}, taxes and insurance included.\n\nIf you want it run on a specific one, send it over and I will do the math.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'b-m3-call', channel: 'call', name: 'B month 3, call script',
+      body: 'Hey {firstName}, John Spilotros. We met back at the open house on {street}.\n\nNot selling you anything. Just checking whether {area} is still the plan or whether that has moved.\n\nIf yes: what would have to be true for you to go look at something?\nIf no: what changed?\n\nEnd with a specific next date, not "sometime".' },
+
+    { slug: 'b-monthly-email', channel: 'email', name: 'B monthly area update',
+      subject: '{area} this month',
+      body: '{firstName},\n\nThis month in {area}: what listed, what sold, and what it went for against asking.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'b-quarterly-call', channel: 'call', name: 'B quarterly call',
+      body: 'Hey {firstName}, John Spilotros. Quarterly check in on {area}.\n\nAsk what has changed since last time. Timeline, job, family, financing. Then set the next date before you hang up.' },
+
+    { slug: 'c-value', channel: 'email', name: 'C, what it is worth now',
+      subject: 'What {street} is worth right now',
+      body: '{firstName},\n\nYou mentioned you might sell at some point. Here is where {street} lands today: about {value}, based on what has closed nearby in the last ninety days.\n\nThat number moves. If it is useful I will refresh it every quarter so you are never guessing.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'c-w2-text', channel: 'text', name: 'C week 2, did that look right',
+      body: '{firstName}, did that number on {street} land about where you expected, or higher or lower?' },
+
+    { slug: 'c-m1-email', channel: 'email', name: 'C month 1, what sold near them',
+      subject: 'What sold near {street} this month',
+      body: '{firstName},\n\nThree that closed within a few blocks of {street} this month, what they asked, and what they got.\n\nThe spread between the two is the part worth watching.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'c-m2-email', channel: 'email', name: 'C month 2, what buyers want',
+      subject: 'What buyers in {area} are asking for',
+      body: '{firstName},\n\nWhat is getting offers in {area} right now, and what is getting skipped. If you ever do list {street}, two of these are cheap to fix and one is not worth touching.\n\nJohn' + MAIL_FOOT },
+
+    { slug: 'c-m3-call', channel: 'call', name: 'C month 3, timing call',
+      body: 'Hey {firstName}, John Spilotros.\n\nNot calling to list your house. Calling to ask what your actual timeline looks like, because {value} is a different conversation this year than next.\n\nListen for: job change, family, the mortgage, a place they already want to go.' },
+
+    { slug: 'c-quarterly-call', channel: 'call', name: 'C quarterly, refreshed value',
+      body: 'Hey {firstName}, John Spilotros. Ran the numbers on {street} again, it is sitting around {value} now.\n\nGive them the number first, then ask what has changed on their end.' },
+
+    { slug: 'e-just-listed', channel: 'mail', name: 'E mail, just listed',
+      body: 'JUST LISTED near you\n\n{street}\n\nAsking {price}\n\nIf you have wondered what that does to your own place, I will tell you. No appointment, no pitch.\n\nJohn Spilotros\nKeller Williams Realty Boise\n(215) 859-3267\n[office address goes here]' },
+
+    { slug: 'e-just-sold', channel: 'mail', name: 'E mail, just sold',
+      body: 'JUST SOLD near you\n\n{street}\n\nSold for {price}\n\nWhat that means for your place depends on your street, your lot, and your condition. Ask me and I will run it.\n\nJohn Spilotros\nKeller Williams Realty Boise\n(215) 859-3267\n[office address goes here]' },
+
+    { slug: 'e-snapshot', channel: 'mail', name: 'E mail, market snapshot',
+      body: '{area} MARKET SNAPSHOT\n\nWhat listed. What sold. How long it took. What it went for against asking.\n\nOne page, no sales pitch, every couple of months.\n\nJohn Spilotros\nKeller Williams Realty Boise\n(215) 859-3267\n[office address goes here]' },
+
+    { slug: 'e-value-offer', channel: 'mail', name: 'E mail, what is yours worth',
+      body: 'WHAT IS YOUR PLACE WORTH?\n\nNot an online guess. An actual number off what has closed on your street in the last ninety days.\n\nText me your address and I will send it back same day.\n\nJohn Spilotros\nKeller Williams Realty Boise\n(215) 859-3267\n[office address goes here]' }
+  ];
+
+  function renderTemplates() {
+    var box = $('tpl-list');
+    box.textContent = '';
+
+    if (!templates.length) {
+      box.appendChild(el('p', 'week-note', 'Nothing in the library yet. Load the starter set and edit from there.'));
+      return;
+    }
+
+    templates.forEach(function (t) {
+      var row = el('div', 'tpl');
+      var top = el('div', 'tpl-top');
+
+      var name = el('input', 'input');
+      name.type = 'text';
+      name.value = t.name || '';
+      top.appendChild(name);
+
+      var chan = el('select', 'select');
+      ['text', 'email', 'mail', 'call'].forEach(function (c) {
+        var o = el('option', null, c.charAt(0).toUpperCase() + c.slice(1));
+        o.value = c;
+        if (c === t.channel) o.selected = true;
+        chan.appendChild(o);
+      });
+      top.appendChild(chan);
+      row.appendChild(top);
+
+      var subj = el('input', 'input');
+      subj.type = 'text';
+      subj.placeholder = 'Subject line';
+      subj.value = t.subject || '';
+      subj.style.marginTop = '0.6rem';
+      subj.hidden = t.channel !== 'email';
+      row.appendChild(subj);
+
+      var body = el('textarea', 'textarea');
+      body.value = t.body || '';
+      body.spellcheck = true;
+      row.appendChild(body);
+
+      var foot = el('div', 'tpl-foot');
+      var save = el('button', 'mini', 'Save');
+      save.type = 'button';
+      var del = el('button', 'mini danger', 'Delete');
+      del.type = 'button';
+      var hint = el('span', 'tpl-hint', t.slug || '');
+      foot.appendChild(save);
+      foot.appendChild(del);
+      foot.appendChild(hint);
+      row.appendChild(foot);
+
+      chan.addEventListener('change', function () { subj.hidden = chan.value !== 'email'; });
+
+      save.addEventListener('click', function () {
+        /* An email going to somebody who signed a clipboard needs a way out
+           and a real address on it. Warn, do not block, because a draft in
+           progress is not a violation. */
+        if (chan.value === 'email' && !/take you off|unsubscribe|off the list/i.test(body.value)) {
+          if (!window.confirm('This email has no unsubscribe line on it.\n\nSave it anyway?')) return;
+        }
+        save.disabled = true;
+        save.textContent = 'Saving...';
+        api('/templates?id=eq.' + encodeURIComponent(t.id), {
+          method: 'PATCH',
+          headers: { Prefer: 'return=minimal' },
+          body: JSON.stringify({
+            name: name.value.trim() || 'Untitled',
+            channel: chan.value,
+            subject: subj.value.trim() || null,
+            body: body.value
+          })
+        }).then(function () {
+          t.name = name.value.trim() || 'Untitled';
+          t.channel = chan.value;
+          t.subject = subj.value.trim() || null;
+          t.body = body.value;
+          save.disabled = false;
+          save.textContent = 'Save';
+          flash();
+        }).catch(function (e) {
+          save.disabled = false;
+          save.textContent = 'Save';
+          showAppError(e);
+        });
+      });
+
+      del.addEventListener('click', function () {
+        if (!window.confirm('Delete the "' + (t.name || 'untitled') + '" template?\n\nContacts and touches are never deleted. Templates are just copy, so this one really does go.')) return;
+        api('/templates?id=eq.' + encodeURIComponent(t.id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
+          .then(function () {
+            templates = templates.filter(function (x) { return x.id !== t.id; });
+            renderTemplates();
+            flash();
+          }).catch(showAppError);
+      });
+
+      box.appendChild(row);
+    });
+  }
+
+  $('tpl-add').addEventListener('click', function () {
+    api('/templates', {
+      method: 'POST',
+      headers: { Prefer: 'return=representation' },
+      body: JSON.stringify({ name: 'New template', channel: 'text', body: '', sort: templates.length + 100 })
+    }).then(function (rows) {
+      if (rows && rows[0]) templates.push(rows[0]);
+      renderTemplates();
+      flash();
+    }).catch(showAppError);
+  });
+
+  $('tpl-seed').addEventListener('click', function () {
+    var have = {};
+    templates.forEach(function (t) { if (t.slug) have[t.slug] = 1; });
+    var add = STARTER_TEMPLATES.filter(function (t) { return !have[t.slug]; })
+      .map(function (t, i) {
+        return { slug: t.slug, name: t.name, channel: t.channel, subject: t.subject || null, body: t.body, sort: i };
+      });
+    if (!add.length) { window.alert('The starter set is already in your library.'); return; }
+    if (!window.confirm('Add ' + add.length + ' starter templates? Anything you have already edited is left alone.')) return;
+    api('/templates', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify(add) })
+      .then(function (rows) {
+        (rows || []).forEach(function (r) { templates.push(r); });
+        renderTemplates();
+        flash();
+      }).catch(showAppError);
+  });
+
+  /* =================================================================
+     Sequences panel
+     ================================================================= */
+
+  function renderSeq() {
+    Array.prototype.forEach.call($('seq-chips').children, function (c) {
+      c.setAttribute('aria-pressed', String(c.getAttribute('data-seq') === seqPick));
+    });
+    $('seq-json').value = JSON.stringify(sequences[seqPick] || [], null, 2);
+    $('seq-err').hidden = true;
+  }
+
+  $('seq-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    seqPick = b.getAttribute('data-seq');
+    renderSeq();
+  });
+
+  $('seq-save').addEventListener('click', function () {
+    var err = $('seq-err');
+    var parsed;
+    try { parsed = JSON.parse($('seq-json').value); }
+    catch (e) { err.textContent = 'That is not valid JSON: ' + e.message; err.hidden = false; return; }
+    if (!(parsed instanceof Array)) { err.textContent = 'A sequence has to be a list of steps, inside square brackets.'; err.hidden = false; return; }
+    for (var i = 0; i < parsed.length; i++) {
+      if (typeof parsed[i].dayOffset !== 'number') {
+        err.textContent = 'Step ' + (i + 1) + ' is missing a numeric dayOffset.';
+        err.hidden = false;
+        return;
+      }
+    }
+    err.hidden = true;
+    api('/sequences', {
+      method: 'POST',
+      headers: { Prefer: 'return=minimal,resolution=merge-duplicates' },
+      body: JSON.stringify({ segment: seqPick, steps: parsed, updated_at: new Date().toISOString() })
+    }).then(function () {
+      sequences[seqPick] = parsed;
+      flash();
+    }).catch(function (e) {
+      err.textContent = String(e && e.message ? e.message : e);
+      err.hidden = false;
+    });
+  });
+
+  $('seq-reset').addEventListener('click', function () {
+    if (!window.confirm('Put segment ' + seqPick + ' back to the shipped schedule?')) return;
+    $('seq-json').value = JSON.stringify(DEFAULT_SEQUENCES[seqPick] || [], null, 2);
+  });
+
+  /* =================================================================
+     Backup. A database you cannot get out of is a database you will lose.
+     ================================================================= */
+
+  var BK_WHEN = 'spilo_last_backup';
+  var BK_NAG  = 'spilo_nag_dismissed';
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  function markBackedUp() {
+    lsSet(BK_WHEN, String(Date.now()));
+    lsSet(BK_NAG, '0');
+    checkBackupAge();
+  }
+
+  function checkBackupAge() {
+    var when = Number(lsGet(BK_WHEN) || 0);
+    var nags = Number(lsGet(BK_NAG) || 0);
+    var stale = !when || (Date.now() - when) > 24 * 3600 * 1000;
+
+    $('b-when').textContent = when
+      ? 'Last backup ' + ago(new Date(when).toISOString()) + '.'
+      : 'You have never taken a backup.';
+
+    var box = $('nag');
+    box.textContent = '';
+    if (!stale || !leads.length) { box.hidden = true; return; }
+
+    var msg = when
+      ? 'Your last backup was ' + ago(new Date(when).toISOString()) + '.'
+      : 'You have never backed this up.';
+    box.appendChild(el('b', null, 'Back it up. '));
+    box.appendChild(document.createTextNode(msg + ' You have lost a database before.'));
+
+    var go = el('button', 'btn btn-dark', 'Download Backup');
+    go.type = 'button';
+    go.addEventListener('click', exportJson);
+    box.appendChild(go);
+
+    /* Two dismissals in a row and the button stops being offered. */
+    if (nags < 2) {
+      var no = el('button', 'btn btn-line', 'Not now');
+      no.type = 'button';
+      no.addEventListener('click', function () {
+        lsSet(BK_NAG, String(nags + 1));
+        box.hidden = true;
+      });
+      box.appendChild(no);
+    } else {
+      box.appendChild(el('span', 'tpl-hint', 'You have put this off twice. No dismiss button this time.'));
+    }
+    box.hidden = false;
+  }
+
+  function exportJson() {
+    var dump = {
+      format: 'spilo-crm-backup',
+      version: 1,
+      taken_at: new Date().toISOString(),
+      leads: leads,
+      touches: touches,
+      templates: templates,
+      sequences: Object.keys(sequences).map(function (k) { return { segment: k, steps: sequences[k] }; }),
+      parcels: parcels
+    };
+    download('spilo-crm-backup-' + todayYmd() + '.json', JSON.stringify(dump, null, 2), 'application/json');
+    markBackedUp();
+  }
+
+  $('b-json').addEventListener('click', exportJson);
+  $('b-restore').addEventListener('click', function () { $('b-file').click(); });
+
+  $('b-file').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    this.value = '';
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var dump;
+      try { dump = JSON.parse(String(reader.result)); }
+      catch (e) { window.alert('That file is not readable JSON.'); return; }
+      if (!dump || dump.format !== 'spilo-crm-backup') {
+        if (!window.confirm('That does not look like a backup from here. Try it anyway?')) return;
+      }
+      var counts = ['leads', 'touches', 'templates', 'parcels'].map(function (k) {
+        return ((dump[k] || []).length) + ' ' + k;
+      }).join(', ');
+      if (!window.confirm('Restore ' + counts + '?\n\nThis merges by id. Records already here get updated, missing ones get added, and nothing is wiped.')) return;
+      restore(dump);
+    };
+    reader.readAsText(file);
+  });
+
+  /* Merge by id, never wipe. Upsert in chunks so one enormous request does
+     not get rejected whole. */
+  function restore(dump) {
+    var jobs = [];
+    function upsert(path, rows) {
+      if (!rows || !rows.length) return;
+      for (var i = 0; i < rows.length; i += 100) {
+        (function (chunk) {
+          jobs.push(function () {
+            return api(path, {
+              method: 'POST',
+              headers: { Prefer: 'return=minimal,resolution=merge-duplicates' },
+              body: JSON.stringify(chunk)
+            });
+          });
+        })(rows.slice(i, i + 100));
+      }
+    }
+
+    upsert('/leads', dump.leads);
+    upsert('/touches', dump.touches);
+    upsert('/templates', dump.templates);
+    upsert('/parcels', dump.parcels);
+    upsert('/sequences', dump.sequences);
+
+    var i = 0;
+    (function next() {
+      if (i >= jobs.length) {
+        window.alert('Restored. Reloading everything from the database now.');
+        load();
+        return;
+      }
+      jobs[i++]().then(next, function (e) {
+        showAppError(e);
+        window.alert('The restore stopped partway through. Whatever went in before the error is there, nothing was wiped. The error is at the top of the page.');
+        load();
+      });
+    })();
+  }
+
+  /* =================================================================
+     Farm. Parcels are not contacts. Nobody in this list gave you anything,
+     which is exactly why they get their own table and mail only.
+     ================================================================= */
+
+  function norm(a) { return String(a || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+
+  function isAbsentee(p) {
+    if (!p.mailing_address || !p.property_address) return false;
+    var m = norm(p.mailing_address), s = norm(p.property_address);
+    return m.indexOf(s) !== 0 && s.indexOf(m) !== 0;
+  }
+
+  function splitAddr(a) {
+    var m = /^\s*(\d+[A-Za-z]?)\s+(.+?)\s*$/.exec(String(a || ''));
+    if (!m) return { house: '', street: String(a || '').replace(/,.*$/, '').trim() };
+    return { house: m[1], street: m[2].replace(/,.*$/, '').trim() };
+  }
+
+  function parseCsv(text) {
+    var rows = [], row = [], cur = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text.charAt(i);
+      if (q) {
+        if (c === '"') {
+          if (text.charAt(i + 1) === '"') { cur += '"'; i++; }
+          else q = false;
+        } else cur += c;
+      } else if (c === '"') q = true;
+      else if (c === ',') { row.push(cur); cur = ''; }
+      else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+      else if (c !== '\r') cur += c;
+    }
+    if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+    return rows.filter(function (r) { return r.join('').trim() !== ''; });
+  }
+
+  var PARCEL_COLS = [
+    ['parcel_number',    ['parcelnumber', 'parcel', 'parcelno', 'parcelid', 'apn', 'pin']],
+    ['property_address', ['propertyaddress', 'address', 'siteaddress', 'situs', 'situsaddress', 'propaddress', 'fulladdress']],
+    ['street',           ['street', 'streetname']],
+    ['house_number',     ['housenumber', 'house', 'streetnumber', 'number', 'houseno']],
+    ['assessed_value',   ['assessedvalue', 'assessed', 'value', 'totalvalue', 'marketvalue', 'taxvalue']],
+    ['assessed_acres',   ['assessedacres', 'acres', 'acreage', 'landacres', 'lotacres']],
+    ['owner_name',       ['ownername', 'owner', 'owner1', 'taxpayer', 'taxpayername']],
+    ['mailing_address',  ['mailingaddress', 'mailing', 'mailaddress', 'mailaddr', 'ownermailing']],
+    ['notes',            ['notes', 'note', 'comment', 'comments']]
+  ];
+
+  function importParcels(text) {
+    var rows = parseCsv(text);
+    if (rows.length < 2) { window.alert('That file has no rows in it.'); return; }
+
+    var head = rows[0].map(norm);
+    var map = {};
+    PARCEL_COLS.forEach(function (pair) {
+      for (var i = 0; i < head.length; i++) {
+        if (pair[1].indexOf(head[i]) !== -1) { map[pair[0]] = i; return; }
+      }
+    });
+
+    if (map.property_address === undefined && map.street === undefined) {
+      window.alert('I cannot find an address column in that file.\n\nColumn headers I recognise: ' +
+        PARCEL_COLS.map(function (p) { return p[1][0]; }).join(', ') + '.');
+      return;
+    }
+
+    var out = [];
+    for (var r = 1; r < rows.length; r++) {
+      var row = rows[r];
+      function get(k) { return map[k] === undefined ? '' : String(row[map[k]] || '').trim(); }
+
+      var addr = get('property_address');
+      var street = get('street');
+      var house = get('house_number');
+      if (!street) { var sp = splitAddr(addr); street = sp.street; if (!house) house = sp.house; }
+      if (!addr && street) addr = (house ? house + ' ' : '') + street;
+
+      var val = get('assessed_value').replace(/[$,]/g, '');
+      var ac = get('assessed_acres').replace(/[,]/g, '');
+
+      out.push({
+        parcel_number: get('parcel_number') || null,
+        property_address: addr || null,
+        street: street || null,
+        house_number: house || null,
+        assessed_value: val && !isNaN(Number(val)) ? Number(val) : null,
+        assessed_acres: ac && !isNaN(Number(ac)) ? Number(ac) : null,
+        owner_name: get('owner_name') || null,
+        mailing_address: get('mailing_address') || null,
+        notes: get('notes') || null
+      });
+    }
+
+    if (!window.confirm('Import ' + out.length + ' parcels?\n\nThey are added, nothing already in the list is touched.')) return;
+
+    api('/parcels', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify(out) })
+      .then(function (added) {
+        (added || []).forEach(function (p) { parcels.push(p); });
+        renderFarm();
+        flash();
+      }).catch(showAppError);
+  }
+
+  $('f-import').addEventListener('click', function () { $('f-file').click(); });
+  $('f-file').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    this.value = '';
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () { importParcels(String(reader.result)); };
+    reader.readAsText(file);
+  });
+
+  $('farm-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    farmFilter = b.getAttribute('data-farm');
+    Array.prototype.forEach.call($('farm-chips').children, function (c) {
+      c.setAttribute('aria-pressed', String(c === b));
+    });
+    renderFarm();
+  });
+
+  function patchParcel(p, body) {
+    Object.keys(body).forEach(function (k) { p[k] = body[k]; });
+    return api('/parcels?id=eq.' + encodeURIComponent(p.id), {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify(body)
+    }).then(flash).catch(showAppError);
+  }
+
+  function renderFarm() {
+    var box = $('farm-list');
+    box.textContent = '';
+
+    $('f-total').textContent = parcels.length;
+    $('f-knocked').textContent = parcels.filter(function (p) { return p.knocked; }).length;
+    $('f-abs').textContent = parcels.filter(isAbsentee).length;
+    $('f-hint').textContent = parcels.filter(isAbsentee).length
+      ? '' : 'Absentee needs an owner mailing address column in your CSV.';
+
+    var rows = parcels.filter(function (p) {
+      if (farmFilter === 'todo') return !p.knocked;
+      if (farmFilter === 'knocked') return !!p.knocked;
+      if (farmFilter === 'absentee') return isAbsentee(p);
+      return true;
+    });
+
+    $('farm-empty').hidden = rows.length > 0;
+    $('farm-empty').textContent = parcels.length
+      ? 'No parcels match that.'
+      : 'No parcels yet. Import a CSV with an address column and you are walking.';
+
+    var groups = {}, order = [];
+    rows.forEach(function (p) {
+      var k = p.street || 'No street';
+      if (!groups[k]) { groups[k] = []; order.push(k); }
+      groups[k].push(p);
+    });
+    order.sort();
+
+    order.forEach(function (k) {
+      /* Walking order, which is house number up one side of the street. */
+      groups[k].sort(function (a, b) { return (Number(a.house_number) || 0) - (Number(b.house_number) || 0); });
+
+      var sec = el('div', 'street');
+      var head = el('div', 'street-head');
+      head.appendChild(el('h3', null, k));
+      var doneN = groups[k].filter(function (p) { return p.knocked; }).length;
+      head.appendChild(el('span', null, doneN + ' of ' + groups[k].length + ' knocked'));
+      sec.appendChild(head);
+
+      groups[k].forEach(function (p) {
+        var row = el('div', 'parcel' + (p.knocked ? ' is-knocked' : ''));
+
+        var knock = el('button', 'parcel-knock');
+        knock.type = 'button';
+        knock.setAttribute('aria-pressed', String(!!p.knocked));
+        knock.title = p.knocked ? 'Knocked ' + (p.knocked_date || '') : 'Mark this one knocked';
+        knock.appendChild(icon(ICON_CHECK));
+        knock.addEventListener('click', function () {
+          patchParcel(p, { knocked: !p.knocked, knocked_date: !p.knocked ? todayYmd() : null }).then(renderFarm);
+        });
+        row.appendChild(knock);
+
+        var body = el('div', 'parcel-body');
+        body.appendChild(el('div', 'parcel-addr', p.property_address || ((p.house_number || '') + ' ' + (p.street || ''))));
+        var meta = el('div', 'parcel-meta');
+        if (p.owner_name) meta.appendChild(el('span', null, p.owner_name));
+        if (p.assessed_value) meta.appendChild(el('span', null, '$' + Number(p.assessed_value).toLocaleString('en-US')));
+        if (p.assessed_acres) meta.appendChild(el('span', null, p.assessed_acres + ' ac'));
+        if (isAbsentee(p)) {
+          var ab = el('span', 'tag-abs', 'Absentee');
+          ab.title = 'Tax bill goes to ' + p.mailing_address;
+          meta.appendChild(ab);
+        }
+        if (p.knocked_date) meta.appendChild(el('span', null, 'Knocked ' + fmtDay(p.knocked_date)));
+        if (p.notes) meta.appendChild(el('span', null, p.notes));
+        body.appendChild(meta);
+        row.appendChild(body);
+
+        var side = el('div', 'parcel-side');
+        if (p.contact_captured) {
+          side.appendChild(el('span', 'tag', 'In contacts'));
+        } else {
+          var conv = el('button', 'mini', 'Got their info');
+          conv.type = 'button';
+          conv.addEventListener('click', function () { openConvert(p); });
+          side.appendChild(conv);
+        }
+        row.appendChild(side);
+
+        sec.appendChild(row);
+      });
+
+      box.appendChild(sec);
+    });
+  }
+
+  /* A parcel becomes a contact the moment somebody actually talks to you. */
+  function openConvert(p) {
+    openModal(function (box) {
+      var h = el('h2', null, 'Add them as a contact');
+      h.id = 'modal-title';
+      box.appendChild(h);
+      box.appendChild(el('p', 'who', p.property_address || p.street || 'This parcel'));
+
+      var f = {};
+      function field(label, key, ph, type) {
+        var w = mblock(box, label);
+        var i = el('input', 'input');
+        i.type = type || 'text';
+        i.placeholder = ph || '';
+        w.appendChild(i);
+        f[key] = i;
+        return i;
+      }
+      field('Name', 'name', p.owner_name || 'Who you talked to').value = p.owner_name || '';
+      field('Phone', 'phone', '(208) 555-0100', 'tel');
+      field('Email', 'email', 'Optional', 'email');
+
+      var tWrap = mblock(box, 'When are they looking to move?');
+      var tSel = el('select', 'select');
+      TIMELINES.forEach(function (t, i) {
+        var o = el('option', null, t.label);
+        o.value = String(i);
+        if (i === 4) o.selected = true;
+        tSel.appendChild(o);
+      });
+      tWrap.appendChild(tSel);
+
+      var aWrap = mblock(box, 'Do they have an agent?');
+      var aSel = el('select', 'select');
+      [['false', 'No'], ['true', 'Yes'], ['', 'Did not ask']].forEach(function (o) {
+        var opt = el('option', null, o[1]);
+        opt.value = o[0];
+        aSel.appendChild(opt);
+      });
+      aWrap.appendChild(aSel);
+
+      var nWrap = mblock(box, 'Notes');
+      var notes = el('textarea', 'textarea');
+      notes.style.minHeight = '64px';
+      notes.placeholder = 'What they said at the door.';
+      nWrap.appendChild(notes);
+
+      var err = el('p', 'modal-err');
+      err.hidden = true;
+
+      var acts = el('div', 'modal-actions');
+      var save = el('button', 'btn btn-dark', 'Add Contact');
+      save.type = 'button';
+      var cancel = el('button', 'btn btn-line', 'Cancel');
+      cancel.type = 'button';
+      acts.appendChild(save);
+      acts.appendChild(cancel);
+      box.appendChild(acts);
+      box.appendChild(err);
+
+      cancel.addEventListener('click', function () { closeModal(true); });
+
+      save.addEventListener('click', function () {
+        var name = f.name.value.trim();
+        if (!name) { err.textContent = 'A name is the one thing this needs.'; err.hidden = false; f.name.focus(); return; }
+        save.disabled = true;
+        save.textContent = 'Saving...';
+
+        var t = TIMELINES[Number(tSel.value)] || TIMELINES[4];
+        var row = {
+          name: name,
+          phone: f.phone.value.trim() || null,
+          email: f.email.value.trim() || null,
+          property: p.property_address || null,
+          timeline: t.label,
+          timeline_months: t.months,
+          has_agent: aSel.value === '' ? null : aSel.value === 'true',
+          notes: notes.value.trim() || null,
+          source: 'farm'
+        };
+
+        api('/leads', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify(row) })
+          .then(function (rows) {
+            var made = rows && rows[0];
+            return patchParcel(p, { contact_captured: true, contact_id: made ? made.id : null });
+          })
+          .then(function () {
+            closeModal(true);
+            return load();
+          })
+          .catch(function (e) {
+            save.disabled = false;
+            save.textContent = 'Add Contact';
+            err.textContent = String(e && e.message ? e.message : e);
+            err.hidden = false;
+          });
+      });
+    });
+  }
+
+  /* Landscape walk sheet, built fresh at print time so it can never show
+     yesterday's list. */
+  $('f-print').addEventListener('click', function () {
+    var rows = parcels.filter(function (p) {
+      if (farmFilter === 'todo') return !p.knocked;
+      if (farmFilter === 'knocked') return !!p.knocked;
+      if (farmFilter === 'absentee') return isAbsentee(p);
+      return true;
+    });
+    if (!rows.length) { window.alert('Nothing to print with that filter on.'); return; }
+
+    var groups = {}, order = [];
+    rows.forEach(function (p) {
+      var k = p.street || 'No street';
+      if (!groups[k]) { groups[k] = []; order.push(k); }
+      groups[k].push(p);
+    });
+    order.sort();
+
+    var walk = $('walk');
+    walk.textContent = '';
+    walk.appendChild(el('h2', null, 'Door knock sheet, ' + new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })));
+
+    order.forEach(function (k) {
+      groups[k].sort(function (a, b) { return (Number(a.house_number) || 0) - (Number(b.house_number) || 0); });
+      walk.appendChild(el('h3', null, k));
+      var tbl = el('table');
+      var thead = el('thead');
+      var hr = el('tr');
+      ['', 'Address', 'Owner', 'Value', 'Notes'].forEach(function (t) { hr.appendChild(el('th', null, t)); });
+      thead.appendChild(hr);
+      tbl.appendChild(thead);
+      var tb = el('tbody');
+      groups[k].forEach(function (p) {
+        var tr = el('tr');
+        var c0 = el('td');
+        c0.appendChild(el('span', 'box'));
+        tr.appendChild(c0);
+        tr.appendChild(el('td', null, (p.house_number || '') + ' ' + (p.street || '')));
+        tr.appendChild(el('td', null, (p.owner_name || '') + (isAbsentee(p) ? ' (absentee)' : '')));
+        tr.appendChild(el('td', null, p.assessed_value ? '$' + Number(p.assessed_value).toLocaleString('en-US') : ''));
+        var c4 = el('td');
+        c4.appendChild(el('span', 'note-line'));
+        tr.appendChild(c4);
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb);
+      walk.appendChild(tbl);
+    });
+
+    document.body.classList.add('printing-walk');
+    window.print();
+    setTimeout(function () { document.body.classList.remove('printing-walk'); }, 500);
+  });
+
+  /* =================================================================
+     Today tab wiring
+     ================================================================= */
+
+  $('due-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    dueFilter = b.getAttribute('data-due');
+    Array.prototype.forEach.call($('due-chips').children, function (c) {
+      c.setAttribute('aria-pressed', String(c === b));
+    });
+    renderToday();
+  });
+
+  /* ---------- Tabs ---------- */
+
+  var PANELS = ['today', 'leads', 'farm', 'tools', 'qr', 'listings', 'status'];
+
+  function showPanel(name) {
+    PANELS.forEach(function (p) { $('panel-' + p).hidden = p !== name; });
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
+      t.setAttribute('aria-selected', String(t.dataset.panel === name));
+    });
+    try { history.replaceState(null, '', '#' + name); } catch (e) {}
+    if (name === 'status') runChecks();
+    if (name === 'qr') updateQr($('addr').value.trim());
+    if (name === 'today') renderToday();
+    if (name === 'farm') renderFarm();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
+    t.addEventListener('click', function () { showPanel(t.dataset.panel); });
+  });
+
+  /* ---------- Wiring ---------- */
+
+  $('q').addEventListener('input', render);
+  $('prop').addEventListener('change', render);
+  $('refresh').addEventListener('click', function () { load(); });
+
+  $('chips').addEventListener('click', function (e) {
+    var btn = e.target.closest('.chip');
+    if (!btn) return;
+    filter = btn.getAttribute('data-filter');
+    Array.prototype.forEach.call($('chips').children, function (c) {
+      c.setAttribute('aria-pressed', String(c === btn));
+    });
+    render();
+  });
+
+  $('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = $('login-btn');
+    $('login-err').hidden = true;
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+    token('password', { email: $('email').value.trim(), password: $('password').value })
+      .then(function () { $('password').value = ''; showApp(); })
+      .catch(function (err) { $('login-err').textContent = err.message; $('login-err').hidden = false; })
+      .then(function () { btn.disabled = false; btn.textContent = 'Sign In'; });
+  });
+
+  function signOut() {
+    var s = loadSession();
+    clearSession();
+    leads = [];
+    if (s) {
+      fetch(SB_URL + '/auth/v1/logout', {
+        method: 'POST',
+        headers: { apikey: SB_KEY, Authorization: 'Bearer ' + s.access_token }
+      }).catch(function () {});
+    }
+    $('app').hidden = true;
+    $('gate').hidden = false;
+  }
+  $('signout').addEventListener('click', signOut);
+
+  function showApp() {
+    $('gate').hidden = true;
+    $('app').hidden = false;
+    var want = (location.hash || '').replace('#', '');
+    showPanel(PANELS.indexOf(want) !== -1 ? want : 'today');
+    load();
+    runChecks();   /* so the Security tab badge is right before you look */
+  }
+
+  /* ---------- Start ---------- */
+
+  updateQr('');
+
+  var s = loadSession();
+  if (!s) {
+    $('gate').hidden = false;
+  } else if (s.expires_at && s.expires_at - 60 < Math.floor(Date.now() / 1000)) {
+    refresh().then(function (ok) { if (ok) showApp(); else $('gate').hidden = false; });
+  } else {
+    showApp();
+  }
+})();
+</script>
+</body>
+</html>
