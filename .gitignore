@@ -32,3 +32,14 @@ OPEN-HOUSE-LEADS.md
 FSBO-LEADS.md
 LEAD-CALLS-8-29.md
 LEAD-CALLS-*.md
+
+# Seed / repair scripts holding real contact names and phone numbers.
+# spilo/ is a TRACKED, PUBLIC directory, so anything with PII in it must be
+# ignored as a class, not one file at a time. Any *.local.sql under spilo/
+# is data, never schema. Schema files (leads-table.sql, crm-upgrade.sql)
+# stay tracked because they contain no people.
+spilo/*.local.sql
+
+# Cold-call prospecting script with 31 third-party business phone numbers.
+# Untracked 2026-09-08: this repo is public GitHub Pages.
+CALL_SCRIPT.md
