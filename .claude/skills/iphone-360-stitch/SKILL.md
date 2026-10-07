@@ -32,6 +32,17 @@ about stitch quality.
 7. **Hugin per-image params:** if you unlink `v` per image, give each image a real starting FOV
    (`v0` = "Field of View must be positive"). Better: skip it. Per-image `d,e` + `g,t` is enough.
 8. Pipe Hugin output through `grep -v EXIF`, because the "Unable to read EXIF" spam floods the log.
+9. **Triage the clip first (second run, hallway).** If the spin is faster than about 50°/s (steps over 5° per
+   0.1 s in `motion.py`), and the median full-res Laplacian sharpness is under about 15, tell the user up front
+   that the clip will stitch badly and ask whether to proceed or reshoot. Last time I spent about 40 minutes and still got a draft.
+10. **Never bridge Hugin groups with loose SIFT matches** on white walls or door frames. They are false
+    and gave 152 px RMS, and 7k control points made autooptimiser hang. Use `scripts/ecc_link.py` (ECC on
+    gradient images between neighbouring frames) and keep only links with ECC ≥ 0.9.
+11. Drop near-blank frames (no control points) before optimising. Wrap every `autooptimiser` call in `timeout`.
+12. If enblend fails ("mask is entirely black"), use `verdandi --wrap` instead of retrying enblend.
+13. A horizon gap with no frames stays black after the cap fill. Fill it too, and report its width in degrees.
+14. "Click between viewpoints" means a Pannellum multi-scene tour with `type:"scene"` hotspots
+    (see the tour page structure in this repo's history). Put each scene's quality notes next to it.
 
 ## Known-good pipeline (about 6–8 minutes total)
 

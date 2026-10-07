@@ -1,0 +1,86 @@
+<title>Apartment 360 Tour</title>
+<style>
+/* Layout: full-width panorama stage, a viewpoint switcher row, then per-view notes */
+:root{
+  --bg:#f3f4f2; --fg:#1d2321; --muted:#5d6763; --line:#d6dad6; --accent:#2f6f5e; --warn:#9a5b12; --stage:#101413;
+  --display:"Fraunces",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131716;--fg:#e6ebe8;--muted:#9aa5a0;--line:#2b3331;--accent:#7cc4ae;--warn:#e0a458;--stage:#0b0e0d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#131716;--fg:#e6ebe8;--muted:#9aa5a0;--line:#2b3331;--accent:#7cc4ae;--warn:#e0a458;--stage:#0b0e0d;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--body)}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:grid;gap:16px}
+h1{font:600 clamp(1.5rem,3.5vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0;font-size:.95rem}
+#pano{width:100%;aspect-ratio:16/9;max-height:72vh;min-height:320px;background:var(--stage);border-radius:6px;overflow:hidden}
+.views{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.views button{font:500 .88rem var(--body);padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:4px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.views button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.views button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tag{font:500 .7rem var(--body);letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid currentColor}
+.tag.ok{color:var(--accent)} .tag.draft{color:var(--warn)}
+.views .hint{color:var(--muted);font-size:.85rem;margin-left:auto}
+.notes{border-top:1px solid var(--line);padding-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.notes>div{min-width:0}
+.notes h2{font:600 .78rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.9em}
+.pnlm-hotspot-base.go{width:auto;height:auto;padding:6px 12px;border-radius:999px;background:rgba(16,20,19,.78);color:#fff;font:600 13px var(--body);border:2px solid #fff;cursor:pointer;white-space:nowrap}
+.pnlm-hotspot-base.go::before{content:"↗ "}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap">
+<style>/*PANNELLUM_CSS*/</style>
+<div class="wrap">
+  <header>
+    <h1>Apartment 360 tour</h1>
+    <p class="sub">Drag to look around. Click the round labels inside the view, or the buttons below, to move between viewpoints.</p>
+  </header>
+  <div id="pano" role="img" aria-label="Interactive 360 degree tour"></div>
+  <div class="views" role="group" aria-label="Viewpoints">
+    <button id="b-bedroom" aria-pressed="true">Bedroom <span class="tag ok">Good</span></button>
+    <button id="b-hallway" aria-pressed="false">Hallway <span class="tag draft">Rough draft</span></button>
+    <span class="hint" id="hint">From IMG_1379.MOV</span>
+  </div>
+  <section class="notes" id="notes-bedroom">
+    <div><h2>Bedroom: real coverage</h2><ul>
+      <li>Full 360° around, <span class="num">+35°</span> up to <span class="num">−55°</span> down</li>
+      <li><span class="num">71%</span> real pixels, alignment <span class="num">≈1.3 px</span></li></ul></div>
+    <div><h2>Filled in</h2><ul>
+      <li>Ceiling above ~<span class="num">35°</span> and floor below ~<span class="num">−55°</span></li></ul></div>
+    <div><h2>Known flaws</h2><ul>
+      <li>Small breaks on the track light, desk chair, blanket edge and jeans hem</li></ul></div>
+  </section>
+  <section class="notes" id="notes-hallway" hidden>
+    <div><h2>Hallway: what went wrong</h2><ul>
+      <li>Door frames under a metre away are doubled and torn</li>
+      <li>Colour jumps between warm hall light and blue window light</li>
+      <li>About <span class="num">58°</span> behind the closet has no sharp frame; it's a blur fill</li></ul></div>
+    <div><h2>Why</h2><ul>
+      <li>Spun at <span class="num">70–100°/s</span>, about 3× too fast; most frames are motion-blurred</li>
+      <li>1080p, not 4K; the camera moved a little between laps</li></ul></div>
+    <div><h2>Fix</h2><ul>
+      <li>Reshoot from the middle of the hall, slowly (25–30 s per lap), with exposure locked</li></ul></div>
+  </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.js"></script>
+<script>
+function hs(div,args){div.classList.add("go");div.textContent=args;}
+const viewer=pannellum.viewer("pano",{
+  default:{firstScene:"bedroom",sceneFadeDuration:600,autoLoad:true},
+  scenes:{
+    bedroom:{type:"equirectangular",panorama:"bedroom.jpg",hfov:100,yaw:20,pitch:-5,
+      hotSpots:[{pitch:-8,yaw:-68,type:"scene",sceneId:"hallway",targetYaw:-40,targetPitch:-5,cssClass:"pnlm-hotspot-base",createTooltipFunc:hs,createTooltipArgs:"Hallway"}]},
+    hallway:{type:"equirectangular",panorama:"hallway.jpg",hfov:100,yaw:-40,pitch:-5,
+      hotSpots:[{pitch:-8,yaw:-40,type:"scene",sceneId:"bedroom",targetYaw:110,targetPitch:-5,cssClass:"pnlm-hotspot-base",createTooltipFunc:hs,createTooltipArgs:"Bedroom"}]}
+  }
+});
+const src={bedroom:"From IMG_1379.MOV",hallway:"From the second clip, 0–35 s"};
+function mark(id){
+  for(const k of ["bedroom","hallway"]){
+    document.getElementById("b-"+k).setAttribute("aria-pressed",k===id);
+    document.getElementById("notes-"+k).hidden=k!==id;
+  }
+  document.getElementById("hint").textContent=src[id];
+}
+viewer.on("scenechange",mark);
+for(const k of ["bedroom","hallway"]) document.getElementById("b-"+k).addEventListener("click",()=>{ if(viewer.getScene()!==k) viewer.loadScene(k); });
+</script>
