@@ -3,7 +3,25 @@
 Turns an iPhone room video (turning in place) into a 360° panorama, and several rooms into one
 clickable tour. No Claude needed.
 
-## Easiest: run it on GitHub (nothing to install)
+## Windows: pano360.exe (private, runs on your PC)
+
+1. Download **pano360-windows** from the latest successful "Build pano360.exe" run
+   (repo → Actions → Build pano360.exe → newest green run → Artifacts) and unzip it.
+   Keep `pano360.exe` and the `tools` folder together.
+2. Double-click `pano360.exe` (or drag videos onto it). For each room it asks for:
+   - the video: paste a Google Drive link, or drag the file into the window
+   - a room name
+   - optionally, the seconds where you tilted down at the floor
+3. It stitches each room (5–15 minutes each, depending on your PC), then opens `tours/tour.html` in your
+   browser. Click a doorway to read its yaw/pitch, type the links when it asks, and it rebuilds the tour.
+
+Everything is saved in the `tours` folder next to the EXE. Windows SmartScreen may warn the first time
+because the EXE isn't signed: click **More info → Run anyway**.
+
+## Run it on GitHub instead (nothing to install)
+
+**Privacy:** this repo is public. While a run's results exist (3 days), anyone signed in to GitHub can
+download them. Use the EXE for rooms you don't want public.
 
 1. Share each video on Google Drive as **Anyone with the link**.
 2. On GitHub, open this repo → **Actions** → **360 tour** → **Run workflow**.

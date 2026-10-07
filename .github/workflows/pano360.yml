@@ -1,6 +1,8 @@
 name: 360 tour
 
 # Run from the Actions tab: "360 tour" -> "Run workflow".
+# PRIVACY: this repo is public. Results are kept for 3 days and anyone signed in to
+# GitHub can download them in that time. Use pano360.exe instead for private rooms.
 # Each room is stitched in parallel on GitHub's machines; the result is a
 # downloadable "tour" artifact with one self-contained tour.html plus the JPEGs.
 
@@ -46,11 +48,12 @@ jobs:
               raise SystemExit("No scenes given")
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write("matrix=" + json.dumps({"include": items}) + "\n")
-          print(json.dumps(items, indent=2))
+          print(f"{len(items)} room(s): " + ", ".join(i["name"] for i in items))
           EOF
 
   stitch:
     needs: plan
+    name: Stitch ${{ matrix.name }}
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     strategy:
@@ -84,6 +87,7 @@ jobs:
             out/*/report.json
             out/*/contact.jpg
           if-no-files-found: ignore
+          retention-days: 3
 
   tour:
     needs: stitch
@@ -122,3 +126,4 @@ jobs:
         with:
           name: tour
           path: out
+          retention-days: 3

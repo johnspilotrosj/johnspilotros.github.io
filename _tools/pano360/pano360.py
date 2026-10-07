@@ -8,7 +8,7 @@
 Needs: ffmpeg, hugin-tools (pto_gen, cpfind, cpclean, autooptimiser, pano_modify, nona,
 checkpto), enblend (or verdandi), Python with opencv-python-headless, numpy, pillow.
 """
-import argparse, base64, glob, html, json, math, os, re, shutil, subprocess, sys, tempfile, urllib.request
+import argparse, base64, glob, html, json, math, os, re, shutil, subprocess, sys, tempfile, urllib.request, webbrowser
 
 import cv2
 import numpy as np
@@ -18,6 +18,18 @@ PANO_W, PANO_H = 8192, 4096          # working equirect size
 OUT_W, OUT_H, JPEG_Q = 4096, 2048, 80
 HFOV_GUESS = 68                      # short-side FOV of 0.5x video; optimiser refines it
 WARN = []
+APP_DIR = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__))
+
+
+def use_bundled_tools():
+    """The Windows package ships Hugin and ffmpeg in a 'tools' folder next to the EXE."""
+    root = os.path.join(APP_DIR, "tools")
+    if not os.path.isdir(root):
+        return
+    for dp, _, files in os.walk(root):
+        names = {f.lower() for f in files}
+        if names & {"ffmpeg.exe", "pto_gen.exe", "ffmpeg", "pto_gen"}:
+            os.environ["PATH"] = dp + os.pathsep + os.environ.get("PATH", "")
 
 
 def log(msg):
@@ -32,7 +44,8 @@ def warn(msg):
 def run(cmd, cwd=None, timeout=None, check=True):
     """Run a command, hide its chatter, return combined output."""
     try:
-        p = subprocess.run(cmd, cwd=cwd, timeout=timeout, capture_output=True, text=True)
+        p = subprocess.run(cmd, cwd=cwd, timeout=timeout, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
     except subprocess.TimeoutExpired:
         if check:
             raise RuntimeError(f"timed out: {' '.join(cmd[:2])}")
@@ -235,7 +248,7 @@ def describe(steps, turns):
     if speed > 50:
         warn(f"you turned at about {speed:.0f}°/s; aim for 12–15°/s (25–30 s per lap) to avoid blur")
     log("Clean turn-in-place stretches:")
-    for t in turns:
+    for t in [t for t in turns if t["sweep"] >= 30]:
         mark = "full lap" if t["sweep"] >= 330 else "partial"
         log(f"  {t['t0']:5.1f}–{t['t1']:5.1f} s  {t['sweep']:4.0f}° ({mark}), {t['speed']:.0f}°/s")
     if not turns:
@@ -730,6 +743,7 @@ def cmd_check(a):
 
 
 def cmd_stitch(a):
+    WARN.clear()
     out = os.path.join(a.out, slug(a.name))
     os.makedirs(out, exist_ok=True)
     work = a.work or os.path.join(out, "work")
@@ -796,7 +810,72 @@ def cmd_tour(a):
     return 0
 
 
+def ask(prompt):
+    try:
+        return input(prompt).strip().strip('"').strip("'")
+    except EOFError:
+        return ""
+
+
+def interactive(dropped):
+    """Double-click (or drag videos onto the EXE): ask a few questions, stitch, open the tour."""
+    print("pano360: iPhone room video to 360° tour\n")
+    out_root = os.path.join(APP_DIR, "tours")
+    rooms, queue = [], list(dropped)
+    while True:
+        n = len(rooms) + 1
+        src = queue.pop(0) if queue else ask(
+            f"Room {n} video: paste a Google Drive link or drag the file here (Enter when done): ")
+        if not src:
+            break
+        if dropped and src in dropped:
+            print(f"Room {n} video: {src}")
+        name = ask(f"Room {n} name (e.g. Bedroom): ") or f"Room {n}"
+        floor = ask("Seconds where you tilted down at the floor, e.g. 12.9-14.4 (Enter to skip): ")
+        rooms.append((src, name, floor))
+    if not rooms:
+        return 0
+    done = []
+    for src, name, floor in rooms:
+        print(f"\n=== {name} ===")
+        try:
+            cmd_stitch(argparse.Namespace(video=src, name=name, out=out_root, turn=None,
+                                          floor=floor or None, work=None, keep_work=False))
+            done.append(os.path.join(out_root, slug(name)))
+        except (SystemExit, Exception) as e:
+            print(f"{name} failed: {e}")
+    others = [d for d in sorted(glob.glob(os.path.join(out_root, "*")))
+              if os.path.exists(os.path.join(d, "pano.jpg")) and d not in done]
+    if others and ask(f"\nAlso include rooms made earlier ({', '.join(os.path.basename(d) for d in others)})? [y/N] ")\
+            .lower().startswith("y"):
+        done += others
+    if not done:
+        ask("\nNothing was stitched. Press Enter to close.")
+        return 1
+    html_path = os.path.join(out_root, "tour.html")
+    links = []
+    while True:
+        build_tour(html_path, done, links, "360 tour")
+        webbrowser.open("file://" + os.path.abspath(html_path).replace("\\", "/"))
+        if len(done) < 2:
+            break
+        print("\nTo link rooms: in the tour, click a doorway; the bottom corner shows its yaw and pitch.")
+        more = ask("Type links like  Bedroom>Hallway@-68,-8; Hallway>Bedroom@-40,-8  (Enter to finish): ")
+        if not more:
+            break
+        links = [l.strip() for l in more.split(";") if l.strip()]
+    ask(f"\nSaved in {out_root}. Press Enter to close.")
+    return 0
+
+
 def main():
+    use_bundled_tools()
+    if len(sys.argv) == 1 or all(os.path.isfile(x) for x in sys.argv[1:]):
+        for tool in ("ffmpeg", "ffprobe", "pto_gen", "cpfind", "autooptimiser", "nona"):
+            if not shutil.which(tool):
+                ask(f"Missing '{tool}'. Keep the 'tools' folder next to pano360.exe. Press Enter to close.")
+                return 1
+        return interactive(sys.argv[1:])
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("check", help="quick triage of a clip (about a minute)")

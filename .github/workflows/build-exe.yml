@@ -1,0 +1,67 @@
+name: Build pano360.exe
+
+# Builds a Windows package: pano360.exe + tools/ (Hugin, enblend, ffmpeg).
+# Download it from the run's "Artifacts" section as pano360-windows.zip.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '_tools/pano360/**'
+      - '.github/workflows/build-exe.yml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build pano360.exe
+        run: |
+          pip install -q pyinstaller opencv-python-headless numpy pillow
+          pyinstaller --onefile --console --name pano360 _tools/pano360/pano360.py
+
+      - name: Bundle Hugin and ffmpeg
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $pkg = "pkg/pano360"
+          New-Item -ItemType Directory -Force "$pkg/tools/ffmpeg" | Out-Null
+          Copy-Item dist/pano360.exe $pkg
+          Copy-Item _tools/pano360/README.md $pkg
+
+          curl.exe -sSL -A Wget -o hugin.msi "https://sourceforge.net/projects/hugin/files/hugin/hugin-2025.0/Hugin-2025.0.1-win64.msi/download"
+          if ((Get-Item hugin.msi).Length -lt 10MB) { throw "Hugin download failed" }
+          Start-Process msiexec.exe -Wait -ArgumentList '/a', "`"$PWD\hugin.msi`"", '/qn', "TARGETDIR=`"$PWD\hugin_x`""
+          $bin = (Get-ChildItem -Recurse hugin_x -Filter pto_gen.exe | Select-Object -First 1).DirectoryName
+          Copy-Item -Recurse (Split-Path $bin -Parent) "$pkg/tools/hugin"
+
+          curl.exe -sSL -o ff.zip "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
+          Expand-Archive ff.zip ff
+          Get-ChildItem -Recurse ff -Include ffmpeg.exe, ffprobe.exe | Copy-Item -Destination "$pkg/tools/ffmpeg"
+
+          foreach ($t in 'pto_gen','cpfind','cpclean','autooptimiser','pano_modify','nona','checkpto','enblend','verdandi') {
+            if (-not (Get-ChildItem -Recurse "$pkg/tools/hugin" -Filter "$t.exe")) { throw "missing $t.exe" }
+          }
+          Get-ChildItem $pkg
+
+      - name: Test on a synthetic room
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python _tools/pano360/tests/make_synthetic.py synth.mp4 --ffmpeg pkg/pano360/tools/ffmpeg/ffmpeg.exe
+          pkg/pano360/pano360.exe stitch synth.mp4 --name Synthetic --out test_out
+          if ($LASTEXITCODE -ne 0) { throw "stitch failed" }
+          python _tools/pano360/tests/check_result.py test_out/synthetic/report.json
+          if ($LASTEXITCODE -ne 0) { throw "result check failed" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pano360-windows
+          path: pkg
+          retention-days: 90
