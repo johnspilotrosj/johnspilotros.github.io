@@ -424,14 +424,20 @@ def hugin_stitch(frames, cwd, scale_ref):
         P.subset(big)
     n = len(P.imgs)
     log(f"  aligning {n} frames...")
-    P.write(os.path.join(cwd, "a.pto"), pose_vars(n, ["v0", "a0", "b0", "c0", "d0", "e0"]))
-    rms = optimise("a.pto", "a1.pto", cwd, 900)
+    P.write(os.path.join(cwd, "p3.pto"), [])
+    # auto-align first: frames all start facing the same way, plain optimisation gets lost
+    out = run(["autooptimiser", "-a", "-l", "-s", "-o", "a1.pto", "p3.pto"], cwd=cwd, timeout=900, check=False)
+    if out is None or not os.path.exists(os.path.join(cwd, "a1.pto")):
+        raise RuntimeError("alignment did not finish")
+    P = Pto(os.path.join(cwd, "a1.pto"))
+    P.write(os.path.join(cwd, "a2.pto"), pose_vars(n, ["v0", "a0", "b0", "c0", "d0", "e0"]))
+    rms = optimise("a2.pto", "a3.pto", cwd, 900)
     if rms is None:
         raise RuntimeError("alignment did not finish")
-    run(["cpclean", "-o", "a2.pto", "a1.pto"], cwd=cwd)
-    rms = optimise("a2.pto", "a3.pto", cwd, 900) or rms
-    best = "a3.pto"
-    P = Pto(os.path.join(cwd, "a3.pto"))
+    run(["cpclean", "-o", "a4.pto", "a3.pto"], cwd=cwd)
+    rms = optimise("a4.pto", "a5.pto", cwd, 900) or rms
+    best = "a5.pto"
+    P = Pto(os.path.join(cwd, best))
     for i in range(1, len(P.imgs)):                  # stabiliser shift + rolling shutter, per frame
         for k in ("d", "e", "g", "t"):
             P.set(i, k, 0)
@@ -439,7 +445,13 @@ def hugin_stitch(frames, cwd, scale_ref):
     P.write(os.path.join(cwd, "b.pto"), pose_vars(len(P.imgs), ["v0", "a0", "b0", "c0"] + per))
     rms_b = optimise("b.pto", "b1.pto", cwd, 900)
     if rms_b is not None and rms_b < rms:
-        rms, best = rms_b, "b1.pto"
+        Q = Pto(os.path.join(cwd, "b1.pto"))
+        sane = all(abs(float(Q.get(i, k))) < 150 for i in range(len(Q.imgs)) for k in "de") and \
+            all(abs(float(Q.get(i, k))) < 0.1 for i in range(len(Q.imgs)) for k in "gt")
+        if sane:
+            rms, best = rms_b, "b1.pto"
+        else:
+            log("  per-frame correction looked implausible; kept the simpler model")
     if optimise(best, "ph.pto", cwd, 900, photometric=True) is not None:
         best = "ph.pto"
     P = Pto(os.path.join(cwd, best))
