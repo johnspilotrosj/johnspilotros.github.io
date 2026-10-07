@@ -5,6 +5,12 @@ description: Stitch a 360° equirectangular panorama (virtual tour photo) from a
 
 # iPhone video → 360° panorama
 
+**First choice: run the program.** `_tools/pano360/pano360.py` does the whole pipeline below
+(`check`, `stitch --name X [--turn A-B] [--floor A-B]`, `tour out.html dirs... --link "A>B@yaw,pitch"`).
+Use it instead of redoing steps by hand, and fix bugs in it rather than working around them. The user also has
+`pano360.exe` (built by `.github/workflows/build-exe.yml`) and an online run (`.github/workflows/pano360.yml`;
+the repo is public, so results there are visible to others).
+
 The user shoots rooms for real-estate virtual tours on an iPhone 16 Pro (0.5× ultrawide,
 4K 60 fps, portrait, HDR HLG) instead of a 360 camera. They want speed and blunt honesty
 about stitch quality.
