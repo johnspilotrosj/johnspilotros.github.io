@@ -1,0 +1,124 @@
+name: 360 tour
+
+# Run from the Actions tab: "360 tour" -> "Run workflow".
+# Each room is stitched in parallel on GitHub's machines; the result is a
+# downloadable "tour" artifact with one self-contained tour.html plus the JPEGs.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenes:
+        description: 'Rooms, separated by ";". Each: Name=Google Drive link, optionally "turn=0-11" "floor=12.9-14.4". Example: Bedroom=https://drive.google.com/file/d/XXX/view floor=12.9-14.4; Hallway=https://drive.google.com/file/d/YYY/view'
+        required: true
+      links:
+        description: 'Optional clickable links between rooms, separated by ";". Each: From>To@yaw,pitch (read yaw/pitch by clicking in tour.html). Example: Bedroom>Hallway@-68,-8; Hallway>Bedroom@-40,-8'
+        required: false
+        default: ''
+      title:
+        description: 'Tour title'
+        required: false
+        default: '360 tour'
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+    steps:
+      - id: parse
+        env:
+          SCENES: ${{ inputs.scenes }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, re
+          items = []
+          for part in os.environ["SCENES"].split(";"):
+              part = part.strip()
+              if not part:
+                  continue
+              m = re.match(r"([^=]+?)\s*=\s*(\S+)(.*)", part)
+              if not m:
+                  raise SystemExit(f"Can't read scene: {part}")
+              extra = dict(re.findall(r"(turn|floor)\s*=\s*([\d.]+-[\d.]+)", m.group(3)))
+              items.append(dict(name=m.group(1).strip(), url=m.group(2),
+                                turn=extra.get("turn", ""), floor=extra.get("floor", "")))
+          if not items:
+              raise SystemExit("No scenes given")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write("matrix=" + json.dumps({"include": items}) + "\n")
+          print(json.dumps(items, indent=2))
+          EOF
+
+  stitch:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg hugin-tools enblend > /dev/null
+          pip install -q opencv-python-headless numpy pillow
+      - name: Stitch ${{ matrix.name }}
+        env:
+          NAME: ${{ matrix.name }}
+          URL: ${{ matrix.url }}
+          TURN: ${{ matrix.turn }}
+          FLOOR: ${{ matrix.floor }}
+        run: |
+          args=(stitch "$URL" --name "$NAME" --out out)
+          [ -n "$TURN" ] && args+=(--turn "$TURN")
+          [ -n "$FLOOR" ] && args+=(--floor "$FLOOR")
+          python3 _tools/pano360/pano360.py "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scene-${{ strategy.job-index }}
+          path: |
+            out/*/pano.jpg
+            out/*/pano_real_only.jpg
+            out/*/report.json
+            out/*/contact.jpg
+          if-no-files-found: ignore
+
+  tour:
+    needs: stitch
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: scene-*
+          path: out
+          merge-multiple: true
+      - name: Build tour
+        env:
+          LINKS: ${{ inputs.links }}
+          TITLE: ${{ inputs.title }}
+          SCENES: ${{ inputs.scenes }}
+        run: |
+          pip install -q opencv-python-headless numpy pillow
+          ls out
+          # keep the order the rooms were typed in
+          mapfile -t dirs < <(python3 -c "
+          import os, re
+          for p in os.environ['SCENES'].split(';'):
+              m = re.match(r'\s*([^=]+?)\s*=', p)
+              if m:
+                  d = 'out/' + (re.sub(r'[^a-z0-9]+', '-', m.group(1).lower()).strip('-') or 'scene')
+                  if os.path.exists(d + '/pano.jpg'): print(d)
+          ")
+          [ ${#dirs[@]} -gt 0 ] || { echo "No room stitched successfully"; exit 1; }
+          args=(tour out/tour.html "${dirs[@]}" --title "$TITLE")
+          IFS=';' read -ra L <<< "$LINKS"
+          for l in "${L[@]}"; do l="$(echo "$l" | xargs)"; [ -n "$l" ] && args+=(--link "$l"); done
+          python3 _tools/pano360/pano360.py "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tour
+          path: out
