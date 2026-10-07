@@ -42,7 +42,18 @@ about stitch quality.
 12. If enblend fails ("mask is entirely black"), use `verdandi --wrap` instead of retrying enblend.
 13. A horizon gap with no frames stays black after the cap fill. Fill it too, and report its width in degrees.
 14. "Click between viewpoints" means a Pannellum multi-scene tour with `type:"scene"` hotspots
-    (see the tour page structure in this repo's history). Put each scene's quality notes next to it.
+    (`scripts/tour_template.html`). Put each scene's quality notes next to it.
+15. **Shrinking the floor blur:** a tilt-down pass shot from another spot can still fill the floor,
+    because the floor is a plane. Stitch the tilt-down frames into their own small pano, render a
+    straight-down cube face from both panos, match them with SIFT, fit one homography (RANSAC) and
+    warp the patch in (`scripts/floor_h.py` then `scripts/floor_merge.py`). Feather across the old edge
+    (`put` where the face weight < 1), not just in the hole, or you get a hard line. This took the
+    bedroom from 71% to 80% real. Expect ghosts on non-floor things (bed edge, table legs). Do NOT try
+    Hugin TrX/TrY/TrZ for this; it blew up to 38 px RMS.
+16. Trim settings that worked with no dark line: alpha erode 21, blend-weight erode 45, σ 8.
+17. **Several clips at once:** run each clip's pipeline in its own directory as a background job, at most 2 at a time
+    (4 cores; cpfind and enblend are multi-threaded). Do the cheap triage (motion log, sharpness) for all
+    clips first and report which ones are worth stitching.
 
 ## Known-good pipeline (about 6–8 minutes total)
 
