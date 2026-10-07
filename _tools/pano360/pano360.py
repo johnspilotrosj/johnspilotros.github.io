@@ -32,6 +32,19 @@ def use_bundled_tools():
             os.environ["PATH"] = dp + os.pathsep + os.environ.get("PATH", "")
 
 
+if os.name == "nt":                                  # Windows console: show ° and ≈ instead of crashing
+    try:
+        import ctypes
+        ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+    except Exception:
+        pass
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+
 def log(msg):
     print(msg, flush=True)
 
