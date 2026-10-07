@@ -326,7 +326,7 @@ class Pto:
 
     def __init__(self, path):
         self.head, self.imgs, self.cps = [], [], []
-        for l in open(path).read().split("\n"):
+        for l in open(path, encoding="utf-8", errors="replace").read().split("\n"):
             if l.startswith("i "):
                 toks = []
                 for tok in l[2:].split():
@@ -382,7 +382,7 @@ class Pto:
             lines.append("i " + " ".join(k + ("=" if l else "") + v for k, l, v in img))
         lines += self.cps
         lines += [f"v {v}" for v in opt] + ["v", ""]
-        open(path, "w").write("\n".join(lines))
+        open(path, "w", encoding="utf-8").write("\n".join(lines))
 
 
 def optimise(src, dst, cwd, timeout, photometric=False):
@@ -721,7 +721,7 @@ def build_tour(out_html, scene_dirs, links, title):
     for d in scene_dirs:
         jpg = d if d.endswith(".jpg") else os.path.join(d, "pano.jpg")
         rep_path = os.path.join(os.path.dirname(jpg), "report.json")
-        rep = json.load(open(rep_path)) if os.path.exists(rep_path) else {}
+        rep = json.load(open(rep_path, encoding="utf-8")) if os.path.exists(rep_path) else {}
         name = rep.get("name") or os.path.basename(os.path.dirname(jpg)) or "Scene"
         notes = []
         if rep:
@@ -742,7 +742,7 @@ def build_tour(out_html, scene_dirs, links, title):
         ids[m.group(1).lower()]["links"].append(dict(to=ids[m.group(2).lower()]["id"],
                                                      yaw=float(m.group(3)), pitch=float(m.group(4))))
     page = TOUR_HTML.replace("__TITLE__", html.escape(title)).replace("__SCENES__", json.dumps(scenes))
-    open(out_html, "w").write(page)
+    open(out_html, "w", encoding="utf-8").write(page)
     log(f"Tour written: {out_html} ({os.path.getsize(out_html) / 1e6:.1f} MB, {len(scenes)} scenes)")
 
 
@@ -822,7 +822,7 @@ def cmd_stitch(a):
     rep = dict(name=a.name, source=a.video, video=info, turn=[t0, t1], frames=len(nums),
                median_sharpness=med_sharp, hugin=hug, coverage_real_before_floor=cov0, coverage_real=cov,
                real_up_to_deg=up, real_down_to_deg=down, horizon_gap_deg=gap, floor=floor, warnings=WARN)
-    json.dump(rep, open(os.path.join(out, "report.json"), "w"), indent=2)
+    json.dump(rep, open(os.path.join(out, "report.json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     build_tour(os.path.join(out, "viewer.html"), [out], [], a.name)
     log(f"\nDone: {out}/pano.jpg  ({cov:.0f}% real photo, alignment ≈{hug['rms_out']:.1f} px)")
     for w in WARN:

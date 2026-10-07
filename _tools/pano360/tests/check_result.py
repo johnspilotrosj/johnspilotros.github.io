@@ -2,7 +2,7 @@
 """Fail if a synthetic-room stitch is worse than it should be (pure rotation, sharp frames)."""
 import json, sys
 
-r = json.load(open(sys.argv[1]))
+r = json.load(open(sys.argv[1], encoding="utf-8"))
 print(json.dumps({k: r[k] for k in ("frames", "coverage_real", "real_up_to_deg", "real_down_to_deg")}, indent=1),
       "\nalignment px:", r["hugin"]["rms_out"])
 problems = []
