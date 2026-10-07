@@ -482,8 +482,9 @@ def hugin_stitch(frames, cwd, scale_ref):
 
 def load_canvas(tif):
     t = Image.open(tif)
-    xo = int(round(t.tag_v2.get(286, 0) * t.tag_v2.get(282, 150)))
-    yo = int(round(t.tag_v2.get(287, 0) * t.tag_v2.get(283, 150)))
+    tag = lambda k, d: float(t.tag_v2.get(k, d))
+    xo = int(round(tag(286, 0) * tag(282, 150)))
+    yo = int(round(tag(287, 0) * tag(283, 150)))
     im = cv2.imread(tif, cv2.IMREAD_UNCHANGED)
     if im.shape[2] == 3:
         im = np.dstack([im, np.full(im.shape[:2], 255, np.uint8)])
@@ -575,10 +576,10 @@ def floor_patch(can, video, info, vf, t0, t1, lens, work):
     os.makedirs(d, exist_ok=True)
     cand = frame_sharpness(video, info, t0, t1, step=1)
     cand = [c for c in cand if c[1] <= t1]
-    if len(cand) < 5:
+    if len(cand) < 7:
         warn("floor range too short; skipped")
         return can, None
-    picks = [max(w, key=lambda c: c[2])[0] for w in np.array_split(cand, 5)]
+    picks = [max(w, key=lambda c: c[2])[0] for w in np.array_split(cand, 7)]
     frames = extract_frames(video, [int(p) for p in picks], vf, d, "fl")
     names = [os.path.basename(f) for f in frames]
     run(["pto_gen", "-o", "f0.pto", "-p", "0", "-f", str(lens["v"])] + names, cwd=d)
@@ -635,7 +636,7 @@ def floor_patch(can, video, info, vf, t0, t1, lens, work):
     inl = inl.ravel() > 0 if inl is not None else np.zeros(len(m), bool)
     err = np.median(np.linalg.norm(cv2.perspectiveTransform(Pp[inl][None], Hm)[0] - Qq[inl], axis=1)) \
         if inl.sum() else 99
-    if inl.sum() < 20 or err > 2.5:
+    if inl.sum() < 15 or err > 2.5:
         warn(f"floor match too weak ({int(inl.sum())} points, {err:.1f} px); floor patch skipped")
         return can, None
     wB = cv2.warpPerspective(fB, Hm, (F, F)).astype(np.float32)
