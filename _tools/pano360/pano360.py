@@ -459,8 +459,9 @@ def hugin_stitch(frames, cwd, scale_ref):
     rms_b = optimise("b.pto", "b1.pto", cwd, 900)
     if rms_b is not None and rms_b < rms:
         Q = Pto(os.path.join(cwd, "b1.pto"))
-        sane = all(abs(float(Q.get(i, k))) < 150 for i in range(len(Q.imgs)) for k in "de") and \
-            all(abs(float(Q.get(i, k))) < 0.1 for i in range(len(Q.imgs)) for k in "gt")
+        # pixel units; a failed solve runs off to thousands
+        sane = all(abs(float(Q.get(i, k))) < 400 for i in range(len(Q.imgs)) for k in "de") and \
+            all(abs(float(Q.get(i, k))) < 2000 for i in range(len(Q.imgs)) for k in "gt")
         if sane:
             rms, best = rms_b, "b1.pto"
         else:
