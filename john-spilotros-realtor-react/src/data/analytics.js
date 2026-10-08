@@ -5,8 +5,7 @@ import { GA_MEASUREMENT_ID } from './site.js';
    route change so SPA navigation is counted, not just the first load. */
 let loaded = false;
 
-export function trackPageview(path) {
-  if (!GA_MEASUREMENT_ID || typeof document === 'undefined') return;
+function load() {
   if (!loaded) {
     loaded = true;
     const s = document.createElement('script');
@@ -18,9 +17,22 @@ export function trackPageview(path) {
     window.gtag('js', new Date());
     window.gtag('config', GA_MEASUREMENT_ID, { send_page_view: false });
   }
+}
+
+export function trackPageview(path) {
+  if (!GA_MEASUREMENT_ID || typeof document === 'undefined') return;
+  load();
   window.gtag('event', 'page_view', {
     page_path: path,
     page_location: window.location.origin + path,
     page_title: document.title,
   });
+}
+
+/* Named events, e.g. generate_lead when a form is sent. Mark generate_lead as
+   a "key event" in GA4 (Admin → Events) to see which sources bring leads. */
+export function trackEvent(name, params = {}) {
+  if (!GA_MEASUREMENT_ID || typeof document === 'undefined') return;
+  load();
+  window.gtag('event', name, params);
 }

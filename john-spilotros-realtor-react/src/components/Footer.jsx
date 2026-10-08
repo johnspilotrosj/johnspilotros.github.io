@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS, NEIGHBORHOODS } from '../data/site.js';
+import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, OFFICE_ADDRESS, OFFICE_HOURS, NEIGHBORHOODS, REPLY_PROMISE, SOCIALS, GOOGLE_PROFILE_URL } from '../data/site.js';
 
 const LINKS = [
   ['/', 'Home'],
@@ -20,7 +20,7 @@ export default function Footer() {
             <span className="brand-name" style={{ display: 'block' }}>John Spilotros</span>
             <span className="brand-sub" style={{ display: 'block', marginTop: 6 }}>Licensed Idaho Real Estate Salesperson</span>
             <p>Buyers and sellers across Boise, Meridian, Eagle, Nampa, and the Treasure Valley. One agent, start to close.</p>
-            <p className="footer-promise">Call, text, or message anytime. Replies within one business day, usually sooner.</p>
+            <p className="footer-promise">Call, text, or message anytime. Replies {REPLY_PROMISE}.</p>
           </div>
           <div className="footer-col">
             <h4>Explore</h4>
@@ -48,6 +48,10 @@ export default function Footer() {
             <p style={{ marginTop: '1rem' }}>
               <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a><br />
               <a href={'mailto:' + LEAD_EMAIL}>{LEAD_EMAIL}</a>
+              {SOCIALS.filter((s) => s.url).map((s) => (
+                <span key={s.name}><br /><a href={s.url} target="_blank" rel="noopener">{s.name === 'Instagram' ? '@' + s.url.replace(/\/$/, '').split('/').pop() + ' on Instagram' : s.name}</a></span>
+              ))}
+              {GOOGLE_PROFILE_URL && <><br /><a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener">Reviews on Google</a></>}
             </p>
           </div>
         </div>

@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import Reveal from '../bits/Reveal.jsx';
 import Magnet from '../bits/Magnet.jsx';
 import Breadcrumbs from '../components/Breadcrumbs.jsx';
+import Testimonials from '../components/Testimonials.jsx';
 
 const PILLARS = [
   ['Local market focus', 'The Treasure Valley is the only market I work, so I know what homes are actually selling for, town by town.'],
-  ['Fast communication', 'Calls returned the same day and deadlines hit early. You always know where things stand.'],
+  ['Fast communication', 'Calls and messages answered within one business day, and deadlines hit early. You always know where things stand.'],
   ['Buyer & seller guidance', "Whether you're buying or selling, my advice is based on what's best for you, not on what closes fastest."],
 ];
 
@@ -46,6 +47,8 @@ export default function About() {
           </Reveal>
         </div>
       </section>
+
+      <Testimonials alt />
 
       <section className="section section-alt">
         <div className="wrap">

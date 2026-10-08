@@ -7,98 +7,68 @@ import Magnet from '../bits/Magnet.jsx';
 import SpotlightCard from '../bits/SpotlightCard.jsx';
 import Faq from '../components/Faq.jsx';
 import CaseStudies from '../components/CaseStudies.jsx';
-import { HERO_CLIPS, NEIGHBORHOODS, PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL } from '../data/site.js';
+import { HERO_VIDEO, HERO_STILL, HERO_STILL_SMALL, NEIGHBORHOODS, PRICES_AS_OF, PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, REPLY_PROMISE } from '../data/site.js';
+import Testimonials from '../components/Testimonials.jsx';
 import { prefillContact } from '../data/prefill.js';
 
 const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
 
-/* ============ Hero: slow drone drift, city → suburb → farm ============ */
+/* ============ Hero: still image everywhere, one slow drone clip on desktop ============ */
+/* Phones and data-saver visitors only ever download the still (~70 KB). Wider
+   screens get one small self-hosted clip (~1.6 MB) that fades in over the
+   still once it is actually playing, so nothing pops or flashes. */
+const VIDEO_MQ = '(min-width: 768px)';
+
 function VideoHero() {
   const reduced = useReducedMotion();
-  const vA = useRef(null);
-  const vB = useRef(null);
-  const [frontIsA, setFrontIsA] = useState(true);
+  const [wantVideo, setWantVideo] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const vRef = useRef(null);
 
   useEffect(() => {
-    if (reduced) return;
-    const a = vA.current, b = vB.current;
-    if (!a || !b) return;
-    let cancelled = false;
-    let started = false;
-    let timers = [];
-
-    const clip = (i) => HERO_CLIPS[i % HERO_CLIPS.length];
-    function prep(v, i) {
-      /* iOS Safari: autoplay requires the muted + playsinline ATTRIBUTES in the
-         DOM. React sets the muted property but not the attribute, so set both
-         by hand — otherwise iPhones refuse to start the reel. */
-      v.muted = true;
-      v.defaultMuted = true;
-      v.setAttribute('muted', '');
-      v.setAttribute('playsinline', '');
-      v.setAttribute('webkit-playsinline', '');
-      v.src = clip(i).src;
-      v.loop = true;
-      v.load();
-    }
-    function slow(v) { try { v.playbackRate = 0.55; } catch (e) { /* older browsers */ } }
-    function roll(v) {
-      slow(v);
-      /* iOS resets playbackRate when playback actually starts; re-assert it */
-      v.addEventListener('playing', () => slow(v), { once: true });
-      const p = v.play();
-      if (p && p.catch) {
-        p.catch(() => {
-          /* Autoplay refused (iOS Low Power Mode, data saver): keep the charcoal
-             base and retry once on the visitor's first touch — no play button ever. */
-          const retry = () => { v.play().catch(() => {}); };
-          window.addEventListener('touchstart', retry, { once: true, passive: true });
-          window.addEventListener('pointerdown', retry, { once: true });
-        });
-      }
-    }
-    function cycle(front, back, i) {
-      roll(front);
-      prep(back, i + 1);
-      timers.push(setTimeout(() => {
-        if (cancelled) return;
-        roll(back);
-        setFrontIsA((f) => !f);
-        timers.push(setTimeout(() => {
-          if (cancelled) return;
-          front.pause();
-          cycle(back, front, i + 1);
-        }, 1400)); /* wait out the crossfade before recycling */
-      }, clip(i).hold * 1000));
-    }
-    function start() {
-      if (started || cancelled) return;
-      started = true;
-      prep(a, 0);
-      cycle(a, b, 0);
-    }
-    function onVisible() { if (document.visibilityState === 'visible') start(); }
-
-    /* background tab at load: hold the charcoal base, start the reel on first view */
-    if (document.visibilityState === 'visible') start();
-    else document.addEventListener('visibilitychange', onVisible);
-
-    return () => {
-      cancelled = true;
-      timers.forEach(clearTimeout);
-      document.removeEventListener('visibilitychange', onVisible);
-      a.pause(); b.pause();
-    };
+    if (reduced) { setWantVideo(false); return; }
+    const saveData = typeof navigator !== 'undefined' && navigator.connection && navigator.connection.saveData;
+    if (saveData || !window.matchMedia) return;
+    const mq = window.matchMedia(VIDEO_MQ);
+    const update = () => setWantVideo(mq.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    return () => mq.removeEventListener?.('change', update);
   }, [reduced]);
+
+  useEffect(() => {
+    const v = vRef.current;
+    if (!wantVideo || !v) { setPlaying(false); return; }
+    /* iOS Safari: autoplay needs the muted + playsinline ATTRIBUTES in the DOM;
+       React sets the muted property but not the attribute, so set both. */
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    const slow = () => { try { v.playbackRate = 0.55; } catch (e) { /* older browsers */ } };
+    const onPlaying = () => { slow(); setPlaying(true); };
+    v.addEventListener('playing', onPlaying);
+    slow();
+    const p = v.play();
+    /* Autoplay refused (Low Power Mode etc.): the still stays up. No play button. */
+    if (p && p.catch) p.catch(() => {});
+    return () => { v.removeEventListener('playing', onPlaying); v.pause(); };
+  }, [wantVideo]);
 
   return (
     <section className="hero" id="top">
       <div className="hero-media" aria-hidden="true">
-        {!reduced && (
-          <>
-            <video ref={vA} className={'hero-video' + (frontIsA ? ' is-front' : '')} muted playsInline autoPlay preload="auto" />
-            <video ref={vB} className={'hero-video' + (!frontIsA ? ' is-front' : '')} muted playsInline preload="none" />
-          </>
+        <img
+          className="hero-still"
+          src={HERO_STILL}
+          srcSet={`${HERO_STILL_SMALL} 800w, ${HERO_STILL} 1280w`}
+          sizes="100vw"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+        />
+        {wantVideo && (
+          <video ref={vRef} className={'hero-video' + (playing ? ' is-front' : '')} src={HERO_VIDEO} muted playsInline loop preload="auto" />
         )}
         <div className="hero-scrim" />
       </div>
@@ -110,7 +80,7 @@ function VideoHero() {
           <Magnet><button type="button" className="btn btn-gold" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>Start Your Home Search</button></Magnet>
           <Magnet><Link className="btn btn-glass" to="/contact">Book a Consultation</Link></Magnet>
         </div>
-        <p className="hero-promise">Free to reach out. Replies within one business day.</p>
+        <p className="hero-promise">Free to reach out. Replies {REPLY_PROMISE}.</p>
       </div>
       <button type="button" className="hero-scroll" aria-label="Scroll to home search" onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}>
         <span></span>
@@ -146,13 +116,13 @@ function Neighborhoods() {
       <div className="wrap">
         <Reveal className="sec-head">
           <h2>The Treasure Valley, town by town.</h2>
-          <p>Seven cities, each with its own feel. Here's a quick read on every one, and what homes are going for right now.</p>
+          <p>Seven cities, each with its own feel. Here's a quick read on every one, and what homes have been selling for lately.</p>
         </Reveal>
         <div className="hood-grid">
           {NEIGHBORHOODS.map((n, i) => (
             <Reveal key={n.name} delay={Math.min(i * 0.05, 0.3)}>
               <article className="hood-card">
-                <div className="hood-media"><img loading="lazy" src={n.img} alt={n.alt} /></div>
+                <div className="hood-media"><img loading="lazy" decoding="async" src={n.img} srcSet={`${n.img.replace(/\.jpg$/, '-640.jpg')} 640w, ${n.img} 1280w`} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" alt={n.alt} /></div>
                 <div className="hood-body">
                   <h3>{n.name}</h3>
                   <p>{n.desc}</p>
@@ -165,7 +135,7 @@ function Neighborhoods() {
             </Reveal>
           ))}
         </div>
-        <p className="hood-source">Median sale prices: Redfin city market data, May 2026.</p>
+        <p className="hood-source">Median sale prices for the 3 months ending {PRICES_AS_OF}. Source: Redfin.</p>
         <Reveal>
           <p className="sec-more"><Link className="link-gold" to="/relocation">Moving from out of state? Start here →</Link></p>
         </Reveal>
@@ -266,7 +236,7 @@ function MeetJohn() {
         <Reveal className="split-body" delay={0.08}>
           <h2>Who you'll be working with.</h2>
           <p className="lead-in">I'm John Spilotros, a real estate agent with Keller Williams Realty Boise. Before real estate I spent years in digital marketing, so when your home hits the market, the photos, the write-up, and the online reach get done right.</p>
-          <p className="lead-in">I work one market, Boise and the Treasure Valley. Call or text and you'll get a straight answer, usually the same day.</p>
+          <p className="lead-in">I work one market, Boise and the Treasure Valley. Call or text and you'll get a straight answer {REPLY_PROMISE}.</p>
           <div className="meet-contact">
             <a href={'tel:' + PHONE_TEL}>{PHONE_DISPLAY}</a>
             <a href={'mailto:' + LEAD_EMAIL}>{LEAD_EMAIL}</a>
@@ -282,7 +252,7 @@ const HOME_FAQ = [
   ['What does it cost to talk to you?', "Nothing. Calls, questions, and a read on your home or the market are all free, with no obligation attached. You only ever pay anything if we work together on a deal, and that gets agreed in writing first."],
   ['Which areas do you cover?', 'Boise, Meridian, Eagle, Nampa, Kuna, Star, and Garden City. The whole Treasure Valley, and only the Treasure Valley. One market, known well.'],
   ["I'm not ready to buy or sell yet. Is it too early to reach out?", "Not at all. Most of the best moves start with a conversation months before anything goes on the market. Reach out whenever, and I'll give you a straight read on timing with zero pressure to move faster than you want."],
-  ['How fast do you respond?', "Within one business day, and usually the same day. Calls and texts get the fastest answer. If you message through the site in the evening, expect to hear from me in the morning."],
+  ['How fast do you respond?', "Within one business day. Calls and texts get the fastest answer. If you message through the site in the evening, expect to hear from me in the morning."],
   ['Are you an agent or a brokerage?', "I'm a licensed Idaho real estate salesperson, license #1681619, with Keller Williams Realty Boise. You work with me directly, and the brokerage stands behind every transaction."],
 ];
 
@@ -295,6 +265,7 @@ export default function Home() {
       <Buyers />
       <Sellers />
       <CaseStudies />
+      <Testimonials />
       <MeetJohn />
       <Faq heading="Questions people ask first." items={HOME_FAQ} />
     </>

@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LEAD_EMAIL, LEAD_ENDPOINT } from '../data/site.js';
 import { toast } from './Toast.jsx';
+import { leadSource } from '../data/leadSource.js';
+import { trackEvent } from '../data/analytics.js';
+
+const SOURCE_LABELS = { lead_source: 'Found the site via', landing_page: 'First page seen', form_page: 'Sent from page' };
 
 /* Shared lead-capture behavior: honeypot, native validation, delivery via
    LEAD_ENDPOINT (Formspree/Netlify) with a pre-filled mailto fallback so a
@@ -27,13 +31,26 @@ export default function LeadForm({ subject, toastMsg, labels = {}, submitLabel, 
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     const fd = new FormData(form);
+    /* Checkboxes go out as an explicit Yes/No (an unticked box is otherwise
+       just missing), so every lead says plainly what the person agreed to. */
+    for (const el of form.elements) {
+      if (el.type === 'checkbox' && el.name && !el.classList.contains('hp-field')) fd.set(el.name, el.checked ? 'Yes' : 'No');
+    }
+    const src = leadSource();
+    fd.set('lead_source', src.via);
+    fd.set('landing_page', src.landing + ' (first visit ' + src.date + ')');
+    fd.set('form_page', window.location.pathname);
     const lines = [];
     for (const [name, value] of fd.entries()) {
       if (name === 'company_website' || name === '_gotcha' || !value) continue;
-      lines.push((labels[name] || name) + ': ' + (value === 'on' ? 'Yes' : value));
+      lines.push((labels[name] || SOURCE_LABELS[name] || name) + ': ' + value);
     }
 
-    function finish() { toast(toastMsg); navigate('/thank-you'); }
+    function finish() {
+      trackEvent('generate_lead', { lead_source: src.via, form_page: window.location.pathname });
+      toast(toastMsg);
+      navigate('/thank-you');
+    }
 
     if (LEAD_ENDPOINT) {
       setBusy(true);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Reveal from '../bits/Reveal.jsx';
 import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import LeadForm from '../components/LeadForm.jsx';
-import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS } from '../data/site.js';
+import { PHONE_DISPLAY, PHONE_TEL, LEAD_EMAIL, SOCIALS, OFFICE_ADDRESS, OFFICE_HOURS, REPLY_PROMISE } from '../data/site.js';
 
 function SocialIcon({ name }) {
   const paths = {
@@ -32,7 +32,7 @@ export default function Contact() {
         <Reveal className="contact-lead">
           <Breadcrumbs current="Contact" path="/contact" onDark />
           <h1>Let's talk about your move.</h1>
-          <p>No pressure and no obligation. You'll get a clear read on your options and a plan you can act on. I respond personally, usually within the business day.</p>
+          <p>No pressure and no obligation. You'll get a clear read on your options and a plan you can act on. I respond personally {REPLY_PROMISE}.</p>
           <div className="contact-direct">
             <a href={'tel:' + PHONE_TEL} className="contact-big">{PHONE_DISPLAY}</a>
             <a href={'mailto:' + LEAD_EMAIL} className="contact-mid">{LEAD_EMAIL}</a>
@@ -55,8 +55,8 @@ export default function Contact() {
               toastMsg="Message sent. Thank you."
               submitLabel="Start the Conversation"
               submitClass="btn btn-gold"
-              labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'Consent to contact' }}
-              disclaimer={<>By submitting, you consent to be contacted by phone, text, or email about your inquiry. Representation begins only with a signed written agreement.</>}
+              labels={{ name: 'Name', email: 'Email', phone: 'Phone', interest: 'I am', message: 'Message', consent: 'OK to call/email', sms_consent: 'OK to text' }}
+              disclaimer={<>John will reply by phone or email. He'll only text you if you ticked the texting box. Representation begins only with a signed written agreement.</>}
             >
               <div className="form-grid">
                 <div><label className="flabel" htmlFor="c-name">Name <span className="req">*</span></label><input className="input" id="c-name" name="name" type="text" placeholder="First & last" required /></div>
@@ -79,7 +79,11 @@ export default function Contact() {
               </div>
               <label className="form-note">
                 <input type="checkbox" name="consent" required />
-                <span>John Spilotros may contact me about real estate services. Submitting this form doesn't create an agency or brokerage relationship. <span className="req">*</span></span>
+                <span>John Spilotros may call or email me about my inquiry. Submitting this form doesn't create an agency or brokerage relationship. <span className="req">*</span></span>
+              </label>
+              <label className="form-note form-note-optional">
+                <input type="checkbox" name="sms_consent" />
+                <span>Optional: John may also text me at the number above about my inquiry. Message and data rates may apply. Reply STOP anytime to opt out. Not required to work with John.</span>
               </label>
             </LeadForm>
           </div>

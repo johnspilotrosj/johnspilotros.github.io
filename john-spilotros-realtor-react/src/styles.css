@@ -270,7 +270,9 @@ body.nav-open .site-header { color: var(--ink); background: transparent; box-sha
 .hero-video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-/* fade the video in over the charcoal base so nothing pops on load */
+/* the still is the hero on phones and the poster on desktop; the clip fades
+   in over it only once it is actually playing, so nothing pops on load */
+.hero-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-video { opacity: 0; transition: opacity 1.3s ease; }
 .hero-video.is-front { opacity: 1; }
 .hero-scrim {
@@ -901,6 +903,17 @@ body.modal-open { overflow: hidden; }
 .case-tag { font-size: 0.75rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 0.6rem; }
 .case-card h3 { margin-bottom: 0.6rem; }
 .case-result { margin-top: 0.9rem; font-weight: 600; color: var(--ink); }
+
+/* ============ Testimonials ============ */
+.quote-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin: 0; }
+.quote-card { padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-sm); }
+.quote-card blockquote { margin: 0; font-size: 1.02rem; line-height: 1.65; color: var(--ink); }
+.quote-card figcaption { margin-top: auto; font-size: 0.85rem; color: var(--muted); }
+.quote-card figcaption strong { color: var(--ink); font-weight: 600; }
+.quote-stars { color: var(--gold-deep); letter-spacing: 0.15em; font-size: 0.9rem; }
+
+/* ============ Lead form: separate texting opt-in ============ */
+.form-note-optional { margin-top: 0.6rem; }
 
 /* ============ Footer additions ============ */
 .footer-promise { margin-top: 0.9rem; font-size: 0.84rem; color: var(--gold); }

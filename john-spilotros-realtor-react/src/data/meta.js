@@ -55,7 +55,7 @@ const CITY_META = Object.fromEntries(
     '/' + c.slug,
     {
       title: `${c.name}, Idaho Homes & Town Guide · John Spilotros`,
-      description: `Homes in ${c.name}, Idaho: what they cost right now, what the town is like, and who it fits. A local guide from John Spilotros, Keller Williams Realty Boise.`,
+      description: `Homes in ${c.name}, Idaho: median sale prices, what the town is like, and who it fits. A local guide from John Spilotros, Keller Williams Realty Boise.`,
     },
   ])
 );

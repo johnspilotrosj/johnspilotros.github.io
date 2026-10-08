@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
+import { rememberLeadSource } from './data/leadSource.js';
 import './styles.css';
 import './bits.css';
 
@@ -11,6 +12,8 @@ const h = window.location.hash;
 if (h.startsWith('#/')) {
   window.history.replaceState(null, '', h.slice(1) + window.location.search);
 }
+
+rememberLeadSource();
 
 const root = document.getElementById('root');
 const app = (

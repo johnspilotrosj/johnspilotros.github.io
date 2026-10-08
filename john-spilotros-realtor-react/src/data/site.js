@@ -21,7 +21,7 @@ export const OFFICE_HOURS = 'Mon–Fri · 9am–5pm';
 
 /* Social profiles — paste real URLs before publishing (icons hide while empty). */
 export const SOCIALS = [
-  { name: 'Instagram', url: '' },
+  { name: 'Instagram', url: 'https://www.instagram.com/houseswithjohn/' },
   { name: 'Facebook', url: '' },
   { name: 'LinkedIn', url: '' },
 ];
@@ -38,16 +38,41 @@ export const SOCIALS = [
    Real deals only — no composites, no invented numbers. */
 export const CASE_STUDIES = [];
 
-/* Hero drone footage (Pexels, free license) — city → suburb → farm.
-   Each clip crossfades to the next; playback is slowed for the drift. */
-export const HERO_CLIPS = [
-  { src: 'https://videos.pexels.com/video-files/4761059/4761059-hd_1920_1080_30fps.mp4', hold: 12 },
-  { src: 'https://videos.pexels.com/video-files/5031099/5031099-hd_1920_1080_30fps.mp4', hold: 12 },
-  { src: 'https://videos.pexels.com/video-files/5200374/5200374-hd_1920_1080_30fps.mp4', hold: 12 },
-];
+/* One reply-time promise, used everywhere the site says how fast John answers. */
+export const REPLY_PROMISE = 'within one business day';
 
-/* Median sale prices: Redfin city market data, May 2026. Update monthly-ish.
-   slug = the town page URL (spilo.xyz/boise); longform copy in cities.js. */
+/* Google Business Profile link (the "share" link from your profile, or your
+   g.page / maps link). While empty, the "See my Google reviews" link hides. */
+export const GOOGLE_PROFILE_URL = '';
+
+/* Real client reviews — the "What clients say" section on the home page and
+   About page stays hidden while this list is empty. Copy them word for word
+   from Google, Zillow, or a client's text/email (ask them first), e.g.
+   {
+     quote: 'John found us a house in Meridian in two weeks...',
+     name: 'Sarah M.',                 // first name + last initial is fine
+     detail: 'Bought in Meridian',     // or 'Sold in Boise', 'Relocated from CA'
+     source: 'Google',                 // where the review lives, optional
+     stars: 5,                         // optional, only if the review had stars
+   }
+   Real reviews only — no paraphrasing, no composites. */
+export const TESTIMONIALS = [];
+
+/* Hero drone footage, hosted on this site (public/hero/) so it can't break
+   or slow down when a third party changes something. One 14-second 720p clip
+   (~1.6 MB) plays on desktop; phones get only the still image (~70 KB).
+   Source: Pexels video 5031099, free license — see public/hero/CREDITS.md. */
+export const HERO_VIDEO = '/hero/suburb.mp4';
+export const HERO_STILL = '/hero/suburb-1280.jpg';
+export const HERO_STILL_SMALL = '/hero/suburb-800.jpg';
+
+/* Median sale prices from each town's Redfin "housing market" page
+   (redfin.com/city/.../housing-market). Update every month or two: change the
+   prices below AND PRICES_AS_OF (the last month of Redfin's 3-month window),
+   which every page shows next to the prices. */
+export const PRICES_AS_OF = 'August 2026';
+
+/* slug = the town page URL (spilo.xyz/boise); longform copy in cities.js. */
 export const NEIGHBORHOODS = [
   {
     name: 'Boise',
@@ -55,7 +80,7 @@ export const NEIGHBORHOODS = [
     desc: 'The capital city. North End character, a real downtown, and foothills trails out the back door.',
     img: '/towns/boise.jpg',
     alt: 'Downtown Boise, Idaho, with the foothills behind it.',
-    price: '$525K',
+    price: '$545K',
   },
   {
     name: 'Meridian',
@@ -63,7 +88,7 @@ export const NEIGHBORHOODS = [
     desc: 'The fastest-growing city in the valley. Master-planned neighborhoods and strong schools.',
     img: '/towns/meridian.jpg',
     alt: 'The Meridian Idaho Temple in springtime.',
-    price: '$550K',
+    price: '$567K',
   },
   {
     name: 'Eagle',
@@ -71,7 +96,7 @@ export const NEIGHBORHOODS = [
     desc: 'Foothills estates, river frontage, and the valley’s most sought-after custom homes.',
     img: '/towns/eagle.jpg',
     alt: 'The City of Eagle, Idaho welcome sign.',
-    price: '$799K',
+    price: '$941K',
   },
   {
     name: 'Nampa',
@@ -79,7 +104,7 @@ export const NEIGHBORHOODS = [
     desc: 'The smart money’s pick. Established neighborhoods, new construction, real value.',
     img: '/towns/nampa.jpg',
     alt: 'The historic Nampa Department Store in downtown Nampa.',
-    price: '$420K',
+    price: '$418K',
   },
   {
     name: 'Kuna',
@@ -87,7 +112,7 @@ export const NEIGHBORHOODS = [
     desc: 'Small-town pace, minutes from everything. Growing fast for a reason.',
     img: '/towns/kuna.jpg',
     alt: 'Main Street in downtown Kuna, Idaho.',
-    price: '$449K',
+    price: '$479K',
   },
   {
     name: 'Star',
@@ -95,7 +120,7 @@ export const NEIGHBORHOODS = [
     desc: 'Riverside acreage and new builds where the valley opens up.',
     img: '/towns/star.jpg',
     alt: 'The historic Star Mercantile building in Star, Idaho.',
-    price: '$570K',
+    price: '$596K',
   },
   {
     name: 'Garden City',
@@ -103,7 +128,7 @@ export const NEIGHBORHOODS = [
     desc: 'The valley’s creative side. River district living right on the Boise Greenbelt.',
     img: '/towns/garden-city.jpg',
     alt: 'An aerial view of Garden City, Idaho, in summertime.',
-    price: '$533K',
+    price: '$595K',
   },
 ];
 

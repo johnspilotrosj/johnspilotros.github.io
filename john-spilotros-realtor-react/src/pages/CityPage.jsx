@@ -3,6 +3,7 @@ import Reveal from '../bits/Reveal.jsx';
 import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import { CITIES } from '../data/cities.js';
 import { prefillContact } from '../data/prefill.js';
+import { PRICES_AS_OF } from '../data/site.js';
 
 export default function CityPage({ city }) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function CityPage({ city }) {
             <div className="city-photo"><img src={city.img} alt={city.alt} /></div>
             <p className="city-stat">
               Median sale price: <strong>{city.price}</strong>
-              <small>Redfin city market data, May 2026</small>
+              <small>3 months ending {PRICES_AS_OF} · Redfin</small>
             </p>
           </Reveal>
           <Reveal className="split-body" delay={0.08}>
