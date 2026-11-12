@@ -1,562 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Get a Free Quote — Dry Creek Services | Eagle Idaho</title>
-<meta name="description" content="Get a free quote from Dry Creek Services — Eagle, Idaho's local home services company. Dryer vent cleaning, landscaping, junk removal, and power washing. Call or text (208) 985-5394.">
-<link rel="icon" type="image/png" href="../favicon.png">
-<link rel="apple-touch-icon" href="../favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Quote & Contact | Dry Creek Services, Eagle, Idaho</title>
+<meta name="description" content="Request a free, flat-price quote from Dry Creek Services in Eagle, Idaho. Same-day response, Monday to Saturday, 7 AM to 6 PM. Call (208) 985-5394.">
 <link rel="canonical" href="https://drycreekservices.xyz/contact/">
-<meta property="og:title" content="Get a Free Quote — Dry Creek Services | Eagle Idaho">
-<meta property="og:description" content="Get a free quote from Dry Creek Services — Eagle, Idaho's local home services company. Dryer vent cleaning, landscaping, junk removal, and power washing. Call or text (208) 985-5394.">
-<meta property="og:url" content="https://drycreekservices.xyz/contact/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0b7cff">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dry Creek Services">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --ink:   #111010;
-  --paper: #f0ece4;
-  --bone:  #ddd8ce;
-  --dust:  #8a857e;
-  --slate: #3d3830;
-  --blue:  #1a4fff;
-  --lblue: #e8eeff;
-  --white: #faf8f4;
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Barlow', sans-serif;
-  overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-}
-body.menu-open { overflow: hidden; }
-
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9000; opacity: 0.5;
-}
-
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
-  display: flex; align-items: stretch;
-  border-bottom: 1.5px solid var(--ink);
-  background: var(--paper);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-.nav-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px; letter-spacing: 0.1em;
-  color: var(--ink); text-decoration: none;
-  padding: 18px 36px; border-right: 1.5px solid var(--ink);
-  display: flex; align-items: center; flex-shrink: 0;
-}
-.nav-logo span { color: var(--blue); }
-.nav-links { display: flex; list-style: none; margin-left: auto; }
-.nav-links li { border-left: 1.5px solid var(--ink); }
-.nav-links a {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--slate); text-decoration: none;
-  padding: 0 30px; height: 100%; display: flex; align-items: center;
-  transition: background 0.15s, color 0.15s;
-}
-.nav-links a:hover { background: var(--ink); color: var(--white); }
-.nav-links a.active { color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); }
-.nav-links a.active:hover { background: var(--ink); color: var(--white); box-shadow: none; }
-.nav-cta {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--white); background: var(--blue);
-  padding: 0 36px; display: flex; align-items: center;
-  text-decoration: none; border-left: 1.5px solid var(--ink);
-  transition: background 0.15s;
-}
-.nav-cta:hover { background: var(--ink); }
-
-/* HAMBURGER */
-.nav-hamburger {
-  display: none;
-  background: none; border: none; cursor: pointer;
-  width: 57px; height: 57px;
-  border-left: 1.5px solid var(--ink);
-  flex-direction: column; align-items: center; justify-content: center; gap: 5.5px;
-  flex-shrink: 0; padding: 0; -webkit-appearance: none;
-}
-.nav-hamburger span {
-  display: block; width: 20px; height: 1.5px; background: var(--ink);
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
-  transform-origin: center;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* MOBILE OVERLAY MENU */
-.mobile-menu {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 750;
-  background: var(--paper);
-  padding-top: 57px;
-  display: flex; flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  -webkit-overflow-scrolling: touch; overflow-y: auto;
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu a {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 52px; letter-spacing: 0.03em; line-height: 1;
-  color: var(--ink); text-decoration: none;
-  padding: 28px 36px;
-  border-bottom: 1.5px solid var(--ink);
-  display: block;
-  opacity: 0; transform: translateX(20px);
-  transition: opacity 0.3s, transform 0.3s, background 0.12s, color 0.12s;
-}
-.mobile-menu.open a { opacity: 1; transform: translateX(0); }
-.mobile-menu.open a:nth-child(1) { transition-delay: 0.06s; }
-.mobile-menu.open a:nth-child(2) { transition-delay: 0.11s; }
-.mobile-menu.open a:nth-child(3) { transition-delay: 0.16s; }
-.mobile-menu.open a:nth-child(4) { transition-delay: 0.21s; }
-.mobile-menu a:active,
-.mobile-menu a.active { color: var(--blue); }
-.mobile-menu .mm-cta {
-  background: var(--blue); color: var(--white); margin-top: auto;
-  border-bottom: none; border-top: 1.5px solid var(--ink);
-}
-.mobile-menu .mm-cta:active { background: var(--ink); color: var(--white); }
-
-/* MOBILE STICKY CTA BAR */
-.mobile-cta-bar {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  z-index: 600;
-  background: var(--ink);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-.mcb-inner { display: grid; grid-template-columns: 1fr 1fr; }
-.mcb-btn {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--white); text-decoration: none;
-  padding: 17px 12px; text-align: center;
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-  transition: background 0.12s;
-}
-.mcb-btn:first-child { border-right: 1px solid rgba(255,255,255,0.1); }
-.mcb-btn:active { background: rgba(255,255,255,0.08); }
-.mcb-quote { background: var(--blue); }
-.mcb-quote:active { background: #1040e0; }
-
-/* WHY */
-#why {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1.5px solid var(--ink);
-}
-.why-left {
-  padding: 80px 64px; border-right: 1.5px solid var(--ink);
-  background: #1a1714; color: var(--white);
-}
-.sec-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(48px, 6vw, 88px); line-height: 0.9;
-}
-.why-left .sec-title { color: var(--white); }
-.why-tag-sm {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 20px; display: block;
-}
-.why-body {
-  font-size: 17px; color: rgba(255,255,255,0.6);
-  line-height: 1.75; font-weight: 300; margin-top: 20px; max-width: 380px;
-}
-.why-canvas-wrap {
-  position: relative; height: 240px; margin-top: 48px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-#why-canvas { width: 100%; height: 100%; display: block; }
-
-.why-right { }
-.why-point {
-  padding: 48px 64px; border-bottom: 1.5px solid var(--ink);
-  display: grid; grid-template-columns: 52px 1fr;
-  gap: 24px; align-items: start;
-  transition: background 0.15s; cursor: default;
-}
-.why-point:last-child { border-bottom: none; }
-.why-point:hover { background: var(--lblue); }
-.wp-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 16px; letter-spacing: 0.15em; color: var(--blue); padding-top: 3px;
-}
-.wp-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 20px; font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase; margin-bottom: 10px;
-}
-.wp-text { font-size: 15px; color: var(--slate); line-height: 1.75; font-weight: 300; }
-
-/* CONTACT */
-#contact {
-  display: grid; grid-template-columns: 1fr 360px;
-  border-bottom: 1.5px solid var(--ink);
-}
-.cf-wrap { padding: 80px 64px; border-right: 1.5px solid var(--ink); }
-.cf-header-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--slate); margin-bottom: 12px; display: block;
-}
-.cf { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
-.cf-row { display: grid; grid-template-columns: 1fr 1fr; }
-.ff { display: flex; flex-direction: column; border: 1.5px solid var(--ink); margin: -0.75px; }
-.ff label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--slate); padding: 14px 20px 4px; background: var(--bone);
-}
-.ff input, .ff select, .ff textarea {
-  background: var(--bone); border: none;
-  padding: 6px 20px 16px; font-family: 'Barlow', sans-serif;
-  font-size: 16px; color: var(--ink); outline: none;
-  resize: none; -webkit-appearance: none; appearance: none; font-weight: 300;
-}
-.ff textarea { height: 130px; padding-top: 10px; }
-.ff input:focus, .ff select:focus, .ff textarea:focus { background: var(--paper); }
-.cf-submit {
-  background: var(--ink); color: var(--white);
-  border: 1.5px solid var(--ink); margin: -0.75px;
-  padding: 22px; font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px; letter-spacing: 0.12em;
-  cursor: pointer; width: calc(100% + 1.5px);
-  transition: background 0.15s;
-}
-.cf-submit:hover { background: var(--blue); border-color: var(--blue); }
-
-.contact-aside {
-  background: #1a1714; color: var(--white);
-  padding: 80px 48px;
-  display: flex; flex-direction: column;
-}
-.aside-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 26px; letter-spacing: 0.08em;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 28px; margin-bottom: 36px;
-}
-.aside-logo span { color: var(--blue); }
-.ca-block { margin-bottom: 30px; }
-.ca-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 8px;
-}
-.ca-val { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.65; font-weight: 300; }
-.aside-badge {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--blue); border: 1px solid rgba(26,79,255,0.3);
-  padding: 14px 18px; margin-top: auto;
-}
-
-/* FOOTER */
-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px calc(40px + env(safe-area-inset-right)) 24px calc(40px + env(safe-area-inset-left));
-  border-top: 1.5px solid var(--ink);
-}
-.fl { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; }
-.fl span { color: var(--blue); }
-.fc {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dust);
-}
-
-/* TOAST */
-#toast {
-  position: fixed; bottom: 36px; right: 36px;
-  background: var(--ink); color: var(--white);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-  padding: 16px 28px; z-index: 9990; border-left: 3px solid var(--blue);
-  transform: translateY(80px); opacity: 0;
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
-}
-#toast.show { transform: translateY(0); opacity: 1; }
-
-@keyframes up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-@media (max-width: 960px) {
-  .nav-links { display: none; }
-  .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
-  .mobile-cta-bar { display: block; }
-  body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
-  #why { grid-template-columns: 1fr; }
-  .why-left { border-right: none; padding: 60px 30px; }
-  .why-point { padding: 36px 30px; grid-template-columns: 40px 1fr; }
-  #contact { grid-template-columns: 1fr; }
-  .cf-wrap { padding: 48px 30px; border-right: none; }
-  .contact-aside { padding: 48px 30px; }
-  .cf-row { grid-template-columns: 1fr; }
-  footer {
-    flex-direction: column; gap: 10px; text-align: center;
-    padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
-  }
-}
-</style>
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Free Quote & Contact | Dry Creek Services, Eagle, Idaho">
+<meta property="og:description" content="Request a free, flat-price quote from Dry Creek Services in Eagle, Idaho. Same-day response, Monday to Saturday, 7 AM to 6 PM. Call (208) 985-5394.">
+<meta property="og:url" content="https://drycreekservices.xyz/contact/">
+<meta property="og:image" content="https://drycreekservices.xyz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dry Creek Services, home services in Eagle, Idaho">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Quote & Contact | Dry Creek Services, Eagle, Idaho">
+<meta name="twitter:description" content="Request a free, flat-price quote from Dry Creek Services in Eagle, Idaho. Same-day response, Monday to Saturday, 7 AM to 6 PM. Call (208) 985-5394.">
+<meta name="twitter:image" content="https://drycreekservices.xyz/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__dcReady)document.documentElement.classList.remove('js')},2500);</script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","@id":"https://drycreekservices.xyz/#business","name":"Dry Creek Services","url":"https://drycreekservices.xyz/","image":"https://drycreekservices.xyz/og.png","logo":"https://drycreekservices.xyz/favicon.png","telephone":"+1-208-985-5394","priceRange":"$$","description":"Owner-operated home services in Eagle, Idaho: dryer vent cleaning, landscaping, junk removal and power washing with free quotes and flat pricing.","address":{"@type":"PostalAddress","addressLocality":"Eagle","addressRegion":"ID","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Eagle, Idaho"},{"@type":"City","name":"Boise, Idaho"},{"@type":"City","name":"Meridian, Idaho"},{"@type":"City","name":"Nampa, Idaho"},{"@type":"City","name":"Caldwell, Idaho"},{"@type":"City","name":"Star, Idaho"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"07:00","closes":"18:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"7"},"sameAs":["https://share.google/pSzUPv0LlCfXWwrv0"]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://drycreekservices.xyz/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://drycreekservices.xyz/contact/"}]}]</script>
 </head>
 <body>
-<nav>
-  <a href="../" class="nav-logo">DRY CREEK SERVICES</a>
-  <ul class="nav-links">
-    <li><a href="../services/">Services</a></li>
-    <li><a href="../contact/">Why Us &amp; Contact</a></li>
-  </ul>
-  <a href="../contact/" class="nav-cta">Get a Quote</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="../">Home</a>
-  <a href="../services/">Services</a>
-  <a href="../contact/">Why Us &amp; Contact</a>
-  <a href="../contact/" class="mm-cta">Get a Quote →</a>
+<a class="skip" href="#main">skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Dry Creek Services home"><span class="logo-mark" aria-hidden="true">~≈~</span><span>Dry Creek <span>Services</span></span></a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li><a class="ax" href="/services/">services</a></li>
+        <li><a class="ax" href="/#why">why us</a></li>
+        <li><a class="ax" href="/#area">service area</a></li>
+        <li><a class="ax" href="/#faq">faq</a></li>
+        <li><a class="ax" href="/contact/" aria-current="page">contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="/contact/#quote">Get a free quote</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">[=]</button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu">
+  <a class="mm" href="/">Home</a>
+  <a class="mm" href="/services/">Services</a>
+  <a class="mm" href="/#why">Why us</a>
+  <a class="mm" href="/#area">Service area</a>
+  <a class="mm" href="/#faq">FAQ</a>
+  <a class="mm" href="/contact/">Contact</a>
+  <a class="btn btn-primary" href="/contact/#quote">Get a free quote</a>
+  <a class="btn btn-ghost" href="tel:+12089855394">Call (208) 985-5394</a>
 </div>
 
-<div style="padding-top:57px;">
-<section id="why">
-  <div class="why-left">
-    <span class="why-tag-sm">Why Dry Creek Services</span>
-    <h2 class="sec-title">THE<br>STANDARD<br>IS SIMPLE.</h2>
-    <p class="why-body">We show up when we say we will, tell you what it costs before we start, and do the job right. No pressure, no surprises.</p>
-    <div class="why-canvas-wrap">
-      <canvas id="why-canvas"></canvas>
-    </div>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">home</a><span aria-hidden="true">/</span><span>contact</span></nav>
+    <h1 id="hero-title">Request a free quote from <em>Dry Creek Services</em></h1>
+    <p class="lede" data-hero>Tell us what you need and where. We reply <strong>the same day with a flat price</strong>, and nothing is scheduled until you approve it.</p>
   </div>
-  <div class="why-right">
-    <div class="why-point">
-      <div class="wp-num">01</div>
-      <div>
-        <div class="wp-title">Flat, Upfront Pricing</div>
-        <div class="wp-text">You get a price before we touch anything. Quoted from the info you give us — if site conditions differ, we'll tell you before we start.</div>
-      </div>
-    </div>
-    <div class="why-point">
-      <div class="wp-num">02</div>
-      <div>
-        <div class="wp-title">Before &amp; After Photos</div>
-        <div class="wp-text">We document every job so you can see exactly what was cleaned and what it looked like before.</div>
-      </div>
-    </div>
-    <div class="why-point">
-      <div class="wp-num">03</div>
-      <div>
-        <div class="wp-title">100% Satisfaction Guarantee</div>
-        <div class="wp-text">If you're not satisfied, contact us within 48 hours of completion and we'll return to make it right at no charge. Applies to labor performed — not pre-existing conditions.</div>
-      </div>
+  <pre class="ascii page-ascii" aria-hidden="true"> .------------------.
+ |  &gt; call or text  |
+ |  &gt; same-day reply|
+ '------------------'</pre>
+</section>
+
+<section class="sec" id="quote" style="padding-top:56px">
+  <div class="wrap">
+    <div class="contact-grid">
+      <form class="form" id="quote-form" action="https://formspree.io/f/mrejgagq" method="POST" data-reveal>
+        <span class="kicker">+--[ quote request <b>::</b> takes two minutes ]--+</span>
+        <div class="form-row">
+          <div class="field"><label for="first_name">first name <i>*</i></label><input id="first_name" name="first_name" type="text" autocomplete="given-name" required></div>
+          <div class="field"><label for="last_name">last name <i>*</i></label><input id="last_name" name="last_name" type="text" autocomplete="family-name" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="phone">phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+          <div class="field"><label for="email">email <i>*</i></label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field">
+          <label for="service">service needed</label>
+          <select id="service" name="service">
+            <option>Dryer Vent Cleaning</option>
+            <option>Landscaping</option>
+            <option>Junk Removal &amp; Hauling</option>
+            <option>Power Washing</option>
+            <option>Not Sure — Need Advice</option>
+          </select>
+        </div>
+        <div class="field"><label for="message">address / notes</label><textarea id="message" name="message" placeholder="Your address and any details about the job..."></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="gotcha">leave this empty</label><input id="gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-primary" type="submit" id="quote-submit">Send request <span class="mono" aria-hidden="true">-&gt;</span></button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form-note">Your information is used only to respond to your request and is never sold or shared. By submitting you agree to our <a href="/terms.html">Terms of Service</a> and <a href="/privacy.html">Privacy Policy</a>.</p>
+      </form>
+
+      <aside class="aside" data-reveal aria-label="Contact details">
+        <pre class="ascii" aria-hidden="true"> .------------------.
+ |  &gt; call or text  |
+ |  &gt; same-day reply|
+ '------------------'</pre>
+        <dl>
+          <dt>// phone</dt>
+          <dd><a href="tel:+12089855394">(208) 985-5394</a><small>Second line: <a href="tel:+12158593267">(215) 859-3267</a></small></dd>
+          <dt>// hours</dt>
+          <dd>Mon–Sat, 7 AM – 6 PM<small>Quote requests answered the same day</small></dd>
+          <dt>// based in</dt>
+          <dd>Eagle, Idaho</dd>
+          <dt>// service area</dt>
+          <dd>Treasure Valley<small>Eagle · Boise · Meridian · Star · Nampa · Caldwell</small></dd>
+          <dt>// reviews</dt>
+          <dd><a href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" rel="noopener">5★ on Google</a><small>Rated by 7 local customers</small></dd>
+        </dl>
+      </aside>
     </div>
   </div>
 </section>
-<section id="contact">
-  <div class="cf-wrap">
-    <span class="cf-header-tag">Get Started</span>
-    <h2 class="sec-title">REQUEST<br>A QUOTE</h2>
-    <div class="cf" id="contact-form">
-      <div class="cf-row">
-        <div class="ff"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
-        <div class="ff"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
-      </div>
-      <div class="cf-row">
-        <div class="ff"><label>Phone</label><input type="tel" name="phone" placeholder="(208) 985-5394"></div>
-        <div class="ff"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
-      </div>
-      <div class="ff">
-        <label>Service Needed</label>
-        <select name="service">
-          <option>Dryer Vent Cleaning</option>
-          <option>Landscaping</option>
-          <option>Junk Removal &amp; Hauling</option>
-          <option>Power Washing</option>
-          <option>Not Sure — Need Advice</option>
-        </select>
-      </div>
-      <div class="ff">
-        <label>Address / Notes</label>
-        <textarea name="message" placeholder="Your address and any details about the job..."></textarea>
-      </div>
-      <button class="cf-submit" type="button" onclick="submitForm()">SEND REQUEST →</button>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);padding:14px 20px;line-height:1.7;">Your information is used only to respond to your request and is never sold or shared. By submitting you agree to our <a href="../terms.html" style="color:var(--dust);text-decoration:underline;">Terms of Service</a> and <a href="../privacy.html" style="color:var(--dust);text-decoration:underline;">Privacy Policy</a>.</p>
+
+<section class="sec sec-mist" id="next">
+  <div class="wrap">
+    <div class="sec-head solo" data-reveal>
+      <span class="kicker">+--[ what happens next ]--+</span>
+      <h2>After you hit <em>send</em></h2>
     </div>
-  </div>
-  <div class="contact-aside">
-    <div>
-      <div class="aside-logo">DRY CREEK SERVICES</div>
-      <div class="ca-block">
-        <div class="ca-label">Service Area</div>
-        <div class="ca-val">Treasure Valley &amp; Surrounding Areas<br>Eagle · Boise · Meridian · Nampa · Caldwell</div>
-      </div>
-      <div class="ca-block">
-        <div class="ca-label">Phone</div>
-        <div class="ca-val">(208) 985-5394</div>
-      </div>
-      <div class="ca-block">
-        <div class="ca-label">Hours</div>
-        <div class="ca-val">Mon–Sat, 7AM–6PM</div>
-      </div>
-      <div class="ca-block">
-        <div class="ca-label">Based In</div>
-        <div class="ca-val">Eagle, Idaho</div>
-      </div>
+    <div class="why-grid" data-stagger>
+      <div class="why-item"><pre class="ico" aria-hidden="true">  .-----.
+  | \/  |
+  '-----'</pre><h3>1. We read it today</h3><p>A real person, the owner, reviews your request and replies by phone or email the same day.</p></div>
+      <div class="why-item"><pre class="ico" aria-hidden="true">  .-----.
+  | [$] |
+  '-----'</pre><h3>2. You get one number</h3><p>A flat price for the work described. If anything on site changes it, you hear about it before we begin.</p></div>
+      <div class="why-item"><pre class="ico" aria-hidden="true">  .--[o]--.
+  | (   ) |
+  '-------'</pre><h3>3. We book and deliver</h3><p>Pick a time Monday through Saturday. We arrive with our own gear and finish with a photo summary.</p></div>
     </div>
   </div>
 </section>
-</div>
 
-<footer>
-  <div class="fl">DRY CREEK SERVICES</div>
-  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
-    <a href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);text-decoration:none;font-weight:700;" rel="noopener">Find Us on Google ↗</a>
-    <div class="fc" style="text-align:right;line-height:1.8;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--ink);">(208) 985-5394 &nbsp;·&nbsp; (215) 859-3267 &nbsp;·&nbsp; © 2026 — Eagle, Idaho</div>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;text-align:right;">
-      <a href="../privacy.html" style="color:var(--dust);text-decoration:none;">Privacy Policy</a>
-      &nbsp;·&nbsp;
-      <a href="../terms.html" style="color:var(--dust);text-decoration:none;">Terms of Service</a>
+<section class="sec" id="why-contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-reveal>
+        <span class="kicker">+--[ why homeowners call us ]--+</span>
+        <h2>Local, insured and <em>easy to reach</em></h2>
+      </div>
+      <p data-reveal>Dry Creek Services is owner-operated, so the person who quotes your job is accountable for how it turns out. Browse the <a href="/services/">full list of services</a> or check the <a href="/#faq">frequently asked questions</a> before you write in.</p>
+    </div>
+    <div class="cards" data-stagger style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="card"><span class="tag">pricing</span><h3>By the job</h3><p>Never by the hour. The quote you approve is the price for that scope.</p></div>
+      <div class="card"><span class="tag">coverage</span><h3>Fully insured</h3><p>Work on your property is covered, and we treat it like our own.</p></div>
+      <div class="card"><span class="tag">guarantee</span><h3>48-hour promise</h3><p>Tell us within 48 hours if something is not right and we return at no charge.</p></div>
+      <div class="card"><span class="tag">proof</span><h3>Photo record</h3><p>Before and after photos on every job, sent straight to you.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap on-dark">
+    <pre class="ascii foot-ascii" aria-hidden="true"> ____  ______   __   ____ ____  _____ _____ _  __
+|  _ \|  _ \ \ / /  / ___|  _ \| ____| ____| |/ /
+| | | | |_) \ V /  | |   | |_) |  _| |  _| | ' /
+| |_| |  _ &lt; | |   | |___|  _ &lt;| |___| |___| . \
+|____/|_| \_\|_|    \____|_| \_\_____|_____|_|\_\
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ s e r v i c e s   ::   e a g l e ,   i d a h o</pre>
+    <div class="foot-grid">
+      <div>
+        <h2>// about</h2>
+        <p>Dry Creek Services is an owner-operated, fully insured home services company based in Eagle, Idaho. Flat pricing, free quotes and a 100% satisfaction guarantee.</p>
+      </div>
+      <div>
+        <h2>// services</h2>
+        <ul>
+          <li><a class="ax ax-go" href="/services/#dryer-vent-cleaning">dryer vent cleaning</a></li>
+          <li><a class="ax ax-go" href="/services/#landscaping">landscaping</a></li>
+          <li><a class="ax ax-go" href="/services/#junk-removal">junk removal</a></li>
+          <li><a class="ax ax-go" href="/services/#power-washing">power washing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>// company</h2>
+        <ul>
+          <li><a class="ax ax-go" href="/#why">why choose us</a></li>
+          <li><a class="ax ax-go" href="/#area">where we work</a></li>
+          <li><a class="ax ax-go" href="/#faq">common questions</a></li>
+          <li><a class="ax ax-go" href="/privacy.html">privacy policy</a></li>
+          <li><a class="ax ax-go" href="/terms.html">terms of service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>// contact</h2>
+        <ul>
+          <li><a class="plain" href="tel:+12089855394">(208) 985-5394</a></li>
+          <li><a class="plain" href="tel:+12158593267">(215) 859-3267</a></li>
+          <li>Mon–Sat, 7 AM – 6 PM</li>
+          <li><a class="ax ax-go" href="/contact/">request a quote</a></li>
+          <li><a class="ax ax-out" href="https://share.google/pSzUPv0LlCfXWwrv0" target="_blank" rel="noopener">find us on google</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Dry Creek Services · Eagle, Idaho</span>
+      <span>eagle · boise · meridian · nampa · caldwell · star</span>
     </div>
   </div>
 </footer>
 
-<div class="mobile-cta-bar">
-  <div class="mcb-inner">
-    <a href="tel:+12089855394" class="mcb-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1H8c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.01L6.6 10.8z"/></svg>
-      Call Now
-    </a>
-    <a href="#contact" class="mcb-btn mcb-quote">Get a Quote →</a>
-  </div>
+<div class="mbar">
+  <a class="btn btn-ghost" href="tel:+12089855394">Call now</a>
+  <a class="btn btn-primary" href="/contact/#quote">Free quote</a>
 </div>
 
-<div id="toast">Request Sent — We'll Be In Touch</div>
-
-<script>
-/* Hamburger */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  const open = hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open', open);
-  document.body.classList.toggle('menu-open', open);
-});
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  document.body.classList.remove('menu-open');
-}));
-
-/* Active nav */
-document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-  if (a.getAttribute('href').includes('contact')) a.classList.add('active');
-});
-
-/* Why canvas */
-(function() {
-  const c = document.getElementById('why-canvas'); if (!c) return;
-  const ctx = c.getContext('2d');
-  let W, H, rafId;
-  const resize = () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; };
-  resize();
-  new ResizeObserver(resize).observe(c);
-  const pts = Array.from({length: 10}, () => ({
-    x: Math.random(), y: Math.random(),
-    vx: -0.002 + Math.random() * 0.004,
-    vy: -0.002 + Math.random() * 0.004
-  }));
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 28) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 28) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-    pts.forEach((a, i) => pts.forEach((b, j) => {
-      if (j <= i) return;
-      const ax = a.x*W, ay = a.y*H, bx = b.x*W, by = b.y*H;
-      const dist = Math.hypot(ax-bx, ay-by);
-      if (dist > W * 0.45) return;
-      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
-      ctx.strokeStyle = `rgba(26,79,255,${0.18 * (1 - dist / (W * 0.45))})`; ctx.lineWidth = 1; ctx.stroke();
-    }));
-    pts.forEach(p => {
-      ctx.beginPath(); ctx.arc(p.x*W, p.y*H, 2.5, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba(26,79,255,0.45)'; ctx.fill();
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > 1) p.vx *= -1;
-      if (p.y < 0 || p.y > 1) p.vy *= -1;
-    });
-    rafId = requestAnimationFrame(draw);
-  }
-  draw();
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(rafId);
-    else draw();
-  });
-})();
-
-async function submitForm() {
-  const form = document.getElementById('contact-form');
-  const btn = form.querySelector('.cf-submit');
-  btn.textContent = 'SENDING...';
-  try {
-    function buildData() {
-      const d = new FormData();
-      d.append('first_name', form.querySelector('[name=first_name]').value);
-      d.append('last_name', form.querySelector('[name=last_name]').value);
-      d.append('phone', form.querySelector('[name=phone]').value);
-      d.append('email', form.querySelector('[name=email]').value);
-      d.append('service', form.querySelector('[name=service]').value);
-      d.append('message', form.querySelector('[name=message]').value);
-      d.append('_replyto', form.querySelector('[name=email]').value);
-      return d;
-    }
-    const [res1, res2] = await Promise.all([
-      fetch('https://formspree.io/f/mrejgagq', { method: 'POST', body: buildData(), headers: { 'Accept': 'application/json' } }),
-      fetch('https://formspree.io/f/mbdwrdqq', { method: 'POST', body: buildData(), headers: { 'Accept': 'application/json' } })
-    ]);
-    const ok = res1.ok || res2.ok;
-    if (ok) {
-      const t = document.getElementById('toast');
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3500);
-      form.querySelectorAll('input, textarea').forEach(el => el.value = '');
-      btn.textContent = 'SEND REQUEST →';
-    } else { btn.textContent = 'ERROR — TRY AGAIN'; }
-  } catch { btn.textContent = 'ERROR — TRY AGAIN'; }
-}
-</script>
+<script src="/assets/vendor/anime.umd.min.js" defer></script>
+<script src="/assets/vendor/motion.min.js" defer></script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
